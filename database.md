@@ -13,8 +13,6 @@
 - profesor_course
 - student_course
 
----
-
 ## Atributes
 
 #### City
@@ -84,8 +82,6 @@
 .
 .
 .
-
----
 
 ## Relations
 
