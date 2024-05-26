@@ -3,8 +3,8 @@
 ## Entities
 - City
 - Faculty
+- Study
 - Semester
-- Study (studij "samo dragi Bog zna ovo na engleski...God bless google translate...")
 - Course
 - Test
 - Student
@@ -26,10 +26,7 @@
 - streetNumber
 - contactNumber
 - contactMail
-
-#### Semester
-- <ins>semesterID</ins>
-- semesterOrdinalNumber
+- *cityID*
 
 #### Study
 - <ins>studyID</ins>
@@ -37,16 +34,24 @@
 - type (strucni/sveucilisni)
 - firstDegree
 - secondDegree
+- *facultyID*
+
+#### Semester
+- <ins>semesterID</ins>
+- semesterOrdinalNumber
+- *studyID*
 
 #### Course
 - <ins>courseID</ins>
 - courseName
 - ECTS
 - description
+- *semesterID*
 
 #### Test
 - <ins>testID</ins>
 - grade
+- *courseID*
 
 #### Student
 - <ins>studentID</ins>
@@ -56,6 +61,7 @@
 - gender
 - street
 - streetNumber
+- *cityID*
 
 #### Profesor
 - <ins>profesorID</ins>
@@ -66,22 +72,22 @@
 - gender
 - street
 - streetNumber
+- *cityID*
 
 #### Notification
 - <ins>notificationID</ins>
 - title
 - content
-- profesorID (FK ne zaboraviti!)
+- *courseID*
 
 #### profesor_course
-.
-.
-.
+- *profesorID*
+- *courseID*
 
 #### student_course
-.
-.
-.
+- dateOfEnrollment
+- *studentID*
+- *courseID*
 
 ## Relations
 
