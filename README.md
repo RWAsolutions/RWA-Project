@@ -14,7 +14,7 @@ The goal of this task is to improve the system structurally and visually but kee
 Here is the list of some of our main goals:
 - Enhance user experience and interface for the system
 - Create a stable and well thought database, backend and frontend
-- Have a basic undertanding and implementation of web-app security
+- Have a basic understanding and implementation of web-app security
 - Use tools and environments such as: NestJS, Angular, MySQL, Docker
 - Implement some of the features from Studomat[^1] to the main system
 
