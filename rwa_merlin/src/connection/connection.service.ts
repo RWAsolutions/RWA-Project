@@ -8,7 +8,7 @@ export class ConnectionService {
   constructor() {
     this.connection = mysql.createConnection({
       host     : 'localhost',
-      user     : 'Mysql',
+      user     : 'root',
       password : 'secret',
       database : 'rwa_merlin'
     });
@@ -17,9 +17,9 @@ export class ConnectionService {
   public testConnection() {
     this.connection.connect();
  
-    this.connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+    this.connection.query('select * from City;', function (error, results) {
       if (error) throw error;
-      console.log('The solution is: ', results[0].solution);
+      console.log('The solution is: ', results);
     });
 
     this.connection.end();
