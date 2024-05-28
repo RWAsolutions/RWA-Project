@@ -8,7 +8,7 @@ export class ConnectionService {
   constructor() {
     this.connection = mysql.createConnection({
       host     : 'localhost',
-      user     : 'root',
+      user     : 'Mysql',
       password : 'secret',
       database : 'rwa_merlin'
     });
