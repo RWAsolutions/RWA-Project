@@ -6,11 +6,11 @@ import { City } from './city.entity';
 @Injectable()
 export class CityService {
     constructor(@InjectRepository(City) private cityRepository: Repository<City>){
-        console.log('cityRepository:', cityRepository);
+        // console.log('cityRepository:', cityRepository);
     }
 
     async findAll(): Promise<City[]> {
-        console.log('cityRepository:', this.cityRepository.find());
+        // console.log('cityRepository:', this.cityRepository.find());
         return this.cityRepository.find();
     }
 

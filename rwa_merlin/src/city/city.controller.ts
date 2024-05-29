@@ -5,7 +5,7 @@ import { City } from './city.entity';
 @Controller('cities')
 export class CityController {
     constructor(private cityService: CityService) {
-        console.log('cityService:', cityService);
+        // console.log('cityService:', cityService);
     }
 
     @Get()
