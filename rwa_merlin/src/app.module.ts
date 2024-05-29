@@ -19,6 +19,7 @@ import { CourseModule } from './course/course.module';
       entities: [City],
       autoLoadEntities: true,
       synchronize: false,
+      logging: true,
     }),
     CityModule,
     CourseModule,
