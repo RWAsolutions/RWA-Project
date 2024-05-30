@@ -22,6 +22,7 @@ import { Semester } from './semester/semester.entity';
       entities: [City, Course, Semester],
       autoLoadEntities: true,
       synchronize: false,
+      logging: true,
     }),
     CityModule,
     CourseModule,
@@ -32,6 +33,6 @@ import { Semester } from './semester/semester.entity';
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {
-    console.log('dataSource:', dataSource);
+    // console.log('dataSource:', dataSource);
   }
 }

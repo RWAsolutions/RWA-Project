@@ -2,10 +2,10 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { CityService } from './city.service';
 import { City } from './city.entity';
 
-@Controller('cities')
+@Controller('Cities')
 export class CityController {
     constructor(private cityService: CityService) {
-        console.log('cityService:', cityService);
+        // console.log('cityService:', cityService);
     }
 
     @Get()
