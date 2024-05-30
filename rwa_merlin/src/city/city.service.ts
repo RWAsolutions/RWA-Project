@@ -9,13 +9,9 @@ export class CityService {
         // console.log('cityRepository:', cityRepository);
     }
 
-<<<<<<< HEAD
-    async getAll(): Promise<City[]> {
-        console.log('cityRepository:', this.cityRepository.find());
-=======
+
     async findAll(): Promise<City[]> {
         // console.log('cityRepository:', this.cityRepository.find());
->>>>>>> abc42806ce842c71548c6de29fa2b9aeb0da13db
         return this.cityRepository.find();
     }
 
