@@ -6,8 +6,8 @@ import { Semester } from 'src/semester/semester.entity';
 
 @Injectable()
 export class CourseService {
-    constructor(@InjectRepository(Course) private courseRepository: Repository<Course>){
-        console.log('courseRepository:', courseRepository);
+    constructor(@InjectRepository(Course) private courseRepository: Repository<Course>) {
+        // console.log('courseRepository:', courseRepository);
     }
 
     async getAll(): Promise<Course[]> {

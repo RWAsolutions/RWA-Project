@@ -10,7 +10,7 @@ export class CityController {
 
     @Get()
     getAll(): Promise<City[]> {
-        return this.cityService.getAll();
+        return this.cityService.findAll();
     }
 
     @Get('/:id')

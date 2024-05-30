@@ -3,10 +3,10 @@ import { CourseService } from './course.service';
 import { Course } from './course.entity';
 import { Semester } from 'src/semester/semester.entity';
 
-@Controller('courses')
+@Controller('Courses')
 export class CourseController {
     constructor(private courseService: CourseService) {
-        console.log('courseService:', courseService);
+        // console.log('courseService:', courseService);
     }
 
     @Get()
@@ -14,9 +14,9 @@ export class CourseController {
         return this.courseService.getAll();
     }
 
-    
+
     @Get('/:id')
-    getById(@Param('id') id:number): Promise<Course> {
+    getById(@Param('id') id: number): Promise<Course> {
         return this.courseService.getById(id);
     }
 
