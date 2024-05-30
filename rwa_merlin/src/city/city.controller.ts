@@ -9,12 +9,12 @@ export class CityController {
     }
 
     @Get()
-    findAll(): Promise<City[]> {
-        return this.cityService.findAll();
+    getAll(): Promise<City[]> {
+        return this.cityService.getAll();
     }
 
     @Get('/:id')
-    findById(@Param('id') id: number): Promise<City> {
-        return this.cityService.findById(id);
+    getById(@Param('id') id: number): Promise<City> {
+        return this.cityService.getById(id);
     }
 }
