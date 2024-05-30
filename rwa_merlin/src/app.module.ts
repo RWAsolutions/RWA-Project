@@ -6,6 +6,9 @@ import { CityModule } from './city/city.module';
 import { DataSource } from 'typeorm';
 import { City } from './city/city.entity';
 import { CourseModule } from './course/course.module';
+import { SemesterModule } from './semester/semester.module';
+import { Course } from './course/course.entity';
+import { Semester } from './semester/semester.entity';
 
 @Module({
   imports: [
@@ -16,13 +19,14 @@ import { CourseModule } from './course/course.module';
       username: 'root',
       password: 'secret',
       database: 'rwa_merlin',
-      entities: [City],
+      entities: [City, Course, Semester],
       autoLoadEntities: true,
       synchronize: false,
       logging: true,
     }),
     CityModule,
     CourseModule,
+    SemesterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
