@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { City } from './city.entity';
+import { Student } from 'src/student/student.entity';
 
 @Injectable()
 export class CityService {
@@ -20,5 +21,13 @@ export class CityService {
             throw new NotFoundException(`City with id ${id} not found`);
         }
         return found;
+    }
+
+    async getStudentsByCity(id: number): Promise<Student[]> {
+        const city = await this.cityRepository.findOne({ where: { postNumber: id }, relations: ['students'] });
+        if (!city) {
+            throw new NotFoundException(`City with id ${id} not found`);
+        }
+        return city.students;
     }
 }

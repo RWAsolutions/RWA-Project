@@ -1,6 +1,6 @@
 import { City } from "src/city/city.entity";
 import { Course } from "src/course/course.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinColumn, JoinTable } from "typeorm";
 
 @Entity('Student')
 export class Student {
@@ -26,9 +26,12 @@ export class Student {
   streetNumber: number;
 
   @ManyToOne(() => City, city => city.postNumber)
-  @JoinColumn({ name: 'postNumber' })
+  @JoinColumn({ name: 'cityID' })
   city: City;
 
-  @ManyToMany(() => Course, course => course.courseID)
+  // @ManyToMany(() => Course, course => course.courseID)
+  // courses: Course[];
+  @ManyToMany(() => Course)
+  // @JoinTable({ name: 'student_course' })
   courses: Course[];
 }
