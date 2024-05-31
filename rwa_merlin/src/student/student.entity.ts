@@ -33,7 +33,17 @@ export class Student {
   // @ManyToMany(() => Course, course => course.courseID)
   // courses: Course[];
   @ManyToMany(() => Course)
-  // @JoinTable({ name: 'student_course' })
+  @JoinTable({
+    name: 'student_course',
+    joinColumn: {
+      name: 'studentID',
+      referencedColumnName: 'studentID'
+    },
+    inverseJoinColumn: {
+      name: 'courseID',
+      referencedColumnName: 'courseID'
+    }
+  })
   courses: Course[];
 
 
