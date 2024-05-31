@@ -11,6 +11,7 @@ import { Course } from './course/course.entity';
 import { Semester } from './semester/semester.entity';
 import { StudentModule } from './student/student.module';
 import { Student } from './student/student.entity';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { Student } from './student/student.entity';
     CourseModule,
     SemesterModule,
     StudentModule,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService],

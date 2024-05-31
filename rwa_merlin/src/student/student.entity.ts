@@ -1,6 +1,7 @@
 import { City } from "src/city/city.entity";
 import { Course } from "src/course/course.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinColumn, JoinTable } from "typeorm";
+import { Test } from "src/test/test.entity";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinColumn, JoinTable, OneToMany } from "typeorm";
 
 @Entity('Student')
 export class Student {
@@ -34,4 +35,8 @@ export class Student {
   @ManyToMany(() => Course)
   // @JoinTable({ name: 'student_course' })
   courses: Course[];
+
+
+  @OneToMany(() => Test, test => test.student)
+  tests: Test[];
 }
