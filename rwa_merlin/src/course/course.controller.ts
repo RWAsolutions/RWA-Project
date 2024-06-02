@@ -1,4 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
+
 import { CourseService } from './course.service';
 import { Course } from './course.entity';
 import { Semester } from 'src/semester/semester.entity';

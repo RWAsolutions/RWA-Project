@@ -1,3 +1,4 @@
+
 import { Notification } from "src/notification/notification.entity";
 import { Semester } from "src/semester/semester.entity";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
@@ -17,6 +18,7 @@ export class Course {
 
     @Column()
     description: string;
+
 
     @ManyToOne(() => Semester, semester => semester.semesterID)
     @JoinColumn({ name: 'semesterID' })
