@@ -31,9 +31,11 @@ export class CourseController {
     @Get(':id/students')
     getStudentsByCourse(@Param('id') id: number): Promise<Student[]> {
         return this.courseService.getStudentsByCourse(id);
-      
-    @Get(':id/notifications')
+    } // Add the missing closing curly brace here
+
+    @Get(':id/notifications') 
     getNotificationsThroughCourse(@Param('id') id: number): Promise<Notification[]> {
         return this.courseService.getNotificationsThroughCourse(id);
     }
+    
 }

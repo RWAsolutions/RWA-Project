@@ -11,7 +11,7 @@ export class CityController {
 
     @Get()
     getAll(): Promise<City[]> {
-        return this.cityService.findAll();
+        return this.cityService.getAll();
     }
 
     @Get('/:id')

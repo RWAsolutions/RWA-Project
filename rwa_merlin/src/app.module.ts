@@ -20,6 +20,7 @@ import { NotificationModule } from './notification/notification.module';
 import { Notification } from './notification/notification.entity';
 import { Profesor } from './profesor/profesor.entity';
 import { ProfesorModule } from './profesor/profesor.module';
+import { Test } from '@nestjs/testing';
 
 @Module({
   imports: [
