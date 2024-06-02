@@ -9,6 +9,10 @@ import { CourseModule } from './course/course.module';
 import { SemesterModule } from './semester/semester.module';
 import { Course } from './course/course.entity';
 import { Semester } from './semester/semester.entity';
+import { NotificationModule } from './notification/notification.module';
+import { Notification } from './notification/notification.entity';
+import { Profesor } from './profesor/profesor.entity';
+import { ProfesorModule } from './profesor/profesor.module';
 
 @Module({
   imports: [
@@ -19,7 +23,7 @@ import { Semester } from './semester/semester.entity';
       username: 'root',
       password: 'secret',
       database: 'rwa_merlin',
-      entities: [City, Course, Semester],
+      entities: [City, Course, Semester, Notification, Profesor],
       autoLoadEntities: true,
       synchronize: false,
       logging: true,
@@ -27,6 +31,8 @@ import { Semester } from './semester/semester.entity';
     CityModule,
     CourseModule,
     SemesterModule,
+    NotificationModule,
+    ProfesorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
