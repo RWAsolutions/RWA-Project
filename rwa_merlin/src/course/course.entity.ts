@@ -1,9 +1,11 @@
 
 import { Notification } from "src/notification/notification.entity";
 import { Semester } from "src/semester/semester.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Student } from "src/student/student.entity";
+import { Test } from "src/test/test.entity";
 
-@Entity()
+@Entity('Course')
 export class Course {
     @PrimaryGeneratedColumn()
     courseID: number;
@@ -21,6 +23,23 @@ export class Course {
     @ManyToOne(() => Semester, semester => semester.semesterID)
     @JoinColumn({ name: 'semesterID' })
     semester: Semester;
+
+    @ManyToMany(() => Student)
+    @JoinTable({
+        name: 'student_course',
+        joinColumn: {
+            name: 'courseID',
+            referencedColumnName: 'courseID'
+        },
+        inverseJoinColumn: {
+            name: 'studentID',
+            referencedColumnName: 'studentID'
+        }
+    })
+    students: Student[];
+
+    @OneToMany(() => Test, test => test.course)
+    tests: Test[];
 
     @OneToMany(() => Notification, notification => notification.course)
     notifications: Notification[];
