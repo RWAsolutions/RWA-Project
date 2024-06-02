@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Semester } from 'src/semester/semester.entity';
 import { Student } from 'src/student/student.entity';
+import { Notification } from 'src/notification/notification.entity';
 
 @Injectable()
 export class CourseService {
@@ -38,20 +39,30 @@ export class CourseService {
     }
 
     async getStudentsByCourse(id: number): Promise<Student[]> {
-        // const course = await this.courseRepository.findOne({
-        //     where: { courseID: id },
-        //     relations: ['students'],
-        // });
 
         const course = await this.courseRepository.createQueryBuilder('course')
             .leftJoinAndSelect('course.students', 'students')
             .where('course.courseID = :id', { id })
             .getOne();
+      
+        if (!course) {
+            throw new NotFoundException("Course with id ${id} not found");
+        }
+      
+         return course.students;
+    }
+
+      
+    async getNotificationsThroughCourse(id: number): Promise<Notification[]> {
+        const course = await this.courseRepository.findOne({
+            where: { courseID: id },
+            relations: ['notifications'],
+        });
 
         if (!course) {
             throw new NotFoundException("Course with id ${id} not found");
         }
 
-        return course.students;
+        return course.notifications;
     }
 }

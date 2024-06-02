@@ -1,11 +1,6 @@
 # RWA-Project
 *Collaboration project made for college course (web app development) at SIT ZD.*
 
-### Collaborators:
-- [Teo Jakšić](https://github.com/tjaksic234)
-- [Andrija Škontra](https://github.com/AndrijaSkontra)
-- [Karlo Hasnek](https://github.com/KarloHasnek)
-
 ## About the project
 Merlin is a system used as a virtual environment for higher education students in Croatia.
 The goal of this task is to improve the system structurally and visually but keeping it's integrity.
