@@ -1,0 +1,19 @@
+import { Controller, Get } from '@nestjs/common';
+import { ProfesorService } from './profesor.service';
+
+@Controller('profesors')
+export class ProfesorController {
+    constructor(private profesorService: ProfesorService) {
+        console.log('profesorService:', profesorService);
+    }
+
+    @Get()
+    getAll() {
+        return this.profesorService.getAll();
+    }
+    
+    @Get('/:id')
+    getById(id: number) {
+        return this.profesorService.getById(id);
+    }
+}

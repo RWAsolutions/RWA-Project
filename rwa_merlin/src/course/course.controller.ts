@@ -2,6 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { Course } from './course.entity';
 import { Semester } from 'src/semester/semester.entity';
+import { Notification } from 'src/notification/notification.entity';
 
 @Controller('courses')
 export class CourseController {
@@ -23,5 +24,10 @@ export class CourseController {
     @Get(':id/semester')
     getSemesterThroughCourse(@Param('id') id: number): Promise<Semester> {
         return this.courseService.getSemesterThroughCourse(id);
+    }
+
+    @Get(':id/notifications')
+    getNotificationsThroughCourse(@Param('id') id: number): Promise<Notification[]> {
+        return this.courseService.getNotificationsThroughCourse(id);
     }
 }
