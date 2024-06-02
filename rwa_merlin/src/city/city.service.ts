@@ -9,12 +9,13 @@ export class CityService {
         // console.log('cityRepository:', cityRepository);
     }
 
-    async findAll(): Promise<City[]> {
+
+    async getAll(): Promise<City[]> {
         // console.log('cityRepository:', this.cityRepository.find());
         return this.cityRepository.find();
     }
 
-    async findById(id: number): Promise<City> {
+    async getById(id: number): Promise<City> {
         const found = await this.cityRepository.findOne({ where: { postNumber: id } });
         if (!found) {
             throw new NotFoundException(`City with id ${id} not found`);

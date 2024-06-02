@@ -1,20 +1,34 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { Course } from './course.entity';
+
 import { CourseService } from './course.service';
+import { Course } from './course.entity';
 import { Semester } from 'src/semester/semester.entity';
+import { Notification } from 'src/notification/notification.entity';
 
-@Controller('course')
+@Controller('courses')
 export class CourseController {
+    constructor(private courseService: CourseService) {
+        console.log('courseService:', courseService);
+    }
 
-    constructor(private courseService: CourseService) {}
+    @Get()
+    getAll(): Promise<Course[]> {
+        return this.courseService.getAll();
+    }
 
-    @Get('\:id')
-    getCourseByID(@Param('id') id: number): Promise<Course> {
-        return this.courseService.getCourseByID(id)
+    
+    @Get('/:id')
+    getById(@Param('id') id:number): Promise<Course> {
+        return this.courseService.getById(id);
     }
 
     @Get(':id/semester')
     getSemesterThroughCourse(@Param('id') id: number): Promise<Semester> {
         return this.courseService.getSemesterThroughCourse(id);
+    }
+
+    @Get(':id/notifications')
+    getNotificationsThroughCourse(@Param('id') id: number): Promise<Notification[]> {
+        return this.courseService.getNotificationsThroughCourse(id);
     }
 }

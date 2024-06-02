@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Profesor } from 'src/profesor/profesor.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('City')
 export class City {
@@ -7,4 +8,7 @@ export class City {
 
     @Column()
     cityName: string;
+
+    @OneToMany(() => Profesor, profesor => profesor.profesorID)
+    profesors: Profesor[];
 }

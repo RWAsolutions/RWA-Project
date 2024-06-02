@@ -1,10 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { SemesterService } from './semester.service';
+
+import { Controller } from '@nestjs/common';
 
 @Controller('semester')
-export class SemesterController {
-
-    constructor(private semesterService: SemesterService) {}
-
-   
-}
+export class SemesterController {}
