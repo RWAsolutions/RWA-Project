@@ -1,6 +1,7 @@
 import { Course } from "src/course/course.entity";
+import { Study } from "src/study/study.entity";
 
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Semester')
 export class Semester {
@@ -10,9 +11,8 @@ export class Semester {
     @Column()
     semesterOrdinalNumber: number;
 
-    @Column()
-    studyID: number;
+    @ManyToOne(() => Study, study => study.semesters)
+    @JoinColumn({name: 'studyID'})
+    study: Study;
 
-    @OneToMany(() => Course, course => course.courseID)
-    courses: Course[];
 }

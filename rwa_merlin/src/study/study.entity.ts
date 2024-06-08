@@ -1,5 +1,6 @@
 import { Faculty } from "src/faculty/faculty.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Semester } from "src/semester/semester.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -23,5 +24,8 @@ export class Study {
     @ManyToOne(() => Faculty, (faculty) => faculty.facultyID)
     @JoinColumn({name: 'facultyID'})
     faculty: Faculty
+
+    @OneToMany(() => Semester, semester => semester.study)
+    semesters: Semester[];
 
 }
