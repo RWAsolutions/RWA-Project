@@ -4,6 +4,7 @@ import { Semester } from "src/semester/semester.entity";
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Student } from "src/student/student.entity";
 import { Test } from "src/test/test.entity";
+import { Profesor } from "src/profesor/profesor.entity";
 
 @Entity('Course')
 export class Course {
@@ -37,6 +38,20 @@ export class Course {
         }
     })
     students: Student[];
+
+    @ManyToMany(() => Profesor)
+    @JoinTable({
+        name: 'profesor_course',
+        joinColumn: {
+            name: 'courseID',
+            referencedColumnName: 'courseID'
+        },
+        inverseJoinColumn: {
+            name: 'profesorID',
+            referencedColumnName: 'profesorID'
+        }
+    })
+    profesors: Profesor[];
 
     @OneToMany(() => Test, test => test.course)
     tests: Test[];

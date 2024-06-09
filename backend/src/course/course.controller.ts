@@ -5,6 +5,7 @@ import { Course } from './course.entity';
 import { Semester } from 'src/semester/semester.entity';
 import { Student } from 'src/student/student.entity';
 import { Notification } from 'src/notification/notification.entity';
+import { Profesor } from 'src/profesor/profesor.entity';
 
 @Controller('Courses')
 export class CourseController {
@@ -32,6 +33,11 @@ export class CourseController {
     getStudentsByCourse(@Param('id') id: number): Promise<Student[]> {
         return this.courseService.getStudentsByCourse(id);
     } // Add the missing closing curly brace here
+
+    @Get(':id/profesors')
+    getProfesorsByCourse(@Param('id') id: number): Promise<Profesor[]> {
+        return this.courseService.getProfesorsByCourse(id);
+    }
 
     @Get(':id/notifications') 
     getNotificationsThroughCourse(@Param('id') id: number): Promise<Notification[]> {
