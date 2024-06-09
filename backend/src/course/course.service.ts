@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Semester } from 'src/semester/semester.entity';
 import { Student } from 'src/student/student.entity';
 import { Notification } from 'src/notification/notification.entity';
+import { Profesor } from 'src/profesor/profesor.entity';
 
 @Injectable()
 export class CourseService {
@@ -51,6 +52,20 @@ export class CourseService {
         }
       
          return course.students;
+    }
+
+    async getProfesorsByCourse(id: number): Promise<Profesor[]> {
+            
+            const course = await this.courseRepository.createQueryBuilder('course')
+                .leftJoinAndSelect('course.profesors', 'profesors')
+                .where('course.courseID = :id', { id })
+                .getOne();
+        
+            if (!course) {
+                throw new NotFoundException("Course with id ${id} not found");
+            }
+        
+            return course.profesors;
     }
 
       
