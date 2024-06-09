@@ -10,3 +10,4 @@ import { Semester } from './semester.entity';
   providers: [SemesterService]
 })
 export class SemesterModule {}
+
