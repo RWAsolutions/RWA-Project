@@ -23,6 +23,7 @@ import { ProfesorModule } from './profesor/profesor.module';
 import { Test } from '@nestjs/testing';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { User } from './user/user.entity';
     NotificationModule,
     ProfesorModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

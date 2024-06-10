@@ -15,4 +15,20 @@ export class UserService {
         
         return found
     }
+
+    
+    async getUserByEmail(email: string): Promise<User> {
+            
+        const id: number = this.extractNumber(email)
+
+        const found = await this.userRepo.findOne( { where: {userID: id} })
+        
+        return found
+    }
+
+
+    private extractNumber(email) {
+        const match = email.match(/(\d+)@/);
+        return match ? match[1] : null;
+    }
 }
