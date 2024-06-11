@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { access } from 'fs';
 import { User } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
+import { AuthPayloadDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,30 +15,21 @@ export class AuthService {
     ){}
 
 
-    async validateCredentials(email: string, password: string ): Promise<any> {
+    async validateUser({ email, password }: AuthPayloadDto) {
         
-        const user = await this.userService.getUserByEmail(email)
+        const findUser = await this.userService.getUserByEmail(email)
 
-        if(!user) {
-            throw new NotFoundException()
+        if(!findUser) {
+            throw new NotFoundException("The user does not exist.......")
         }
 
-        if (user.password === password) {
-            console.log(user)
-            return user
+        if (findUser.password === password) {
+            const { password, ...user } = findUser
+            return {accessToken:  this.jwtService.sign(user)}
+
         }
 
         throw new UnauthorizedException("Wrong email or password!")
     }
-
-
-    async login(user: any) {
-        const payload = {email: user.email, password: user.password}
-
-        return {
-            access_token: this.jwtService.sign(payload)
-        }
-    }
-
     
 }
