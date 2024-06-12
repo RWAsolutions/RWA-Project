@@ -20,7 +20,7 @@ export class AuthController {
     }
 
     @Get('user/info')
-    // @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     //! We commented out the UseGuards() decorator because we applied the JwtAuthGuard globally 
     //! to protect all routes located in the auth module
     getUser(@Request() req) {
