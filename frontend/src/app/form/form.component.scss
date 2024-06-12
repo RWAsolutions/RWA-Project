@@ -1,0 +1,35 @@
+.example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+
+.example-container mat-form-field + mat-form-field {
+margin-left: 8px;
+}
+
+.example-right-align {
+text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.example-disabled {
+  display: inline-block;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
