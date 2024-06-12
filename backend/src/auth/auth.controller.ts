@@ -1,9 +1,8 @@
 import { Controller, Get, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
 import { LocalGuard } from './guards/local.guard';
-import { AuthPayloadDto } from './dto/auth.dto';
 import { JwtAuthGuard } from './guards/jwt.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -13,6 +12,7 @@ export class AuthController {
 
 
     @Post('login')
+    @Public()
     @UseGuards(LocalGuard)
     async login(@Request() req) {
         // console.log(req)
@@ -20,7 +20,9 @@ export class AuthController {
     }
 
     @Get('user/info')
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
+    //! We commented out the UseGuards() decorator because we applied the JwtAuthGuard globally 
+    //! to protect all routes located in the auth module
     getUser(@Request() req) {
         // console.log(req)
         return req.user
