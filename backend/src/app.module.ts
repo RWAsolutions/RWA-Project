@@ -21,17 +21,20 @@ import { Notification } from './notification/notification.entity';
 import { Profesor } from './profesor/profesor.entity';
 import { ProfesorModule } from './profesor/profesor.module';
 import { Test } from '@nestjs/testing';
+import { UserModule } from './user/user.module';
+import { User } from './user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: '138.197.185.254',
       port: 3306,
-      username: 'root',
+      username: 'user1',
       password: 'secret',
       database: 'rwa_merlin',
-      entities: [City, Course, Semester, Student, Notification, Profesor, Faculty, Study, Test],
+      entities: [City, Course, Semester, Student, Notification, Profesor, Faculty, Study, Test, User],
       autoLoadEntities: true,
       synchronize: false,
       logging: true,
@@ -45,6 +48,8 @@ import { Test } from '@nestjs/testing';
     StudyModule,
     NotificationModule,
     ProfesorModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
