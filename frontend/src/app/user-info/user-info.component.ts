@@ -55,11 +55,7 @@ export class UserInfoComponent implements AfterViewInit {
     //   }
     // );
 
-    this.http.get<any>(`http://localhost:3000/students/${userId}`, {
-      headers: {
-        'Authorization': 'Bearer ' + jwt,
-      }
-    }).subscribe(user => {
+    this.http.get<any>(`http://localhost:3000/students/${userId}`).subscribe(user => {
 
       console.log('User data inside get request:', user);
       this.user.firstName = user.studentName;
