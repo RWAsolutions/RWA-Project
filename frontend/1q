@@ -5,13 +5,13 @@
   <mat-card-content>
 
     <p>
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field>
         <input matInput placeholder="Email" type="text" [(ngModel)]="email">
       </mat-form-field>
     </p>
 
     <p>
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field>
         <input matInput placeholder="Password" type="text" [(ngModel)]="password">
       </mat-form-field>
     </p>
