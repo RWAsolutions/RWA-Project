@@ -24,6 +24,9 @@ export class RolesGuard implements CanActivate {
     console.log('user', user);
     console.log('params id', params.id);
     console.log('user id', user.userID);
+    console.log('types ' + typeof params.id + ' ' + typeof user.userID)
+    // type cast params id to number
+    params.id = +params.id;
 
     if (user.userID !== params.id) {
       throw new ForbiddenException('Your ID: ' + user.userID + ' || Only users with ID:' + params.id + ' can access this resource!');

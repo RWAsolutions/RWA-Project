@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -20,7 +21,7 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   loginClick() {
@@ -36,6 +37,7 @@ export class LoginComponent {
           console.log('Response:', response);
           const token = response.accessToken;
           this.cookieService.set('jwt', token);
+          this.router.navigate(['/user']);
 
         },
 

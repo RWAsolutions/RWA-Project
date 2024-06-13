@@ -6,23 +6,25 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private userRepo: Repository<User>) {}
+    constructor(@InjectRepository(User) private userRepo: Repository<User>) { }
 
 
     async getAllUsers(): Promise<User[]> {
-            
+
         const found: User[] = await this.userRepo.find()
-        
+
+        console.log(found[0])
+
         return found
     }
 
-    
+
     async getUserByEmail(email: string): Promise<User> {
-            
+
         const id: number = this.extractNumber(email)
 
-        const found = await this.userRepo.findOne( { where: {userID: id} })
-        
+        const found = await this.userRepo.findOne({ where: { userID: id } })
+
         return found
     }
 
