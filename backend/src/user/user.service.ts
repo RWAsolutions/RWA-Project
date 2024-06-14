@@ -19,16 +19,8 @@ export class UserService {
     
     async getUserByEmail(email: string): Promise<User> {
             
-        const id: number = this.extractNumber(email)
-
-        const found = await this.userRepo.findOne( { where: {userID: id} })
+        const found = await this.userRepo.findOne( { where: {email: email} })
         
         return found
-    }
-
-
-    private extractNumber(email) {
-        const match = email.match(/(\d+)@/);
-        return match ? match[1] : null;
     }
 }
