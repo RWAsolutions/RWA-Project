@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 export interface User {
@@ -30,7 +31,7 @@ export class UserInfoComponent implements AfterViewInit {
     profesorID: null
   };
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
 
   // ngOnInit(): void {
   //   this.http.get<User>('http://localhost:3000/student/', {
@@ -71,10 +72,16 @@ export class UserInfoComponent implements AfterViewInit {
     console.log('User data after req:', this.user);
   }
 
-
+  // if the jwt cannot be decoded, the user is redirected to the login page
   private decodeJWT(token: string): any {
     const payload = token.split('.')[1];
-    const decodedPayload = JSON.parse(atob(payload));
+    let decodedPayload;
+    try {
+      decodedPayload = JSON.parse(atob(payload));
+    } catch (e) {
+      this.router.navigate(['/login2']);
+      throw new Error('Invalid JWT token');
+    }
     return decodedPayload;
   }
 
