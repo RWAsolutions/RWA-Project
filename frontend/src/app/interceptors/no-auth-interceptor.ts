@@ -9,7 +9,7 @@ export function noAuthenticationInterceptor(req: HttpRequest<unknown>, next: Htt
 
   return next(req).pipe(catchError(err => {
     if (err.status === 401) {
-      router.navigate(['/login2']);
+      router.navigate(['/login']);
     }
     throw err;
   }));

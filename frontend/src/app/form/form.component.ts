@@ -1,13 +1,16 @@
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {merge} from 'rxjs';
-import {Component} from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { merge } from 'rxjs';
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 /** @title Form field appearance variants */
 @Component({
@@ -15,16 +18,17 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: 'form.component.html',
   styleUrl: 'form.component.scss',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCardModule],
   providers: [CookieService]
 })
 export class FormComponent {
-  
+
   email = new FormControl('', [Validators.required, Validators.email]);
 
   errorMessage = '';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient, private cookieService: CookieService,
+    private snackBar: MatSnackBar, private router: Router) {
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
@@ -59,10 +63,14 @@ export class FormComponent {
           console.log('Response:', response);
           const token = response.accessToken;
           this.cookieService.set('jwt', token);
-
+          this.router.navigate(['/user'])
         },
-        error: (error) => {
-          console.error('Error:', error);
+        error: () => {
+          this.snackBar.open('Wrong email or password!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          })
         }
       });
   }

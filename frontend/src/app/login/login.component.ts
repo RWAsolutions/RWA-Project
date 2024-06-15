@@ -18,8 +18,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent {
 
-  email = '';
-  password = '';
+  email = 'treproducao17@uni.prof.hr';
+  password = 'defaultpassword';
 
   constructor(private http: HttpClient, private cookieService: CookieService, private snackBar: MatSnackBar, private router: Router) {
   }
