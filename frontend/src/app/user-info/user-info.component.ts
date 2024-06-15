@@ -75,12 +75,15 @@ export class UserInfoComponent implements AfterViewInit {
   // if the jwt cannot be decoded, the user is redirected to the login page
   private decodeJWT(token: string): any {
     const payload = token.split('.')[1];
-    let decodedPayload;
+    let decodedPayload: any = {};
     try {
       decodedPayload = JSON.parse(atob(payload));
     } catch (e) {
-      this.router.navigate(['/login2']);
-      throw new Error('Invalid JWT token');
+      // this.router.navigate(['/login2']);
+      // throw new Error('Invalid JWT token');
+      console.log('Invalid JWT token');
+      decodedPayload.studentID = -1;
+      decodedPayload.profesorID = -1;
     }
     return decodedPayload;
   }
