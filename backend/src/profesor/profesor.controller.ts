@@ -13,7 +13,7 @@ export class ProfesorController {
     }
 
     @Get('/:id')
-    getById(@Param() params: any) {
-        return this.profesorService.getById(params.id);
+    getById(@Param('id') id: number) {
+        return this.profesorService.getById(id);
     }
 }
