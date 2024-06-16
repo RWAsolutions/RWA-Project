@@ -1,0 +1,7 @@
+<div class="user-data">
+  <p>{{ user.firstName }} {{ user.lastName }}</p>
+  <p>{{ user.address }}</p>
+  <p>{{ user.dateOfBirth }}</p>
+  <p *ngIf="user.studentID">{{ user.studentID }}</p>
+  <p *ngIf="user.profesorID">{{ user.profesorID }}</p>
+</div>

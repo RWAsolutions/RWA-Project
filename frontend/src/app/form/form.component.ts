@@ -7,6 +7,9 @@ import {
 } from '@angular/forms';
 import { merge } from 'rxjs';
 import { Component, ViewChild, inject } from '@angular/core';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { merge } from 'rxjs';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +22,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-form',
@@ -38,6 +46,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   providers: [CookieService],
 })
 export class FormComponent {
+
   email = new FormControl('', [Validators.required, Validators.email]);
   readonly dialog = inject(MatDialog);
 
@@ -115,7 +124,7 @@ export class FormComponent {
           console.log('Response:', response);
           const token = response.accessToken;
           this.cookieService.set('jwt', token);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/user']);
         },
 
         error: () => {
@@ -125,6 +134,7 @@ export class FormComponent {
             verticalPosition: 'top',
           });
         },
+
       });
   }
 }

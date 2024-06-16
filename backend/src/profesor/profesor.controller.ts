@@ -11,7 +11,7 @@ export class ProfesorController {
     getAll() {
         return this.profesorService.getAll();
     }
-    
+
     @Get('/:id')
     getById(@Param('id') id: number) {
         return this.profesorService.getById(id);
