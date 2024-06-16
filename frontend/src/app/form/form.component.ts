@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { merge } from 'rxjs';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,9 @@ import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-form',
@@ -30,11 +33,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatButtonModule,
     MatIconModule,
     CommonModule,
+    MatSlideToggleModule,
   ],
   providers: [CookieService],
 })
 export class FormComponent {
   email = new FormControl('', [Validators.required, Validators.email]);
+  readonly dialog = inject(MatDialog);
+
 
   errorMessage = '';
 
@@ -42,7 +48,7 @@ export class FormComponent {
     private http: HttpClient,
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
   ) {
     merge(this.email.statusChanges, this.email.valueChanges)
       .pipe(takeUntilDestroyed())
@@ -64,6 +70,14 @@ export class FormComponent {
     this.hide = !this.hide;
     event.stopPropagation();
   }
+
+  openDialog(): void {
+    console.log("dialog opened");
+    this.dialog.open(DialogComponent, {
+      width: '250px',
+    });
+  }
+
   password = new FormControl('', [Validators.required]);
 
   @ViewChild('passwordInput') passwordInput: any;

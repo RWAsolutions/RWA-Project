@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Password Recovery</h2>
+<mat-dialog-content>
+  Enter your email:
+</mat-dialog-content>
+<mat-dialog-actions>
+  <mat-form-field>
+    <input matInput placeholder="ihorvat@uni.hr" [formControl]="email" (blur)="updateErrorMessage()" required>
+    <mat-error *ngIf="email.invalid">{{ errorMessage }}</mat-error>
+  </mat-form-field>
+  <button mat-button mat-dialog-close (click)="onSave()" [disabled]="email.invalid">submit</button>
+</mat-dialog-actions>
