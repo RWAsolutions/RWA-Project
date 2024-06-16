@@ -1,0 +1,146 @@
+@import "../../styles.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba($primary-color, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 24px;
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-right: 2px solid rgba(0, 0, 0, 0.1); /* Vertical line */
+    padding-right: 20px;
+
+    .mat-icon-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: transparent;
+      padding: 8px;
+      cursor: pointer;
+    }
+  }
+
+  .right-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .utils {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-right: 2px solid rgba(0, 0, 0, 0.1); /* Vertical line */
+      border-left: 2px solid rgba(0, 0, 0, 0.1); /* Vertical line */
+      padding: 0px 20px 0px 20px; /* Separate from vertical line */
+
+      .mat-icon-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: transparent;
+        padding: 8px;
+        cursor: pointer;
+      }
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  .mat-icon-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .icon-border {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 3px solid rgba(0, 0, 0, 0.2); /* Vertical line */
+    padding-right: 20px;
+  }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+
+  .animated-search {
+    position: relative;
+    // margin: 10px 0px;
+  }
+
+  input {
+    background: #eee;
+    width: 225px;
+    border-radius: 9999px;
+    // padding: 15px;
+    /* This is important - keeps content from pushing on hover*/
+    border: 2px solid transparent;
+    outline: none;
+    font-size: 1rem;
+    color: #8c9197;
+    transition: all 0.3s ease-in-out;
+    outline-offset: 0px;
+    -webkit-appearance: none;
+    padding-left: 15px;
+  }
+
+  /* Remove the close option in Chrome */
+  input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  input::placeholder {
+    color: #bec2c6;
+  }
+
+  input:focus {
+    border: 2px solid #349af0;
+    box-shadow: 1px 1px 6px -1px #349af0, -1px -1px 6px -1px #349af0;
+  }
+
+  a:hover {
+    color: #349af0;
+  }
+
+  .animated-search input {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+  }
+
+  .animated-search a {
+    position: absolute;
+    text-decoration: none;
+    color: #8c9197;
+    /* To make up for line height */
+    top: 49%;
+    right: 4px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .animated-search a:hover {
+    color: #349af0;
+  }
+
+  .animated-search input:focus {
+    border: 2px solid #349af0;
+    box-shadow: 1px 1px 6px -1px #349af0, -1px -1px 6px -1px #349af0;
+    width: 225px;
+  }
+}
