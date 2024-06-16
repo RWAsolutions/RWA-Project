@@ -1,28 +1,30 @@
-<div class="form-container">
-  <h3>Email:</h3>
+<div class="form-wrapper">
+  <div class="title-container">
+    <h1 class="title-container-title">Merlin Login</h1>
+  </div>
+  <div class="form-container">
+    <h3>Email:</h3>
     <div class="example-container">
       <mat-form-field>
-      <mat-label>Enter your email</mat-label>
-    <input matInput
-  placeholder="khasnek2@uni.prof.hr"
-  [formControl]="email"
-  (blur)="updateErrorMessage()"
-  required>
-  @if (email.invalid) {
-    <mat-error>{{errorMessage}}</mat-error>
-  }
-  </mat-form-field>
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="ihorvat@uni.hr" [formControl]="email" (blur)="updateErrorMessage()" required (keydown.enter)="onEnterPressedEmail()">
+        <mat-error *ngIf="email.invalid">{{errorMessage}}</mat-error>
+      </mat-form-field>
+    </div>
+    <h3>Password:</h3>
+    <div class="example-container">
+      <mat-form-field>
+        <mat-label>Enter your password</mat-label>
+        <input [formControl]="password" matInput [type]="hide ? 'password' : 'text'" (keydown.enter)="onEnterPressedPassword()" #passwordInput>
+        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="actions">
+      <a class="forgot-password" (click)="openDialog()">Forgot my password</a>
+      <button mat-raised-button color="primary" (click)="onSave()">Login</button>
+    </div>
   </div>
-  <h3>Password:</h3>
-  <div class="example-container">
-    <mat-form-field>
-      <mat-label>Enter your password</mat-label>
-    <input [formControl]="password" matInput [type]="hide ? 'password' : 'text'">
-  <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-  </button>
-  </mat-form-field>
-  </div>
-
-  <button mat-raised-button color="primary" (click)="onSave()">Login</button>
 </div>
+

@@ -4,10 +4,10 @@ import { LocalGuard } from './guards/local.guard';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { Public } from './decorators/public.decorator';
 
-@Controller('auth')
+@Controller('')
 export class AuthController {
 
-    constructor(private authService: AuthService){
+    constructor(private authService: AuthService) {
     }
 
 

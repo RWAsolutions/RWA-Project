@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ProfesorService } from './profesor.service';
 
 @Controller('profesors')
@@ -11,9 +11,9 @@ export class ProfesorController {
     getAll() {
         return this.profesorService.getAll();
     }
-    
+
     @Get('/:id')
-    getById(id: number) {
+    getById(@Param('id') id: number) {
         return this.profesorService.getById(id);
     }
 }
