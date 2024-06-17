@@ -7,13 +7,14 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { CoursesComponent } from './courses/courses.component';
 
 export const routes: Routes = [
-    // { path: 'login', component: FormComponent },
+    { path: 'login', component: FormComponent },
+    {path: 'courses', component: CoursesComponent},
+    {path: '', redirectTo: 'courses', pathMatch: 'full'},
     // { path: '', component: FormComponent },
     // { path: 'home', component: AppComponent},
-    // { path: 'user', component: UserInfoComponent },
+    { path: 'user', component: UserInfoComponent },
 
-    {path: 'courses', component: CoursesComponent},
-    {path: '', redirectTo: 'courses', pathMatch: 'full'}
+    
 
     // { path: '**', component: NotFoundComponent }, // this needs to be the last route
 ];

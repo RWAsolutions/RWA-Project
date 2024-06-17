@@ -4,7 +4,8 @@ import { Observable, of } from "rxjs";
 import { Inject, Injectable } from "@angular/core";
 
 @Injectable()
-export class CourseService {
+export class CourseService{
+
 
     private courses: Course[] = [
         {
@@ -41,20 +42,23 @@ export class CourseService {
         },
         {
           courseName: 'Economics',
-          description: 'Examine production, consumption, and distribution of goods and services'
+          description: 'Examine production, consumption, and distribution of goods and servicessfddsfsdfdsfdsfdsdsfsdfsdfds'
         },
        
       ];
       
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient){
+        
+    }
 
     getCoursesMock(): Course[] {
         return this.courses;
     }
 
-    getCoursesFromDB() {
-
+    getCoursesFromDB(): Observable<any> {
+        return this.http.get<any>('http://localhost:3000/students/184/courses')
+       
     }
     
 }

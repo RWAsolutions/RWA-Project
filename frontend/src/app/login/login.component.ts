@@ -37,7 +37,7 @@ export class LoginComponent {
           console.log('Response:', response);
           const token = response.accessToken;
           this.cookieService.set('jwt', token);
-          this.router.navigate(['/user']);
+          this.router.navigate(['/courses']);
 
         },
 

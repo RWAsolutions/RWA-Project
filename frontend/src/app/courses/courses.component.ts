@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CourseService } from '../services/course.service';
 import { Course } from './course.model';
 import { CommonModule } from '@angular/common';
+import { CourseDto } from './courseDB.model';
 
 
 @Component({
@@ -25,9 +26,10 @@ import { CommonModule } from '@angular/common';
 export class CoursesComponent implements OnInit{
 
   courses: Course[] = []
+  courseDB: CourseDto[] = []
 
   constructor(private courseService: CourseService) {
-   
+    this.getCoursesFromDB()
   }
 
 
@@ -42,5 +44,15 @@ export class CoursesComponent implements OnInit{
     this.courses = this.courseService.getCoursesMock()
   }
   
-  
+  getCoursesFromDB() {
+     this.courseService.getCoursesFromDB()
+     .subscribe(
+        (response) => {
+          console.log('response for the courses has been received')
+          this.courseDB = response
+          console.log(this.courseDB);
+          
+        },
+     )
+  }
 }

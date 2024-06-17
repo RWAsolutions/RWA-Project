@@ -6,6 +6,7 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.3.9",
     "@nestjs/typeorm": "^10.0.2",
+    "jwt-decode": "^4.0.0",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
