@@ -4,7 +4,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { CourseService } from '../services/course.service';
-import { Course } from './course.model';
 import { CommonModule } from '@angular/common';
 import { CourseDto } from './courseDB.model';
 
@@ -25,34 +24,47 @@ import { CourseDto } from './courseDB.model';
 })
 export class CoursesComponent implements OnInit{
 
-  courses: Course[] = []
-  courseDB: CourseDto[] = []
+  courses: CourseDto[] = []
+  payload: any
+  id: any
 
   constructor(private courseService: CourseService) {
-    this.getCoursesFromDB()
   }
 
 
   ngOnInit(): void {
+    this.getJwtPayload()
     this.getCourses()
-    console.log(this.courses);
-    
   }
 
 
-  getCourses() {
-    this.courses = this.courseService.getCoursesMock()
-  }
   
-  getCoursesFromDB() {
-     this.courseService.getCoursesFromDB()
-     .subscribe(
-        (response) => {
-          console.log('response for the courses has been received')
-          this.courseDB = response
-          console.log(this.courseDB);
-          
-        },
-     )
+  getCourses() {
+    if (this.id) {
+      this.courseService.getCourses(this.id)
+        .subscribe(
+          (response) => {
+            console.log('Response for the courses has been received');
+            this.courses = response;
+            console.log(this.courses);
+          },
+          (error) => {
+            console.error('Error fetching courses:', error);
+          }
+        );
+    } else {
+      console.error('No valid ID found to fetch courses');
+    }
+  }
+
+
+  getJwtPayload() {
+    this.payload = this.courseService.getDecodedJwtPayload()
+
+    if (!this.payload) {
+      console.error('Invalid or missing JWT payload');  
+    } else {
+      this.id = {studentID: this.payload.studentID, profesorID: this.payload.profesorID}
+    }   
   }
 }

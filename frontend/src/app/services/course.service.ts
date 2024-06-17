@@ -1,64 +1,48 @@
 import { HttpClient } from "@angular/common/http";
-import { Course } from "../courses/course.model";
 import { Observable, of } from "rxjs";
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { JwtPayload, jwtDecode } from "jwt-decode";
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable()
 export class CourseService{
 
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+  }
 
-    private courses: Course[] = [
-        {
-          courseName: 'IT',
-          description: 'Learning the computer'
-        },
-        {
-          courseName: 'History',
-          description: 'To understand why Hitler lost the war'
-        },
-        {
-          courseName: 'Mathematics',
-          description: 'Explore the world of numbers and equations'
-        },
-        {
-          courseName: 'Biology',
-          description: 'Study of living organisms and their interactions'
-        },
-        {
-          courseName: 'Literature',
-          description: 'Dive into classic and contemporary works of literature'
-        },
-        {
-          courseName: 'Chemistry',
-          description: 'Investigate the properties and reactions of substances'
-        },
-        {
-          courseName: 'Physics',
-          description: 'Discover the fundamental principles governing the universe'
-        },
-        {
-          courseName: 'Art',
-          description: 'Express creativity through various forms of visual and performing arts'
-        },
-        {
-          courseName: 'Economics',
-          description: 'Examine production, consumption, and distribution of goods and servicessfddsfsdfdsfdsfdsdsfsdfsdfds'
-        },
-       
-      ];
-      
 
-    constructor(private http: HttpClient){
-        
-    }
 
-    getCoursesMock(): Course[] {
-        return this.courses;
-    }
-
-    getCoursesFromDB(): Observable<any> {
-        return this.http.get<any>('http://localhost:3000/students/184/courses')
-       
+  getCourses(id: {studentID: number, profesorID: number}): Observable<any> {
+    if(id) {
+      if(id.studentID !== null && id.studentID !== undefined) {
+        return this.http.get<any>(`http://localhost:3000/students/${id.studentID}/courses`)   
+      } else {
+        return this.http.get<any>(`http://localhost:3000/profesors/${id.profesorID}/courses`)   
+      }
+    } else {
+      throw console.error('No valid id is present in the payload!!!');
     }
     
+  }
+    
+  getDecodedJwtPayload(): any {
+    try {
+      const token = this.cookieService.get('jwt')
+      const decoded = jwtDecode
+      <{
+        userID: number, 
+        role: string, 
+        email: string, 
+        studentID: number | null, 
+        profesorID: number | null
+      }>
+      (token);
+      console.log('Decoded Jwt cookie payload: ', decoded);
+      return decoded;
+    } catch (error) {
+      console.error('Invalid JWT token', error);
+      return null;
+    }
+  }
+  
 }

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profesor } from './profesor.entity';
+import { Course } from 'src/course/course.entity';
 
 @Injectable()
 export class ProfesorService {
@@ -20,4 +21,17 @@ export class ProfesorService {
         }
         return found
     }
+
+    async getCourseByProfesor(id: number): Promise<Course[]> {
+        const profesor = await this.profesorRepository.createQueryBuilder('profesor')
+          .leftJoinAndSelect('profesor.courses', 'courses')
+          .where('profesor.profesorID = :id', { id })
+          .getOne();
+    
+        if (!profesor) {
+          throw new NotFoundException("Profesor with id ${id} not found");
+        }
+    
+        return profesor.courses;
+      }
 }
