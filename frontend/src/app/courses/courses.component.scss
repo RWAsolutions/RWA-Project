@@ -1,7 +1,6 @@
 /* Font */
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
-
 *,
 *::before,
 *::after {
@@ -104,3 +103,18 @@ h1 {
   text-align: left;
   width: 100%;
 }
+
+//* This is the implementation of the section above the courses which will contain the search bar and filter combobox
+//* The section name and line styling
+.section-header {
+  font-size: 1.5rem; /* Adjust the size as needed */
+  font-weight: 700; /* Make it bold */
+  text-align: center; /* Center align the text */
+  color: #0078bd; /* Match the color scheme */
+  margin-bottom: 1rem; /* Space below the header */
+  padding: 1rem 0; /* Padding for spacing */
+  border-bottom: 2px solid #0078bd; /* Add a bottom border to act as a line */
+}
+
+//* The mat-select styling
+ 

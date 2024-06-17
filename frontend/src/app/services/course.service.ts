@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { Injectable } from "@angular/core";
-import { JwtPayload, jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { CookieService } from "ngx-cookie-service";
 
 @Injectable()
@@ -20,7 +20,7 @@ export class CourseService{
         return this.http.get<any>(`http://localhost:3000/profesors/${id.profesorID}/courses`)   
       }
     } else {
-      throw console.error('No valid id is present in the payload!!!');
+      throw console.error('No valid id is present!!!');
     }
     
   }

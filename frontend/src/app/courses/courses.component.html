@@ -1,18 +1,31 @@
 <div class="main">
-    <ul class="cards">
-      <li class="cards_item" *ngFor="let course of courses">
-        <a href="#" class="card_link" style="text-decoration: none;"> 
-            <div class="card">
-              <div class="card_image">
-                <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
-              </div>
-              <div class="card_content">
-                <h2 class="card_title">{{ course.courseName }}</h2>
-                <p class="card_text">{{ course.description }}</p>
-              </div>
-            </div>
-          </a>
-      </li>
-    </ul>
-  </div>
-  
+  <div class="section-header">Courses</div>
+
+
+<mat-form-field>
+  <mat-label>Filter by:</mat-label>
+  <mat-select>
+    @for (filter of filters; track filter) {
+      <mat-option [value]="filter.filterCondition">{{filter.filterCondition}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+
+
+  <ul class="cards">
+    <li class="cards_item" *ngFor="let course of courses">
+      <a href="#" class="card_link" style="text-decoration: none;"> 
+        <div class="card">
+          <div class="card_image">
+            <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
+          </div>
+          <div class="card_content">
+            <h2 class="card_title">{{ course.courseName }}</h2>
+            <p class="card_text">{{ course.description }}</p>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

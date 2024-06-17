@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { CourseService } from '../services/course.service';
 import { CommonModule } from '@angular/common';
 import { CourseDto } from './courseDB.model';
+import {MatSelectModule} from '@angular/material/select';
+import { FilterService } from '../services/filters/filter.service';
 
 
 @Component({
@@ -16,25 +18,35 @@ import { CourseDto } from './courseDB.model';
     ReactiveFormsModule, 
     MatInputModule, 
     MatFormFieldModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    MatSelectModule
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
-  providers: [CourseService]
+  providers: [CourseService, FilterService]
 })
+
+
 export class CoursesComponent implements OnInit{
 
   courses: CourseDto[] = []
   payload: any
   id: any
+  filters : any
+  
 
-  constructor(private courseService: CourseService) {
+  constructor(private courseService: CourseService, private filterService: FilterService) {
   }
 
 
   ngOnInit(): void {
     this.getJwtPayload()
+    this.getFilters()
     this.getCourses()
+    this.activateSelectedFilter() 
+
+
   }
 
 
@@ -67,4 +79,13 @@ export class CoursesComponent implements OnInit{
       this.id = {studentID: this.payload.studentID, profesorID: this.payload.profesorID}
     }   
   }
+
+  getFilters() {
+    this.filters = this.filterService.getFilters()
+  }
+
+  activateSelectedFilter() {
+    this.filterService.activateFilter(this.courses)
+  }
+
 }
