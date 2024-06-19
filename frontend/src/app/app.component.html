@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div class="flex-container">
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+  <div *ngIf="validNotificationRoute()" class="notification-container">
+    <app-notifications></app-notifications>
+  </div>
+</div>

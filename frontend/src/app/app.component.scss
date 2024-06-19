@@ -1,0 +1,14 @@
+.flex-container {
+  display: flex;
+  height: 100vh; // Ensure the container takes the full height of the viewport
+}
+
+.main-content {
+  flex: 0 0 80%;
+  background-color: lightblue;
+}
+
+.notifications-container {
+  flex: 0 0 20%;
+  background-color: lightcoral;
+}
