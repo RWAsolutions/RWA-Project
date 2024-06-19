@@ -18,9 +18,9 @@
           <div class="animated-search">
             <input type="search" #animatedInput id="animated-input" [placeholder]="isInputFocused ? 'search...' : ''"
             (focus)="searchFocused()" (blur)="searchBlurred()">
-            <a (click)="searchClicked()" (focus)="searchFocused()">
-                <fa-icon [icon]="['fas', 'magnifying-glass']" id="searchBtn"></fa-icon>
-            </a>                         
+     <a (click)="searchClicked()">
+         <fa-icon [icon]="['fas', 'magnifying-glass']" id="searchBtn" *ngIf="!isInputFocused"></fa-icon>
+     </a>             
           </div>
         </form>
       </div>

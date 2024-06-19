@@ -5,11 +5,12 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClock, faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ MatOptionModule, MatButtonModule, MatMenuModule, MatIconModule, FontAwesomeModule],
+  imports: [ MatOptionModule, MatButtonModule, MatMenuModule, MatIconModule, FontAwesomeModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -20,12 +21,11 @@ export class HeaderComponent {
 
   isInputFocused: boolean = false;
 
-  constructor(private library: FaIconLibrary) {
+  constructor(library: FaIconLibrary) {
     library.addIcons(faMagnifyingGlass);
   }
 
   searchClicked() {
-    this.isInputFocused = true;
     if (this.animatedInput && this.animatedInput.nativeElement) {
       this.animatedInput.nativeElement.focus();
     }
@@ -34,8 +34,10 @@ export class HeaderComponent {
   searchFocused() {
     this.isInputFocused = true;
   }
-
+  
   searchBlurred() {
     this.isInputFocused = false;
+    this.animatedInput.nativeElement.value = '';
   }
+  
 }
