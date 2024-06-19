@@ -26,11 +26,16 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.fetchNotifications();
+  }
+
+  fetchNotifications() {
     this.http.get<Notification[]>('http://localhost:3000/notifications').subscribe(
       notifications => {
         this.notifications = notifications;
-        console.log('Notifications:', this.notifications);
-      });
+        this.updateDisplayedNotifications();
+      }
+    );
   }
 
   ngAfterViewInit() {
@@ -38,8 +43,10 @@ export class NotificationsComponent implements OnInit, AfterViewInit {
   }
 
   updateDisplayedNotifications() {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    const endIndex = startIndex + this.paginator.pageSize;
-    this.displayedNotifications = this.notifications.slice(startIndex, endIndex);
+    if (this.paginator) {
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      const endIndex = startIndex + this.paginator.pageSize;
+      this.displayedNotifications = this.notifications.slice(startIndex, endIndex);
+    }
   }
 }
