@@ -12,7 +12,7 @@ export class CourseService{
 
 
 
-  getCourses(id: {studentID: number, profesorID: number}): Observable<any> {
+   getCourses(id: {studentID: number, profesorID: number}): Observable<any> {
     if(id) {
       if(id.studentID !== null && id.studentID !== undefined) {
         return this.http.get<any>(`http://localhost:3000/students/${id.studentID}/courses`)   

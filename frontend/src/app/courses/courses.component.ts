@@ -5,9 +5,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { CourseService } from '../services/course.service';
 import { CommonModule } from '@angular/common';
-import { CourseDto } from './courseDB.model';
+import { CourseDto } from './course.dto';
 import {MatSelectModule} from '@angular/material/select';
 import { FilterService } from '../services/filters/filter.service';
+import { FilterDto } from '../services/filters/filter.dto';
 
 
 @Component({
@@ -31,22 +32,19 @@ import { FilterService } from '../services/filters/filter.service';
 export class CoursesComponent implements OnInit{
 
   courses: CourseDto[] = []
+  filters: FilterDto[] = []
+  info: any[] = []  
+
   payload: any
   id: any
-  filters : any
-  
 
-  constructor(private courseService: CourseService, private filterService: FilterService) {
-  }
+  constructor(private courseService: CourseService, private filterService: FilterService) {}
 
 
   ngOnInit(): void {
     this.getJwtPayload()
-    this.getFilters()
     this.getCourses()
-    this.activateSelectedFilter() 
-
-
+    this.getFilters()
   }
 
 
@@ -80,12 +78,31 @@ export class CoursesComponent implements OnInit{
     }   
   }
 
+
   getFilters() {
-    this.filters = this.filterService.getFilters()
+    this.filterService.getFilters().subscribe({
+      next: (response: FilterDto[]) => {
+        this.filters = response;
+        console.log(this.filters);
+        
+      },
+      error: (error) => {
+        console.error('Error fetching filters:', error);
+      }
+    });
   }
 
-  activateSelectedFilter() {
-    this.filterService.activateFilter(this.courses)
+  onFilterSelected() {
+    // console.log('Chosen filter id -->', filterID);
+    console.log('Before sort: ',this.courses);
+    
+
+    this.filterService.activateFilter(this.courses ,this.payload.studentID).subscribe(sortedCourses => {
+      console.log('Sorted courses received', sortedCourses);
+      this.courses = sortedCourses
+      console.log('After sort: ',this.courses);
+    })
+      
   }
 
 }

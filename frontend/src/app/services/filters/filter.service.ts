@@ -1,35 +1,55 @@
 import { Injectable } from "@angular/core";
-import { Filter } from "./filter.model";
 import { HttpClient } from "@angular/common/http";
-import { CookieService } from "ngx-cookie-service";
-import { CourseDto } from "../../courses/courseDB.model";
+import { CourseDto } from "../../courses/course.dto";
+import { Observable, map } from "rxjs";
+import { FilterDto } from "./filter.dto";
+import _ from 'lodash';
+
+interface InfoDto {
+    courseID: number;
+    semester: {
+        semesterID: number;
+        semesterOrdinalNumber: number;
+    }
+}
+
 
 @Injectable()
 export class FilterService {
 
 
-    filters: Filter[] = [
-      { id: 1, filterCondition: "Semester (ASC)" },
-      { id: 1, filterCondition: "Semester (DESC)" },
-    ]
+   
+    constructor(private http: HttpClient){}
 
-    constructor(private http: HttpClient, private cookieService: CookieService){}
+ 
 
-    getFilters(): Filter[] {
-        return this.filters
+    getFilters(): Observable<FilterDto[]> {
+        return this.http.get<any[]>('http://localhost:3000/filter');
+        
     }
 
-    activateFilter(courses: CourseDto[]) {
+    activateFilter(courses: CourseDto[], id: number): Observable<CourseDto[]> {
+    
+        return this.http.get<InfoDto[]>(`http://localhost:3000/courses/${id}/course-semester-info`).pipe(
+            map((info: InfoDto[]) => {
+                console.log('Info received:', info);
+                return this.sortCoursesBySemester(courses, info);
+            })
+        );
         
-        const courseIDs = courses.map(course => course.courseID)
-
-        console.log('available course ids: ', courseIDs);
         
+    }
 
-        // try {
-        //     this.http.get<any>('http://localhost:3000/courses/id/semester')
-        // } catch (error) {
-            
-        // }
+    sortCoursesBySemester(courses: CourseDto[], info: InfoDto[]): CourseDto[] {
+
+        const infoMap = new Map<number,number>()
+        info.forEach(item => {
+            infoMap.set(item.courseID,item.semester.semesterOrdinalNumber)
+        })
+        
+        const sortedCourses = _.sortBy(courses,  course => infoMap.get(course.courseID) || 0)
+        
+        
+        return sortedCourses
     }
 }
