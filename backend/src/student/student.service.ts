@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Student } from './student.entity';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository, getManager } from 'typeorm';
 import { Course } from 'src/course/course.entity';
 
 @Injectable()
@@ -28,5 +28,9 @@ export class StudentService {
     }
 
     return student.courses;
+  }
+
+  getNotificationByStudent(id: number) {
+    throw new Error("Method not implemented.");
   }
 }
