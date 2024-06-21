@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatGridListModule} from '@angular/material/grid-list';
-import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { CourseService } from '../services/course.service';
 import { CommonModule } from '@angular/common';
 import { CourseDto } from './course.dto';
-import {MatSelectModule} from '@angular/material/select';
-import { FilterService } from '../services/filters/filter.service';
-import { FilterDto } from '../services/filters/filter.dto';
+import {MatSelectChange, MatSelectModule} from '@angular/material/select';
+import { FilterService } from '../services/filter/filter.service';
+import { FilterDto } from '../services/filter/filter.dto';
+import { SearchService } from '../services/search.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ import { FilterDto } from '../services/filters/filter.dto';
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
-  providers: [CourseService, FilterService]
+  providers: [CourseService, FilterService, SearchService]
 })
 
 
@@ -35,10 +36,16 @@ export class CoursesComponent implements OnInit{
   filters: FilterDto[] = []
   info: any[] = []  
 
+  backupCourses: CourseDto[] = []
+  
+
   payload: any
   id: any
 
-  constructor(private courseService: CourseService, private filterService: FilterService) {}
+  constructor(
+    private courseService: CourseService, 
+    private filterService: FilterService,
+  ){}
 
 
   ngOnInit(): void {
@@ -51,17 +58,18 @@ export class CoursesComponent implements OnInit{
   
   getCourses() {
     if (this.id) {
-      this.courseService.getCourses(this.id)
-        .subscribe(
-          (response) => {
-            console.log('Response for the courses has been received');
-            this.courses = response;
-            console.log(this.courses);
-          },
-          (error) => {
-            console.error('Error fetching courses:', error);
-          }
-        );
+      this.courseService.getCourses(this.id).subscribe({
+        next: (response) => {
+          // console.log('Response for the courses has been received');
+          this.courses = response;
+          // console.log(this.courses);
+          //* this line of code is used to backup all the retrieved courses from the database for search purposes
+          this.backupCourses = this.courses;
+        },
+        error: (error) => {
+          console.error('Error fetching courses:', error);
+        }
+      });
     } else {
       console.error('No valid ID found to fetch courses');
     }
@@ -92,17 +100,32 @@ export class CoursesComponent implements OnInit{
     });
   }
 
-  onFilterSelected() {
-    // console.log('Chosen filter id -->', filterID);
-    console.log('Before sort: ',this.courses);
+  onFilterSelected(event: MatSelectChange) {
+    const selectedFilter = event.value;
+    console.log('Selected filter: ', selectedFilter);
+    
+    
+    console.log('Before sort [ ', this.courses, ' ]');
     
 
-    this.filterService.activateFilter(this.courses ,this.payload.studentID).subscribe(sortedCourses => {
-      console.log('Sorted courses received', sortedCourses);
+    this.filterService.activateFilter(this.courses ,this.payload.studentID, selectedFilter).subscribe(sortedCourses => {
       this.courses = sortedCourses
-      console.log('After sort: ',this.courses);
+      console.log('After sort [ ', this.courses, ' ]');
     })
       
+  }
+
+  onSearch(searchValue: string) {
+    // console.log('Search value:', searchValue);
+    
+    if(searchValue.trim() !== '') {
+        this.courses = this.courses.filter(course => {
+          return course.courseName.toLowerCase().includes(searchValue.trim().toLowerCase())
+        })
+        
+    } else {
+      this.courses = [...this.backupCourses]
+    }
   }
 
 }

@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { CourseDto } from "../../courses/course.dto";
 import { Observable, map } from "rxjs";
 import { FilterDto } from "./filter.dto";
-import _ from 'lodash';
+import sortData from 'lodash';
 
 interface InfoDto {
     courseID: number;
@@ -28,26 +28,29 @@ export class FilterService {
         
     }
 
-    activateFilter(courses: CourseDto[], id: number): Observable<CourseDto[]> {
+activateFilter(courses: CourseDto[], id: number, selectedFilter: FilterDto): Observable<CourseDto[]> {
     
         return this.http.get<InfoDto[]>(`http://localhost:3000/courses/${id}/course-semester-info`).pipe(
             map((info: InfoDto[]) => {
-                console.log('Info received:', info);
-                return this.sortCoursesBySemester(courses, info);
+                // console.log('Info received:', info);
+                return this.sortCoursesBySemester(courses, info, selectedFilter);
             })
         );
         
         
     }
 
-    sortCoursesBySemester(courses: CourseDto[], info: InfoDto[]): CourseDto[] {
+    sortCoursesBySemester(courses: CourseDto[], info: InfoDto[], selectedFilter: FilterDto): CourseDto[] {
 
         const infoMap = new Map<number,number>()
         info.forEach(item => {
             infoMap.set(item.courseID,item.semester.semesterOrdinalNumber)
         })
-        
-        const sortedCourses = _.sortBy(courses,  course => infoMap.get(course.courseID) || 0)
+
+        const sortedCourses = sortData.sortBy(courses,  course => {
+            const sortKey = infoMap.get(course.courseID) || 0
+            return selectedFilter.filterID === 1 ? sortKey : -sortKey
+        })
         
         
         return sortedCourses
