@@ -9,7 +9,6 @@ import { CourseDto } from './course.dto';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 import { FilterService } from '../services/filter/filter.service';
 import { FilterDto } from '../services/filter/filter.dto';
-import { SearchService } from '../services/search.service';
 
 
 @Component({
@@ -26,7 +25,7 @@ import { SearchService } from '../services/search.service';
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
-  providers: [CourseService, FilterService, SearchService]
+  providers: [CourseService, FilterService]
 })
 
 

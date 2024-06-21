@@ -1,25 +1,23 @@
 <div class="main">
   <div class="section-header">Courses</div>
 
+  <div class="filters-wrapper">
+    <mat-form-field>
+      <mat-label>Filter by:</mat-label>
+      <mat-select (selectionChange)="onFilterSelected($event)" >
+        @for (filter of filters; track filter) {
+          <mat-option  [value]="filter">
+            {{filter.filterName}}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-<mat-form-field>
-  <mat-label>Filter by:</mat-label>
-  <mat-select (selectionChange)="onFilterSelected($event)" >
-    @for (filter of filters; track filter) {
-      <mat-option  [value]="filter">
-        {{filter.filterName}}
-      </mat-option>
-    }
-  </mat-select>
-</mat-form-field>
-
-
-  <mat-form-field appearance="outline">
-    <mat-label>Search</mat-label>
-    <input matInput #searchInput (input)="onSearch(searchInput.value)" placeholder="Input a course name:">
-  </mat-form-field>
-
-
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput #searchInput (input)="onSearch(searchInput.value)" placeholder="Input a course name:">
+    </mat-form-field>
+  </div>
 
   <ul class="cards">
     <li class="cards_item" *ngFor="let course of courses">
