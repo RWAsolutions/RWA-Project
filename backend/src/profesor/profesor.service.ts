@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { Profesor } from './profesor.entity';
 
 @Injectable()
 export class ProfesorService {
-    constructor(@InjectRepository(Profesor) private profesorRepository: Repository<Profesor>){
+
+    constructor(@InjectRepository(Profesor) private profesorRepository: Repository<Profesor>, private manager: EntityManager) {
         console.log('profesorRepository:', profesorRepository);
     }
 
@@ -20,4 +21,17 @@ export class ProfesorService {
         }
         return found
     }
+
+    async getNotificationByProfesorId(id: number) {
+        return this.manager.query(`
+            SELECT 
+                Notification.title, 
+                Notification.content
+            FROM 
+                Notification
+            WHERE 
+                profesorID = ${id};
+            `);
+    }
+
 }

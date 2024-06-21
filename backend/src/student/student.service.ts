@@ -7,7 +7,7 @@ import { Course } from 'src/course/course.entity';
 @Injectable()
 export class StudentService {
 
-  constructor(@InjectRepository(Student) private studentRepository: Repository<Student>) { }
+  constructor(@InjectRepository(Student) private studentRepository: Repository<Student>, private manager: EntityManager) { }
 
   async getAll(): Promise<Student[]> {
     return this.studentRepository.find();
@@ -31,6 +31,21 @@ export class StudentService {
   }
 
   getNotificationByStudent(id: number) {
-    throw new Error("Method not implemented.");
+    return this.manager.query(`
+      SELECT 
+          Notification.title, 
+          Notification.content,
+          user_notification.isRead
+      FROM 
+          user_notification 
+      JOIN 
+          User ON user_notification.userID = User.userID 
+      JOIN 
+          Student ON User.userID = Student.studentID 
+      JOIN 
+          Notification ON Notification.notificationID = user_notification.notificationID 
+      WHERE 
+          User.userID = ${id};
+      `);
   }
 }
