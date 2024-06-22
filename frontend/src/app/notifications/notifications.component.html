@@ -1,3 +1,8 @@
-@for (notification of this.notifications; track notification.title) {
-<p>{{ notification.title }}</p>
-}
+<div class="body">
+  @for (notification of this.notifications; track notification.title) {
+  <div (click)="event(notification)" matRipple class="prevent-select notification-item">
+    <p>{{ notification.title }}</p>
+    <mat-divider></mat-divider>
+  </div>
+  }
+</div>

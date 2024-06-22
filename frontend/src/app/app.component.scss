@@ -4,11 +4,18 @@
 }
 
 .main-content {
-  flex: 0 0 80%;
+  flex: 1;
   background-color: lightblue;
 }
 
 .notifications-container {
-  flex: 0 0 20%;
+  flex: 1;
   background-color: lightcoral;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 100vh;
+  // /* Full viewport height */
+  // text-align: center;
+  // /* Center text within the div */
 }

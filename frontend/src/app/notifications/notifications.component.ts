@@ -2,22 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { decodeJWT } from '../helpers/decode-jwt';
-
-interface Notification {
-  title: string;
-  content: string;
-}
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRippleModule } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { NotificationDetailsService } from '../notification-details/notification-details.service';
+import { Notification } from '../entites/notification.entity';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [],
+  imports: [MatDividerModule, MatRippleModule],
   templateUrl: './notifications.component.html',
-  styleUrl: './notifications.component.scss'
+  styleUrl: './notifications.component.scss',
+  providers: [NotificationDetailsService],
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private notificationService: NotificationDetailsService) { }
 
   notifications: Notification[] = [];
 
@@ -38,12 +39,9 @@ export class NotificationsComponent implements OnInit {
       });
     }
   }
-
+  event(notification: Notification) {
+    this.router.navigate(['/notification']);
+    this.notificationService.setNotification(notification);
+  }
 }
-// updateDisplayedNotifications() {
-//   if (this.paginator) {
-//     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-//     const endIndex = startIndex + this.paginator.pageSize;
-//     this.displayedNotifications = this.notifications.slice(startIndex, endIndex);
-//   }
 
