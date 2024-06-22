@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import {MyStudyComponent} from "./my-study/my-study.component";
+import {TestComponent} from "./my-study/professors/test.component";
 
 export const routes: Routes = [
     { path: 'login', component: FormComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
     { path: 'home', component: AppComponent},
     // { path: 'password-reset', component: PasswordResetComponent}
   { path: 'my_study', component: MyStudyComponent},
+  { path: 'test', component: TestComponent},
   { path: 'user', component: UserInfoComponent },
   { path: '**', component: NotFoundComponent }, // this needs to be the last route
 ];

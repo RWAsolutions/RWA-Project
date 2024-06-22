@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+<header class="headerDiv">
+  <div>
+    <div >
+      <ul>
+        <li>
+          <a href="test" target="_blank" class="move2Left">test1</a>
+        </li>
+        <li>
+          <a href="https://sit.unizd.hr/nastavnici" target="_blank">Profesori</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+</header>
+<div>
+  <h2>List of Professors</h2>
+</div>
+<div class="divButBigger">
+  <div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th class="tdLeft">Ime</th>
+        <th class="tdLeft">Email</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let professor of profesors">
+        <td>{{ professor.title }}</td>
+        <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
+        <td class="tdLeft">{{ getEmail(professor) }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</body>
+</html>
