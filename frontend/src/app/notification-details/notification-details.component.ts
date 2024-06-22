@@ -14,6 +14,8 @@ export class NotificationDetailsComponent implements OnInit {
     title: 'Notification Title',
     content: 'Notification Content',
     isRead: 0,
+    profesorName: 'Profesor Name',
+    profesorSurname: 'Profesor Surname',
   }
 
   constructor(private notificationService: NotificationService) { }

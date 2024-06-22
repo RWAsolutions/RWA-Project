@@ -35,7 +35,9 @@ export class StudentService {
       SELECT 
           Notification.title, 
           Notification.content,
-          user_notification.isRead
+          user_notification.isRead,
+          Profesor.profesorName,
+          Profesor.profesorSurname
       FROM 
           user_notification 
       JOIN 
@@ -44,6 +46,8 @@ export class StudentService {
           Student ON User.userID = Student.studentID 
       JOIN 
           Notification ON Notification.notificationID = user_notification.notificationID 
+      JOIN 
+          Profesor ON Notification.profesorID = Profesor.profesorID 
       WHERE 
           User.userID = ${id};
       `);
