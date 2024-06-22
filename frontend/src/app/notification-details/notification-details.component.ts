@@ -10,12 +10,16 @@ import { NotificationService } from '../services/notification.service';
 })
 export class NotificationDetailsComponent implements OnInit {
 
-  notificationTitle: string = '';
+  notification: any = {
+    title: 'Notification Title',
+    content: 'Notification Content',
+    isRead: 0,
+  }
 
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-    this.notificationTitle = this.notificationService.getData();
+    this.notification = this.notificationService.getData();
   }
 
 }

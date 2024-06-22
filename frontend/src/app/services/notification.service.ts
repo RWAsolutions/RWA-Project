@@ -1,20 +1,25 @@
 import { Injectable } from "@angular/core";
+import { Notification } from "../entites/notification.entity";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  data: string = 'Hello World!';
+  notification: Notification | any = {
+    title: 'Notification Title',
+    content: 'Notification Content',
+    isRead: 0,
+  }
 
   constructor() { }
 
   getData(): string {
-    return this.data;
+    return this.notification;
   }
 
-  setData(data: string): void {
-    this.data = data;
+  setData(notification: any): void {
+    this.notification = notification;
   }
 
 }

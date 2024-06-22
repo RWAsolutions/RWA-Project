@@ -40,7 +40,7 @@ export class NotificationsComponent implements OnInit {
   }
   event(notification: Notification) {
     this.router.navigate(['/notification']);
-    this.notificationService.setData(notification.title);
+    this.notificationService.setData(notification);
   }
 }
 
