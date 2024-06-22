@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from '../services/test.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-notification-details',
@@ -12,10 +12,10 @@ export class NotificationDetailsComponent implements OnInit {
 
   notificationTitle: string = '';
 
-  constructor(private testService: TestService) { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit(): void {
-    this.notificationTitle = this.testService.getData();
+    this.notificationTitle = this.notificationService.getData();
   }
 
 }

@@ -6,7 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Notification } from '../entites/notification.entity';
-import { TestService } from '../services/test.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-notifications',
@@ -17,7 +17,7 @@ import { TestService } from '../services/test.service';
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private testService: TestService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private notificationService: NotificationService) { }
 
   notifications: Notification[] = [];
 
@@ -40,7 +40,7 @@ export class NotificationsComponent implements OnInit {
   }
   event(notification: Notification) {
     this.router.navigate(['/notification']);
-    this.testService.setData(notification.title);
+    this.notificationService.setData(notification.title);
   }
 }
 
