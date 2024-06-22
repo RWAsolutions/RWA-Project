@@ -1,0 +1,83 @@
+@import '../../styles.scss';
+
+app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffffff; /* Adjust background color as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add some padding to the body to prevent content from being hidden behind the header */
+body {
+    padding-top: 80px; /* Increased padding for more space */
+}
+
+/* Style for settings container */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px; /* Increased padding */
+    margin: 30px auto;
+    max-width: 600px;
+    height: 100%;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center-align text within the container */
+}
+
+hr {
+  width: 600px;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center; /* Center-align the h1 element */
+    margin: 15px 0px 0px;
+}
+
+h3 {
+    margin-bottom: 30px; /* Increased margin for more spacing */
+    text-align: left; /* Keep h3 elements left-aligned */
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Increased margin for more spacing between items */
+    padding: 5px;
+    text-align: left; /* Ensure setting items remain left-aligned */
+}
+
+.setting-item label {
+    flex: 1;
+    margin-right: 15px; /* Increased margin between label and input */
+}
+
+.setting-item input[type="range"] {
+    flex: 2;
+}
+
+.setting-item span {
+    margin-left: 15px; /* Increased margin between input and span */
+}
+
+.reset-button {
+    display: block;
+    margin: 30px auto; /* Increased margin around the button */
+    padding: 12px 24px; /* Increased padding for larger button size */
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px; /* Increased font size for better visibility */
+}
+
+.reset-button:hover {
+    background-color: #0056b3;
+}

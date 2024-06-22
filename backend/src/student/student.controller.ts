@@ -23,4 +23,9 @@ export class StudentController {
   getCourseByStudent(@Param('id') id: number) {
     return this.studentService.getCourseByStudent(id);
   }
+
+  @Get(':id/city')
+  getCitythroughStudent(@Param('id') id: number) {
+    return this.studentService.getCitythroughStudent(id);
+  }
 }

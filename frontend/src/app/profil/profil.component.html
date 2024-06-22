@@ -1,0 +1,11 @@
+<div>
+    <mat-icon>account_circle</mat-icon>
+    <p>{{ user.firstName }} {{ user.lastName }}</p>
+    <p>{{ user.address }}</p>
+    <p>{{ user.dateOfBirth }}</p>
+    <p *ngIf="user.studentID">{{'ID: ' + user.studentID }}</p>
+    <p *ngIf="user.profesorID">{{'ID: ' +  user.profesorID }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.postNumber + ', ' + user.city }}</p>
+  </div>
+  
