@@ -33,6 +33,7 @@ export class StudentService {
   getNotificationByStudent(id: number) {
     return this.manager.query(`
       SELECT 
+          Notification.notificationID,
           Notification.title, 
           Notification.content,
           user_notification.isRead,

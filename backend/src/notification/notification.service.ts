@@ -29,6 +29,8 @@ export class NotificationService {
 
     async updateIsReadById(updateNotificationDto: UpdateNotificationDto) {
 
+        updateNotificationDto.isRead = +updateNotificationDto.isRead;
+
         if (updateNotificationDto.isRead !== 0 && updateNotificationDto.isRead !== 1) {
             throw new HttpException('isRead must be 0 or 1', HttpStatus.BAD_REQUEST);
         }

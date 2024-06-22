@@ -21,9 +21,12 @@ export class NotificationsComponent implements OnInit {
 
   notifications: Notification[] = [];
 
+  jwtPayload: any;
+
   ngOnInit() {
     const jwt = this.cookieService.get('jwt');
     const jwtPayload = decodeJWT(jwt);
+    this.jwtPayload = jwtPayload;
 
     if (jwtPayload.studentID) {
       this.http.get<Notification[]>(`http://localhost:3000/students/${jwtPayload.studentID}/notifications`).subscribe(notifications => {
@@ -39,6 +42,11 @@ export class NotificationsComponent implements OnInit {
     }
   }
   event(notification: Notification) {
+
+    if (notification.isRead === 0) {
+      let updateNotificationDto = { isRead: 1, notificationID: notification.notificationID, userID: this.jwtPayload.userID };
+      this.http.patch(`http://localhost:3000/notifications`, updateNotificationDto).subscribe();
+    }
     this.router.navigate(['/notification']);
     this.notificationService.setData(notification);
   }
