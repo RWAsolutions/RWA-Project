@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationDetailsService } from './notification-details.service';
-import { Notification } from '../entites/notification.entity';
+import { TestService } from '../services/test.service';
 
 @Component({
   selector: 'app-notification-details',
@@ -8,16 +7,15 @@ import { Notification } from '../entites/notification.entity';
   imports: [],
   templateUrl: './notification-details.component.html',
   styleUrl: './notification-details.component.scss',
-  providers: [NotificationDetailsService],
 })
 export class NotificationDetailsComponent implements OnInit {
 
-  notification: Notification = this.notificationService.getNotification();
+  notificationTitle: string = '';
 
-  constructor(private notificationService: NotificationDetailsService) { }
+  constructor(private testService: TestService) { }
 
   ngOnInit(): void {
-    this.notification = this.notificationService.getNotification();
+    this.notificationTitle = this.testService.getData();
   }
 
 }

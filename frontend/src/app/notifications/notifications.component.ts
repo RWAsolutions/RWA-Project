@@ -5,8 +5,8 @@ import { decodeJWT } from '../helpers/decode-jwt';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { NotificationDetailsService } from '../notification-details/notification-details.service';
 import { Notification } from '../entites/notification.entity';
+import { TestService } from '../services/test.service';
 
 @Component({
   selector: 'app-notifications',
@@ -14,11 +14,10 @@ import { Notification } from '../entites/notification.entity';
   imports: [MatDividerModule, MatRippleModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss',
-  providers: [NotificationDetailsService],
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private notificationService: NotificationDetailsService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private testService: TestService) { }
 
   notifications: Notification[] = [];
 
@@ -41,7 +40,7 @@ export class NotificationsComponent implements OnInit {
   }
   event(notification: Notification) {
     this.router.navigate(['/notification']);
-    this.notificationService.setNotification(notification);
+    this.testService.setData(notification.title);
   }
 }
 
