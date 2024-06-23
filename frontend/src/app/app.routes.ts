@@ -7,12 +7,14 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import {MyStudyComponent} from "./my-study/my-study.component";
 import {ProfessorComponent} from "./my-study/professors/professor.component";
 import {StudiesComponent} from "./my-study/studies/studies.component";
+import {StudomatComponent} from "./studomat/studomat.component";
 
 export const routes: Routes = [
     { path: 'login', component: FormComponent },
     { path: '', component: FormComponent },
     { path: 'home', component: AppComponent},
     // { path: 'password-reset', component: PasswordResetComponent}
+  { path: 'studomat', component: StudomatComponent },
   { path: 'my_study', component: MyStudyComponent},
   { path: 'professors', component: ProfessorComponent},
   { path: 'studies', component: StudiesComponent },
