@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { HeaderComponent } from '../header/header.component';
+import { NavigationEnd, Router } from '@angular/router';
 
 export interface User {
   firstName: string;
@@ -21,7 +23,7 @@ export interface User {
 @Component({
   selector: 'app-user-info',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatCardModule, HeaderComponent],
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
 })
@@ -42,6 +44,7 @@ export class ProfilComponent implements AfterViewInit {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
+    private router: Router,
   ) {}
 
   ngAfterViewInit(): void {
@@ -87,6 +90,14 @@ export class ProfilComponent implements AfterViewInit {
           this.user.postNumber = user.postNumber;
         });
     }
+  }
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   // if the jwt cannot be decoded, the user is redirected to the login page

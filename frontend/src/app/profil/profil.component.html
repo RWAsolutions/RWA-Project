@@ -1,11 +1,65 @@
-<div>
-    <mat-icon>account_circle</mat-icon>
-    <p>{{ user.firstName }} {{ user.lastName }}</p>
-    <p>{{ user.address }}</p>
-    <p>{{ user.dateOfBirth }}</p>
-    <p *ngIf="user.studentID">{{'ID: ' + user.studentID }}</p>
-    <p *ngIf="user.profesorID">{{'ID: ' +  user.profesorID }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.postNumber + ', ' + user.city }}</p>
+<app-header></app-header>
+
+<div class="main">
+  <div class="title">
+    <h1>Profil</h1>
   </div>
-  
+  <div class="parent">
+    <mat-card appearance="outlined" class="div1">
+      <mat-icon class="icon">account_circle</mat-icon>
+      <div class="margin-left-15">
+        <mat-card-title>{{ user.lastName }}</mat-card-title>
+        <mat-card-subtitle>{{ user.firstName }}</mat-card-subtitle>
+      </div>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="div2 flex-column-start-center">
+      <div class="margin-left-15">
+        <mat-card-title>{{ user.email }}</mat-card-title>
+        <mat-card-subtitle *ngIf="user.studentID">{{
+          "Identifikacijski broj: " + user.studentID
+        }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="user.profesorID">{{
+          "Identifikacijski broj: " + user.profesorID
+        }}</mat-card-subtitle>
+      </div>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="div3 flex-column-start-center">
+      <div class="margin-left-15">
+        <mat-card-title>datum rođenja:</mat-card-title>
+        <mat-card-subtitle>{{ user.dateOfBirth }}</mat-card-subtitle>
+      </div>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="div4 flex-column-start-center">
+      <div class="margin-left-15">
+        <mat-card-title>Mjesto:</mat-card-title>
+        <mat-card-subtitle>{{ user.address }}</mat-card-subtitle>
+        <mat-card-subtitle>{{
+          user.postNumber + ", " + user.city
+        }}</mat-card-subtitle>
+      </div>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="div5 flex-column-start-center">
+      <!-- Ovdje treba generirati sve courses od tog nekog -->
+      <div class="div5-container">
+        <div class="margin-left-15 container-card">
+          <mat-card-content>Predmet 1</mat-card-content>
+          <mat-card-content>Predmet 2</mat-card-content>
+          <mat-card-content>Predmet 3</mat-card-content>
+          <mat-card-content>Predmet 4</mat-card-content>
+          <mat-card-content>Predmet 5</mat-card-content>
+        </div>
+        <div class="container-card">
+          <mat-card-content>Predmet 6</mat-card-content>
+          <mat-card-content>Predmet 7</mat-card-content>
+          <mat-card-content>Predmet 8</mat-card-content>
+          <mat-card-content>Predmet 9</mat-card-content>
+          <mat-card-content>Predmet 10</mat-card-content>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

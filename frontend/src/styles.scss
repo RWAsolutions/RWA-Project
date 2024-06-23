@@ -1,4 +1,6 @@
 @import './styles/colors.scss';
+@import './styles/app-header.scss';
+@import './styles/title.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Arial'; background-color: $white-color; }
