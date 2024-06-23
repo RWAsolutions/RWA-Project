@@ -1,14 +1,14 @@
 <div class="main">
-  <div class="section-header">Courses</div>
+  <div class="title">Courses</div>
 
   <div class="filters-wrapper">
     <mat-form-field>
       <mat-label>Filter by:</mat-label>
-      <mat-select (selectionChange)="onFilterSelected($event)" >
+      <mat-select (selectionChange)="onFilterSelected($event)">
         @for (filter of filters; track filter) {
-          <mat-option  [value]="filter">
-            {{filter.filterName}}
-          </mat-option>
+        <mat-option [value]="filter">
+          {{filter.filterName}}
+        </mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -18,23 +18,24 @@
       <input matInput #searchInput (input)="onSearch(searchInput.value)" placeholder="Input a course name:">
     </mat-form-field>
   </div>
-  
+
 
   <ul class="cards">
     @for (course of courses; track course.courseID) {
-      <li class="cards_item">
-        <a href="#" class="card_link" style="text-decoration: none;"> 
-          <div class="card">
-            <div class="card_image">
-              <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
-            </div>
-            <div class="card_content">
-              <h2 class="card_title">{{ course.courseName }}</h2>
-              <p class="card_text">{{ course.description }}</p>
-            </div>
+    <li class="cards_item">
+      <a href="#" class="card_link" style="text-decoration: none;">
+        <div class="card">
+          <div class="banner">semester III</div>
+          <div class="card_image">
+            <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
           </div>
-        </a>
-      </li>
+          <div class="card_content">
+            <h2 class="card_title">{{ course.courseName }}</h2>
+            <p class="card_text">{{ course.description }}</p>
+          </div>
+        </div>
+      </a>
+    </li>
     }
   </ul>
 </div>

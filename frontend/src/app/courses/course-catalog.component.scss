@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
+@import '../../styles.scss';
 
 *,
 *::before,
@@ -24,16 +25,16 @@ body {
   margin: 0 auto;
 }
 
-h1 {
-  font-size: 24px;
-  font-weight: 400;
-  text-align: center;
-}
+// h1 {
+//   font-size: 24px;
+//   font-weight: 400;
+//   text-align: center;
+// }
 
 .cards {
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 1rem; 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -41,19 +42,19 @@ h1 {
 
 .cards_item {
   background-color: white;
-  border-radius: 1rem; 
+  border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
 }
 
 .cards_item:hover {
-  transform: translateY(-5px); 
+  transform: translateY(-5px);
 }
 
 .card_image {
-  width: 100%; 
-  padding-top: 60%; 
+  width: 100%;
+  padding-top: 60%;
   position: relative;
 }
 
@@ -64,17 +65,17 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(0.7); 
+  transform: scale(0.7);
   transition: transform 0.2s ease-in-out;
 }
 
 .cards_item:hover .card_image img {
-  transform: scale(0.75); 
+  transform: scale(0.75);
 }
 
 .card_content {
   padding: 1rem;
-  background: linear-gradient(to bottom right, #0078bd, #00bfff); 
+  background: linear-gradient(to bottom right, #0078bd, #00bfff);
 }
 
 .card_title {
@@ -106,25 +107,31 @@ h1 {
 //* This is the implementation of the section above the courses which will contain the search bar and filter combobox
 //* The section name and line styling
 .section-header {
-  font-size: 1.5rem; 
-  font-weight: 700; 
-  text-align: center; 
-  color: #0078bd; 
-  margin-bottom: 1rem; 
-  padding: 1rem 0; 
-  border-bottom: 2px solid #0078bd; 
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #0078bd;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  border-bottom: 2px solid #0078bd;
 }
 
-//* The filter wrapper styling 
- 
+//* The filter wrapper styling
+
 .filters-wrapper {
-  display: flex; 
-  gap: 1rem; 
-  align-items: center; 
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .filters-wrapper .mat-form-field {
-  flex: 1; 
-  
+  flex: 1;
+
 }
 
+.banner {
+  display: flex;
+  background-color: #00b8f8;
+  justify-content: center;
+  width: 100%;
+}

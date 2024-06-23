@@ -1,13 +1,15 @@
 @if (validNotificationRoute()) {
 <div class="flex-container">
   <div class="main-content">
-    <router-outlet></router-outlet>
+    <app-header></app-header>
+    <div class="spacing"></div>
+    <router-outlet class="router"></router-outlet>
   </div>
   <div class="notification-container">
+    <div class="spacing"></div>
     <app-notifications></app-notifications>
   </div>
 </div>
 } @else {
 <router-outlet></router-outlet>
 }
-
