@@ -5,7 +5,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent } from '../header/header.component';
-import { NavigationEnd, Router } from '@angular/router';
 
 export interface User {
   firstName: string;
@@ -41,11 +40,7 @@ export class ProfilComponent implements AfterViewInit {
     courses: [],
   };
 
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService,
-    private router: Router,
-  ) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   ngAfterViewInit(): void {
     const jwt = this.cookieService.get('jwt');
@@ -90,14 +85,6 @@ export class ProfilComponent implements AfterViewInit {
           this.user.postNumber = user.postNumber;
         });
     }
-  }
-
-  ngOnInit() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
-      }
-    });
   }
 
   // if the jwt cannot be decoded, the user is redirected to the login page
