@@ -20,5 +20,11 @@ export class ProfesorController {
     @Get(':id/notifications')
     getNotificationByProfesorId(@Param('id') id: number) {
         return this.profesorService.getNotificationByProfesorId(id);
+    }  
+      
+    @Get('/:id/courses')
+    getCourseByProfesor(@Param('id') id: number) {
+        return this.profesorService.getCourseByProfesor(id)
+
     }
 }

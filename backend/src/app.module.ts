@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CityModule } from './city/city.module';
-import { DataSource } from 'typeorm';
 import { City } from './city/city.entity';
 import { CourseModule } from './course/course.module';
 import { SemesterModule } from './semester/semester.module';
@@ -24,6 +23,8 @@ import { Test } from '@nestjs/testing';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { FilterModule } from './filter/filter.module';
+import { Filter } from './filter/filter.entity';
 
 @Module({
   imports: [
@@ -34,7 +35,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'user1',
       password: 'secret',
       database: 'rwa_merlin',
-      entities: [City, Course, Semester, Student, Notification, Profesor, Faculty, Study, Test, User],
+      entities: [City, Course, Semester, Student, Notification, Profesor, Faculty, Study, Test, User, Filter],
       autoLoadEntities: true,
       synchronize: false,
       logging: true,
@@ -50,12 +51,9 @@ import { AuthModule } from './auth/auth.module';
     ProfesorModule,
     UserModule,
     AuthModule,
+    FilterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  constructor(private dataSource: DataSource) {
-    // console.log('dataSource:', dataSource);
-  }
-}
+export class AppModule {}
