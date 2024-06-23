@@ -8,6 +8,8 @@ import { Notification } from 'src/notification/notification.entity';
 import { Profesor } from 'src/profesor/profesor.entity';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/roles/roles.enum';
+import { get } from 'http';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('Courses')
 export class CourseController {
@@ -35,7 +37,7 @@ export class CourseController {
     @Get(':id/students')
     getStudentsByCourse(@Param('id') id: number): Promise<Student[]> {
         return this.courseService.getStudentsByCourse(id);
-    } // Add the missing closing curly brace here
+    } 
 
     @Get(':id/profesors')
     getProfesorsByCourse(@Param('id') id: number): Promise<Profesor[]> {
@@ -45,6 +47,11 @@ export class CourseController {
     @Get(':id/notifications') 
     getNotificationsThroughCourse(@Param('id') id: number): Promise<Notification[]> {
         return this.courseService.getNotificationsThroughCourse(id);
+    }
+
+    @Get(':id/course-semester-info')
+    getCoursesWithSemesterInfo(@Param('id') id: number): Promise<any[]> {
+        return this.courseService.getCoursesWithSemesterInfo(id)
     }
     
 }

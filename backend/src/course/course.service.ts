@@ -73,12 +73,22 @@ export class CourseService {
         const course = await this.courseRepository.findOne({
             where: { courseID: id },
             relations: ['notifications'],
-        });
+        }); 
 
         if (!course) {
             throw new NotFoundException("Course with id ${id} not found");
         }
 
         return course.notifications;
+    }
+
+    async getCoursesWithSemesterInfo(studentID: number): Promise<any[]> {
+        return await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoin('student_course','sc','sc.courseID = course.courseID')
+        .innerJoin('course.semester','semester')
+        .where('sc.studentID = :studentID', { studentID })
+        .select(['course.courseID', 'semester.semesterID', 'semester.semesterOrdinalNumber'])
+        .getMany();
     }
 }
