@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Studies</title>
+</head>
+<body>
+
+<header class="headerDiv">
+  <div>
+    <div >
+      <ul>
+        <li>
+          <a href="my_study"class="move2Left">Naslovnica</a>
+        </li>
+        <li>
+          <a href="professors">Profesori</a>
+        </li>
+        <li>
+          <a href="studies">Studiji</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+</header>
+
+<div class="center">
+  <div>
+    <p *ngFor="let study of studies">
+      {{ getStudyName(study) }}
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
