@@ -1,0 +1,23 @@
+<div class="container">
+  <mat-card class="notification-card">
+    <form [formGroup]="notificationForm" class="notification-form">
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput type="text" formControlName="title">
+        </mat-form-field>
+      </div>
+
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Content</mat-label>
+          <textarea matInput formControlName="content" rows="5"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-field button-field">
+        <button mat-raised-button color="primary" type="submit" [disabled]="notificationForm.invalid">Publish</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

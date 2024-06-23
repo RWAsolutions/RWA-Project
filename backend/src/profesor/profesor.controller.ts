@@ -12,13 +12,19 @@ export class ProfesorController {
         return this.profesorService.getAll();
     }
 
-    @Get('/:id')
+    @Get(':id')
     getById(@Param('id') id: number) {
         return this.profesorService.getById(id);
     }
 
+    @Get(':id/notifications')
+    getNotificationByProfesorId(@Param('id') id: number) {
+        return this.profesorService.getNotificationByProfesorId(id);
+    }  
+      
     @Get('/:id/courses')
     getCourseByProfesor(@Param('id') id: number) {
         return this.profesorService.getCourseByProfesor(id)
+
     }
 }

@@ -1,0 +1,21 @@
+.flex-container {
+  display: flex;
+  height: 100vh; // Ensure the container takes the full height of the viewport
+}
+
+.main-content {
+  flex: 1;
+  background-color: lightblue;
+}
+
+.notifications-container {
+  flex: 1;
+  background-color: lightcoral;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 100vh;
+  // /* Full viewport height */
+  // text-align: center;
+  // /* Center text within the div */
+}

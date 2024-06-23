@@ -3,7 +3,7 @@ import { StudentService } from './student.service';
 import { Role } from 'src/auth/roles/roles.enum';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 
-@Controller('Students')
+@Controller('students')
 export class StudentController {
 
   constructor(private studentService: StudentService) { }
@@ -23,4 +23,10 @@ export class StudentController {
   getCourseByStudent(@Param('id') id: number) {
     return this.studentService.getCourseByStudent(id);
   }
+
+  @Get(':id/notifications')
+  getNotificationsByStudent(@Param('id') id: number) {
+    return this.studentService.getNotificationByStudent(id);
+  }
+
 }
