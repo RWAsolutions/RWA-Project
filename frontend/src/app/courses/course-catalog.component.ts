@@ -3,9 +3,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInput, MatInputModule } from '@angular/material/input';
-import { CourseService } from '../services/course.service';
+import { CourseService } from '../services/course/course.service';
 import { CommonModule } from '@angular/common';
-import { CourseDto } from './course.dto';
+import { CourseDto } from '../services/course/course.dto';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 import { FilterService } from '../services/filter/filter.service';
 import { FilterDto } from '../services/filter/filter.dto';
@@ -23,20 +23,20 @@ import { FilterDto } from '../services/filter/filter.dto';
     FormsModule,
     MatSelectModule
   ],
-  templateUrl: './courses.component.html',
-  styleUrl: './courses.component.scss',
+  templateUrl: './course-catalog.component.html',
+  styleUrl: './course-catalog.component.scss',
   providers: [CourseService, FilterService]
 })
 
 
-export class CoursesComponent implements OnInit{
+export class CoursesCatalogComponent implements OnInit{
 
   courses: CourseDto[] = []
-  filters: FilterDto[] = []
-  info: any[] = []  
-
   backupCourses: CourseDto[] = []
+
+  filters: FilterDto[] = []
   
+  info: any[] = []  
 
   payload: any
   id: any
@@ -118,7 +118,7 @@ export class CoursesComponent implements OnInit{
     // console.log('Search value:', searchValue);
     
     if(searchValue.trim() !== '') {
-        this.courses = this.courses.filter(course => {
+        this.courses = this.backupCourses.filter(course => {
           return course.courseName.toLowerCase().includes(searchValue.trim().toLowerCase())
         })
         

@@ -18,20 +18,23 @@
       <input matInput #searchInput (input)="onSearch(searchInput.value)" placeholder="Input a course name:">
     </mat-form-field>
   </div>
+  
 
   <ul class="cards">
-    <li class="cards_item" *ngFor="let course of courses">
-      <a href="#" class="card_link" style="text-decoration: none;"> 
-        <div class="card">
-          <div class="card_image">
-            <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
+    @for (course of courses; track course.courseID) {
+      <li class="cards_item">
+        <a href="#" class="card_link" style="text-decoration: none;"> 
+          <div class="card">
+            <div class="card_image">
+              <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
+            </div>
+            <div class="card_content">
+              <h2 class="card_title">{{ course.courseName }}</h2>
+              <p class="card_text">{{ course.description }}</p>
+            </div>
           </div>
-          <div class="card_content">
-            <h2 class="card_title">{{ course.courseName }}</h2>
-            <p class="card_text">{{ course.description }}</p>
-          </div>
-        </div>
-      </a>
-    </li>
+        </a>
+      </li>
+    }
   </ul>
 </div>

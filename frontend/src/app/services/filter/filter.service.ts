@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { CourseDto } from "../../courses/course.dto";
+import { CourseDto } from "../course/course.dto";
 import { Observable, map } from "rxjs";
 import { FilterDto } from "./filter.dto";
 import sortData from 'lodash';
