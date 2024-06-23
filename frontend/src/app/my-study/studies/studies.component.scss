@@ -1,3 +1,5 @@
+
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -32,63 +34,31 @@ li a:hover {
 
 .center {
   margin: auto;
-  width: 50%;
+  width: 60%;
   border: 2px solid green;
   padding: 10px;
   text-align: center;
 }
 
-
-
-table {
+.header {
+  margin: auto;
   width: 100%;
-  border-collapse: collapse;
-}
-
-td + td {
-  border-left: 1px solid black;
-}
-
-body{
-  background-color: #fafafa;
-}
-
-th, td {
-  padding: 8px;
-  text-align: center;
-}
-
-.tdLeft {
-  text-align: left;
-}
-
-td {
-  background-color: #fafafa;
-}
-
-th {
-  background-color: #fafafa;
-  border-bottom: 2px solid black;
-}
-
-.headerDiv {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  background-color: gray;
-  width: 100%;
-  text-align: center;
+  border: 2px solid blue;
+  padding: 10px;
 }
 
 .divButBigger{
   margin: auto;
-  width: 70%;
+  width: 80%;
+  border: 2px solid pink;
   padding: 10px;
   text-align: center;
 }
 
-h2{
-  margin-top: 75px;
-  text-align: center;
+.move2Right{
+  text-align: right;
+}
+
+.move2Left{
+  text-align: left;
 }
