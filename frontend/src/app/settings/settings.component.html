@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div class="settings-container">
+    <h1 class="title">Settings</h1>
+    <hr>
+
+    <section>
+        <h3>Accessibility Settings</h3>
+
+        <div class="setting-item">
+            <label for="font-size">Font Size</label>
+            <input type="range" id="font-size" min="10" max="30" [(ngModel)]="fontSize" (input)="changeFont()">
+            <span>{{ fontSize }}px</span>
+        </div>      
+
+        <div class="setting-item">
+            <label for="high-contrast">High Contrast</label>
+            <input type="checkbox" id="high-contrast" [(ngModel)]="highContrast">
+        </div>
+
+        <div class="setting-item">
+            <label for="text-to-speech">Text-to-Speech</label>
+            <input type="checkbox" id="text-to-speech" [(ngModel)]="textToSpeech">
+        </div>
+    </section>
+
+    <section>
+        <h3>Notification Settings</h3>
+
+        <div class="setting-item">
+            <label for="email-notifications">Email Notifications</label>
+            <input type="checkbox" id="email-notifications" [(ngModel)]="emailNotifications">
+        </div>
+
+        <div class="setting-item">
+            <label for="sms-notifications">SMS Notifications</label>
+            <input type="checkbox" id="sms-notifications" [(ngModel)]="smsNotifications">
+        </div>
+    </section>
+
+    <section>
+        <h3>Display Settings</h3>
+
+        <div class="setting-item">
+            <label for="theme-color">Theme Color</label>
+            <select id="theme-color" [(ngModel)]="themeColor">
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="red">Red</option>
+            </select>
+        </div>
+
+        <div class="setting-item">
+            <label for="show-icons">Show Icons</label>
+            <input type="checkbox" id="show-icons" [(ngModel)]="showIcons">
+        </div>
+
+        <div class="setting-item">
+            <label for="animation-level">Animation Level</label>
+            <select id="animation-level" [(ngModel)]="animationLevel">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+
+        <div class="setting-item">
+            <label for="background-image">Background Image</label>
+            <input type="text" id="background-image" [(ngModel)]="backgroundImage">
+        </div>
+    </section>
+
+    <button class="reset-button" (click)="resetSettings()">Reset to Default</button>
+</div>

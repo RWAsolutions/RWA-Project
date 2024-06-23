@@ -1,0 +1,69 @@
+<header class="container">
+  <nav class="left-side">
+    <button mat-icon-button class="icon-border" (click)="homeClicked()">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button class="icon-border" (click)="testsClicked()">
+      <mat-icon>history_edu</mat-icon>
+    </button>
+    <button mat-icon-button class="icon-border" (click)="myStudyClicked()">
+      <mat-icon>school</mat-icon>
+    </button>
+  </nav>
+
+  <div class="right-side">
+    <nav class="utils">
+      <div class="flex-container">
+        <form>
+          <div class="animated-search">
+            <input
+              type="search"
+              #animatedInput
+              id="animated-input"
+              [placeholder]="isInputFocused ? 'search...' : ''"
+              (focus)="searchFocused()"
+              (blur)="searchBlurred()"
+            />
+            <a (click)="searchClicked()">
+              <fa-icon
+                [icon]="['fas', 'magnifying-glass']"
+                id="searchBtn"
+                *ngIf="!isInputFocused"
+              ></fa-icon>
+            </a>
+          </div>
+        </form>
+      </div>
+      <button
+        mat-icon-button
+        class="icon-border"
+        *ngIf="!isProfesor"
+        (click)="editClicked()"
+        [ngStyle]="{ 'background-color': isEditMode ? '#0c5a86ce' : '' }"
+      >
+        <mat-icon [ngStyle]="{ color: isEditMode ? '#a0a4aa' : '' }">{{
+          isEditMode ? "draw" : "edit"
+        }}</mat-icon>
+      </button>
+      <button mat-icon-button class="icon-border" (click)="settingsClicked()">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </nav>
+    <div class="profile">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="icon-border">
+        <mat-icon class="profile-picture">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="ocjeneClicked()">
+          <span>Ocjene</span>
+        </button>
+        <button mat-menu-item (click)="profilClicked()">
+          <span>Profil</span>
+        </button>
+        <button mat-menu-item (click)="odjavaClicked()">
+          <span>Odjava</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</header>

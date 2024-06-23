@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import { Profesor } from './profesor.entity';
 import { Course } from 'src/course/course.entity';
+import { City } from 'src/city/city.entity';
 
 @Injectable()
 export class ProfesorService {
@@ -47,4 +48,16 @@ export class ProfesorService {
     
         return profesor.courses;
       }
+    async getCitythroughProfesor(id: number): Promise<City> {
+        const profesor = await this.profesorRepository.findOne({
+            where: { profesorID: id },
+            relations: ['city'],
+        });
+    
+        if (!profesor) {
+            throw new NotFoundException("Profesor with id ${id} not found");
+        }
+    
+        return profesor.city;
+        }
 }

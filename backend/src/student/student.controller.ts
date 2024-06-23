@@ -29,4 +29,8 @@ export class StudentController {
     return this.studentService.getNotificationByStudent(id);
   }
 
+  @Get(':id/city')
+  getCitythroughStudent(@Param('id') id: number) {
+    return this.studentService.getCitythroughStudent(id);
+  }
 }

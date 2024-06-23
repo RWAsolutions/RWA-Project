@@ -116,7 +116,8 @@ export class FormComponent {
           console.log('Response:', response);
           const token = response.accessToken;
           this.cookieService.set('jwt', token);
-          this.router.navigate(['/courses']);
+
+          this.router.navigate(['/home']);
         },
 
         error: () => {

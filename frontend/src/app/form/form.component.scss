@@ -1,4 +1,4 @@
-@import '../../styles/colors.scss';
+@import '../../styles.scss';
 
 .form-wrapper {
   display: flex;
@@ -10,20 +10,6 @@
   .title-container {
     margin-bottom: 20px;
     text-align: center;
-  
-    .title-container-title {
-      font-size: 3em; /* Increase font size for better emphasis */
-      font-weight: bold;
-      background: linear-gradient(90deg, $primary-color, $secondary-color); /* Add a gradient effect */
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
   
     .title-icon {
       font-size: 1.2em; /* Size the icon relative to the text */

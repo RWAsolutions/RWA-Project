@@ -25,6 +25,9 @@ export class ProfesorController {
     @Get('/:id/courses')
     getCourseByProfesor(@Param('id') id: number) {
         return this.profesorService.getCourseByProfesor(id)
-
+    }
+    @Get('/:id/city')
+    getCitythroughProfesor(@Param('id') id: number) {
+        return this.profesorService.getCitythroughProfesor(id);
     }
 }
