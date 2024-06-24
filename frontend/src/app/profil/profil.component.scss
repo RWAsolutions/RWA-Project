@@ -73,12 +73,13 @@
     }
 
     .div5-title {
-      width: 95%;
-      margin: 0 0 0 15px;
+      width: 98%;
       padding-top: 10px;
-      padding-left: 10px;
+      padding-left: 30px;
       padding-bottom: 5px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 2px solid;
+      border-image: linear-gradient(to right, $white-color, rgba(0, 0, 0, 0.1), $white-color);
+      border-image-slice: 1;
     }
 
     .courses-group-container {
@@ -92,6 +93,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 0 15px;
+      position: relative; /* Ensure the container is relatively positioned */
+      border-bottom: 2px solid;
+      border-image: linear-gradient(to right, $white-color, rgba(0, 0, 0, 0.1), $white-color);
+      border-image-slice: 1;
     }
 
     .div5-course {
