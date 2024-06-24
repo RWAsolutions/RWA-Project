@@ -100,7 +100,7 @@ export class HeaderComponent implements OnInit {
   }
 
   profesorsClicked() {
-    if (this.isProfesor) {
+    if (!this.isProfesor) {
       window.open('/profesors', '_blank');
     } else {
       window.open('/students', '_blank');
