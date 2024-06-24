@@ -25,6 +25,7 @@ import { User } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { FilterModule } from './filter/filter.module';
 import { Filter } from './filter/filter.entity';
+import { EmailModule } from './mail/email.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { Filter } from './filter/filter.entity';
     UserModule,
     AuthModule,
     FilterModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

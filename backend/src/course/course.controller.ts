@@ -8,8 +8,6 @@ import { Notification } from 'src/notification/notification.entity';
 import { Profesor } from 'src/profesor/profesor.entity';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/roles/roles.enum';
-import { get } from 'http';
-import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('Courses')
 export class CourseController {
