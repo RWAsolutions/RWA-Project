@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { NotificationService } from './notification.service';
 import { Notification } from './notification.entity';
 import { UpdateNotificationDto } from 'src/dto/update.notification.dto';
@@ -28,7 +28,10 @@ export class NotificationController {
 
     @Post()
     async createNotification(@Body() notification: CreateNotificationDTO): Promise<HttpStatus> {
-        await this.notificationService.createNotification(notification);
+        let newNotification: any = await this.notificationService.createNotification(notification);
+        const notificationID = newNotification[0].notificationID;
+        console.log('newNotification:', notificationID);
+        await this.notificationService.createNotificationUsers(notificationID, notification);
         return HttpStatus.CREATED;
     }
 }

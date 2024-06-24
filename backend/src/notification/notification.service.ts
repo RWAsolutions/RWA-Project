@@ -46,12 +46,33 @@ export class NotificationService {
             `);
     }
 
-    async createNotification(notification: CreateNotificationDTO) {
+    async createNotification(notification: CreateNotificationDTO): Promise<any> {
         await this.manager.query(`
             INSERT INTO 
                 Notification (title, content, courseID, profesorID)
             VALUES 
                 ('${notification.title}', '${notification.content}', ${notification.courseID}, ${notification.profesorID});
+        `);
+        return await this.manager.query(`SELECT LAST_INSERT_ID() as notificationID;`);
+    }
+
+    async createNotificationUsers(notificationID: any, notification: CreateNotificationDTO) {
+
+        // WARN: This query is not correct. It should be fixed.
+
+        await this.manager.query(`
+            INSERT INTO 
+                user_notification (userID, notificationID, isRead)
+            VALUES
+                (${notification.profesorID}, ${notificationID}, 1);
+            WHERE 
+                courseID = ${notification.courseID};
+        `);
+        await this.manager.query(`
+            INSERT INTO 
+                user_notification (userID, notificationID, isRead)
+            VALUES 
+                (${notification.profesorID}, ${notificationID}, 1);
         `);
     }
 }

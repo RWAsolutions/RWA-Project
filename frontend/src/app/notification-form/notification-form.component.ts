@@ -10,6 +10,7 @@ import { CourseListService } from '../services/cache/course-list.service';
 import { CookieService } from 'ngx-cookie-service';
 import { decodeJWT } from '../helpers/decode-jwt';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification-form',
@@ -33,6 +34,7 @@ export class NotificationFormComponent implements OnInit {
     private courseListService: CourseListService,
     private cookieService: CookieService,
     private http: HttpClient,
+    private router: Router,
   ) { }
 
   onSubmit() {
@@ -45,6 +47,7 @@ export class NotificationFormComponent implements OnInit {
         courseID: this.notificationForm.value.course
       }
     ).subscribe();
+    this.router.navigate(['/home']);
   }
 
   ngOnInit(): void {
