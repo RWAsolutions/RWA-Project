@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import { Notification } from './notification.entity';
 import { UpdateNotificationDto } from 'src/dto/update.notification.dto';
+import { CreateNotificationDTO } from './notification.dto';
 
 @Injectable()
 export class NotificationService {
@@ -43,5 +44,14 @@ export class NotificationService {
             WHERE 
                 notificationID = ${updateNotificationDto.notificationID} AND userID = ${updateNotificationDto.userID};
             `);
+    }
+
+    async createNotification(notification: CreateNotificationDTO) {
+        await this.manager.query(`
+            INSERT INTO 
+                Notification (title, content, courseID, profesorID)
+            VALUES 
+                ('${notification.title}', '${notification.content}', ${notification.courseID}, ${notification.profesorID});
+        `);
     }
 }

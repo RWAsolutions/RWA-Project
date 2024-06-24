@@ -1,6 +1,6 @@
 <div class="container">
   <mat-card class="notification-card">
-    <form [formGroup]="notificationForm" class="notification-form">
+    <form [formGroup]="notificationForm" class="notification-form" (submit)="onSubmit()">
       <div class="form-field">
         <mat-form-field appearance="fill">
           <mat-label>Title</mat-label>
@@ -17,7 +17,7 @@
 
       <mat-form-field>
         <mat-label>Choose course</mat-label>
-        <mat-select>
+        <mat-select formControlName="course">
           @for (course of courses; track course) {
           <mat-option value="{{ course.courseID }}">{{ course.courseName }}</mat-option>
           }
