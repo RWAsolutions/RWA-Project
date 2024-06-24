@@ -17,8 +17,7 @@ import { SettingsComponent } from './settings/settings.component';
 export const routes: Routes = [
   { path: 'login', component: FormComponent },
   { path: '', component: FormComponent },
-  { path: 'courses', component: CoursesCatalogComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: CoursesCatalogComponent },
   { path: 'ocjene', component: OcjeneComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'settings', component: SettingsComponent },

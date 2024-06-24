@@ -9,13 +9,42 @@
 
 .notification-item {
   cursor: pointer;
+}
 
-  p {
-    margin-left: 30px;
-    margin-right: 30px;
-  }
+.notification-item p {
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   border: 1px solid #e0e0e0;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.button {
+  border-radius: 0;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+}
+
+.title {
+  font-size: 25px;
+  text-align: center;
+  margin-left: 30px;
 }

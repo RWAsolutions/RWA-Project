@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { decodeJWT } from '../helpers/decode-jwt';
 import { MatDividerModule } from '@angular/material/divider';
@@ -8,19 +8,17 @@ import { Router } from '@angular/router';
 import { Notification } from '../entites/notification.entity';
 import { NotificationService } from '../services/notification.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [MatDividerModule, MatRippleModule, MatButtonModule, MatIconModule],
+  imports: [MatDividerModule, MatRippleModule, MatButtonModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss',
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router,
-    private notificationService: NotificationService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private notificationService: NotificationService) { }
 
   notifications: Notification[] = [];
 
@@ -44,7 +42,6 @@ export class NotificationsComponent implements OnInit {
       });
     }
   }
-
   event(notification: Notification) {
 
     if (notification.isRead === 0) {
@@ -56,25 +53,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   markAllAsReadClicked() {
-    this.notifications.forEach((notification) => {
-      if (notification.isRead === 0) {
-        let updateNotificationDto = { isRead: 1, notificationID: notification.notificationID, userID: this.jwtPayload.userID };
-        this.http.patch(`http://localhost:3000/notifications`, updateNotificationDto).subscribe();
-        notification.isRead = 1;
-      }
-    });
-  }
-
-  addNewNotificationClicked() {
-    console.log('add new notification clicked');
-    this.router.navigate(['/add-notification']);
-  }
-
-  profesorLogged(): boolean {
-    return this.jwtPayload.profesorID !== undefined && this.jwtPayload.profesorID !== null;
+    console.log('markAllAsReadClicked');
+    this.http.patch(`http://localhost:3000/students/245/notifications/read`, { userID: this.jwtPayload.userID }).subscribe();
   }
 
 }
-
-
 
