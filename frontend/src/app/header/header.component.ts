@@ -85,12 +85,12 @@ export class HeaderComponent implements OnInit {
     // implemmentiraj ovdje metodu za redirect prema stranici o studiju ovisno o tipu studija koji korisnik pohada
   }
 
-  ocjeneClicked() {
-    this.router.navigate(['/ocjene']);
+  profesorsClicked() {
+    this.router.navigate(['/profesors']);
   }
 
   profilClicked() {
-    this.router.navigate(['/profil']);
+    this.router.navigate(['/profile']);
   }
 
   odjavaClicked() {
