@@ -5,50 +5,71 @@
     <h1>Profil</h1>
   </div>
   <div class="parent">
-    <mat-card appearance="outlined" class="div1">
-      <mat-icon class="icon">account_circle</mat-icon>
-      <div class="margin-left-15">
-        <mat-card-title>{{ user.lastName }}</mat-card-title>
-        <mat-card-subtitle>{{ user.firstName }}</mat-card-subtitle>
-      </div>
-    </mat-card>
+    <div class="flex-row">
+      <mat-card appearance="outlined" class="div1 ">
+        <mat-icon class="icon">account_circle</mat-icon>
+        <div class="text-container">
+          <mat-card-title>{{ user.lastName }}</mat-card-title>
+          <mat-card-subtitle>{{ user.firstName }}</mat-card-subtitle>
+        </div>
+      </mat-card>
 
-    <mat-card appearance="outlined" class="div2 flex-column-start-center">
-      <div class="margin-left-15">
-        <mat-card-title>{{ user.email }}</mat-card-title>
-        <mat-card-subtitle *ngIf="user.studentID">{{
-          "Identifikacijski broj: " + user.studentID
-        }}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="user.profesorID">{{
-          "Identifikacijski broj: " + user.profesorID
-        }}</mat-card-subtitle>
-      </div>
-    </mat-card>
+      <mat-card appearance="outlined" class="div2 flex-column-start-center">
+        <div class="margin-left-15">
+          <mat-card-title>{{ user.email }}</mat-card-title>
+          <mat-card-subtitle *ngIf="user.studentID">{{
+            "Identifikacijski broj: " + user.studentID
+          }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="user.profesorID">{{
+            "Identifikacijski broj: " + user.profesorID
+          }}</mat-card-subtitle>
+        </div>
+      </mat-card>
+    </div>
 
-    <mat-card appearance="outlined" class="div3 flex-column-start-center">
-      <div class="margin-left-15">
-        <mat-card-title>datum rođenja:</mat-card-title>
-        <mat-card-subtitle>{{ user.dateOfBirth }}</mat-card-subtitle>
-      </div>
-    </mat-card>
+    <div class="flex-row">
+      <mat-card appearance="outlined" class="div3 flex-column-start-center">
+        <div class="margin-left-15">
+          <mat-card-title>datum rođenja:</mat-card-title>
+          <mat-card-subtitle>{{ user.dateOfBirth }}</mat-card-subtitle>
+        </div>
+      </mat-card>
 
-    <mat-card appearance="outlined" class="div4 flex-column-start-center">
-      <div class="margin-left-15">
-        <mat-card-title>Mjesto:</mat-card-title>
-        <mat-card-subtitle>{{ user.address }}</mat-card-subtitle>
-        <mat-card-subtitle>{{
-          user.postNumber + ", " + user.city
-        }}</mat-card-subtitle>
-      </div>
-    </mat-card>
+      <mat-card appearance="outlined" class="div4 flex-column-start-center">
+        <div class="margin-left-15">
+          <mat-card-title>Mjesto:</mat-card-title>
+          <mat-card-subtitle>{{ user.address }}</mat-card-subtitle>
+          <mat-card-subtitle>{{
+            user.postNumber + ", " + user.city
+          }}</mat-card-subtitle>
+        </div>
+      </mat-card>
+    </div>
 
-    <mat-card appearance="outlined" class="div5 flex-column-start-center">
+    <mat-card appearance="outlined" class="div5">
       <mat-card-title class="div5-title">Kolegiji:</mat-card-title>
-      @for (course of user.courses; track course.courseID) {
-        <div class="margin-left-15 flex-wrap">
-          <mat-card-content class="div5-course">{{ course.courseName }}</mat-card-content>
+      <div class="courses-group-container">
+        @for (course of user.courses; track course.courseID) {
+        <div class="course-container">
+          <mat-card-content class="div5-course">{{
+            course.courseName
+          }}</mat-card-content>
           <button mat-icon-button class="div5-button">detalji</button>
-        </div>}
+        </div>
+        <div class="course-container">
+          <mat-card-content class="div5-course">{{
+            course.courseName
+          }}</mat-card-content>
+          <button mat-icon-button class="div5-button">detalji</button>
+        </div>
+        <div class="course-container">
+          <mat-card-content class="div5-course">{{
+            course.courseName
+          }}</mat-card-content>
+          <button mat-icon-button class="div5-button">detalji</button>
+        </div>
+        }
+      </div>
     </mat-card>
   </div>
 </div>
