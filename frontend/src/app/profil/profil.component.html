@@ -43,23 +43,12 @@
     </mat-card>
 
     <mat-card appearance="outlined" class="div5 flex-column-start-center">
-      <!-- Ovdje treba generirati sve courses od tog nekog -->
-      <div class="div5-container">
-        <div class="margin-left-15 container-card">
-          <mat-card-content>Predmet 1</mat-card-content>
-          <mat-card-content>Predmet 2</mat-card-content>
-          <mat-card-content>Predmet 3</mat-card-content>
-          <mat-card-content>Predmet 4</mat-card-content>
-          <mat-card-content>Predmet 5</mat-card-content>
-        </div>
-        <div class="container-card">
-          <mat-card-content>Predmet 6</mat-card-content>
-          <mat-card-content>Predmet 7</mat-card-content>
-          <mat-card-content>Predmet 8</mat-card-content>
-          <mat-card-content>Predmet 9</mat-card-content>
-          <mat-card-content>Predmet 10</mat-card-content>
-        </div>
-      </div>
+      <mat-card-title class="div5-title">Kolegiji:</mat-card-title>
+      @for (course of user.courses; track course.courseID) {
+        <div class="margin-left-15 flex-wrap">
+          <mat-card-content class="div5-course">{{ course.courseName }}</mat-card-content>
+          <button mat-icon-button class="div5-button">detalji</button>
+        </div>}
     </mat-card>
   </div>
 </div>

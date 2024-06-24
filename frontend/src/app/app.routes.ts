@@ -21,8 +21,9 @@ export const routes: Routes = [
   { path: 'profile', component: ProfilComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'studomat', component: StudomatComponent },
-  { path: 'my_study', component: MyStudyComponent},
+  { path: 'my-study', component: MyStudyComponent},
   { path: 'profesors', component: ProfessorComponent},
+  { path: 'students', component: ProfessorComponent},
   { path: 'studies', component: StudiesComponent },
   // { path: 'password-reset', component: PasswordResetComponent}
   { path: 'user', component: UserInfoComponent },

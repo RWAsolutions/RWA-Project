@@ -1,12 +1,24 @@
 <header class="container">
   <nav class="left-side">
-    <button mat-icon-button class="icon-border" (click)="homeClicked()">
+    <button
+      mat-icon-button
+      class="icon-border icon-color"
+      (click)="homeClicked()"
+    >
       <mat-icon>home</mat-icon>
     </button>
-    <button mat-icon-button class="icon-border" (click)="testsClicked()">
+    <button
+      mat-icon-button
+      class="icon-border icon-color"
+      (click)="testsClicked()"
+    >
       <mat-icon>history_edu</mat-icon>
     </button>
-    <button mat-icon-button class="icon-border" (click)="myStudyClicked()">
+    <button
+      mat-icon-button
+      class="icon-border icon-color"
+      (click)="myStudyClicked()"
+    >
       <mat-icon>school</mat-icon>
     </button>
   </nav>
@@ -23,6 +35,7 @@
               [placeholder]="isInputFocused ? 'search...' : ''"
               (focus)="searchFocused()"
               (blur)="searchBlurred()"
+              (input)="onSearchInput($event)"
             />
             <a (click)="searchClicked()">
               <fa-icon
@@ -36,16 +49,21 @@
       </div>
       <button
         mat-icon-button
-        class="icon-border"
-        *ngIf="!isProfesor"
+        class="icon-border icon-color"
+        *ngIf="isProfesor"
         (click)="editClicked()"
+        [ngClass]="{ 'icon-border': !isEditMode }"
         [ngStyle]="{ 'background-color': isEditMode ? '#0c5a86ce' : '' }"
       >
         <mat-icon [ngStyle]="{ color: isEditMode ? '#a0a4aa' : '' }">{{
           isEditMode ? "draw" : "edit"
         }}</mat-icon>
       </button>
-      <button mat-icon-button class="icon-border" (click)="settingsClicked()">
+      <button
+        mat-icon-button
+        class="icon-border icon-color"
+        (click)="settingsClicked()"
+      >
         <mat-icon>settings</mat-icon>
       </button>
     </nav>
@@ -54,13 +72,19 @@
         <mat-icon class="profile-picture">account_circle</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="profesorsClicked()">
-          <span>Profesori</span>
+        <button 
+        mat-menu-item 
+        (click)="profesorsClicked()">
+          <span>{{ isProfesor ? 'Studenti' : 'Profesori' }}</span>
         </button>
         <button mat-menu-item (click)="profilClicked()">
           <span>Profil</span>
         </button>
-        <button mat-menu-item (click)="odjavaClicked()">
+        <button
+          mat-menu-item
+          (click)="odjavaClicked()"
+          (click)="clearCookies()"
+        >
           <span>Odjava</span>
         </button>
       </mat-menu>

@@ -90,7 +90,7 @@ export class CoursesCatalogComponent implements OnInit{
     this.filterService.getFilters().subscribe({
       next: (response: FilterDto[]) => {
         this.filters = response;
-        console.log(this.filters);
+        //console.log(this.filters);
         
       },
       error: (error) => {
@@ -101,15 +101,15 @@ export class CoursesCatalogComponent implements OnInit{
 
   onFilterSelected(event: MatSelectChange) {
     const selectedFilter = event.value;
-    console.log('Selected filter: ', selectedFilter);
+    //console.log('Selected filter: ', selectedFilter);
     
     
-    console.log('Before sort [ ', this.courses, ' ]');
+    //console.log('Before sort [ ', this.courses, ' ]');
     
 
     this.filterService.activateFilter(this.courses ,this.payload.studentID, selectedFilter).subscribe(sortedCourses => {
       this.courses = sortedCourses
-      console.log('After sort [ ', this.courses, ' ]');
+      //console.log('After sort [ ', this.courses, ' ]');
     })
       
   }

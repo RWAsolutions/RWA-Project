@@ -64,6 +64,16 @@
 
     .div5 {
       grid-area: 3 / 2 / 5 / 4;
+      padding-bottom: 10px;
+
+      .div5-title {
+        width: 95%;
+        margin: 0px 0px 0px 15px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      }
 
       .div5-container {
         width: 100%;
@@ -73,13 +83,43 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+      }
 
-        .container-card {
-          width: 50%;
+      .flex-wrap {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
 
-          mat-card-content {
-            padding: 5px;
-          }
+      .div5-course {
+        padding-bottom: 16px;
+        font-weight: 400;
+      }
+
+      .div5-button {
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border: 2px solid $primary-color;
+        border-radius: 25px;
+        color: $primary-color;
+        background-color: white;
+        cursor: pointer;
+        outline: none;
+
+        &:hover {
+          background-color: $primary-color;
+          color: white;
+          transition: background-color 0.3s, color 0.3s;
+        }
+
+        &:active {
+          transform: translateY(1px);
         }
       }
     }

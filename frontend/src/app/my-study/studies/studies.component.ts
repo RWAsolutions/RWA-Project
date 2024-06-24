@@ -33,7 +33,7 @@ export class StudiesComponent {
     this.getStudies().subscribe(
       (data) => {
         this.studies = data;
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         console.error('Error fetching studies', error);

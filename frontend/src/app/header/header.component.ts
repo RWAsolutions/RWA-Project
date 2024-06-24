@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
-import { faMagnifyingGlass, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -24,17 +21,15 @@ import { CookieService } from 'ngx-cookie-service';
     CommonModule,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
   providers: [CookieService],
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('animatedInput') animatedInput: any;
-
   isInputFocused: boolean = false;
-
   isProfesor: boolean = false;
-
   isEditMode: boolean = false;
+  searchTerm: string = '';
 
   constructor(
     library: FaIconLibrary,
@@ -46,14 +41,28 @@ export class HeaderComponent implements OnInit {
 
   editClicked(): void {
     this.isEditMode = !this.isEditMode;
-    console.log('Edit mode:', this.isEditMode ? 'On' : 'Off');
+    //console.log('Edit mode:', this.isEditMode ? 'On' : 'Off');
   }
 
   ngOnInit(): void {
-    const role = this.cookieService.get('role');
-    if (role === 'profesor') {
+    const role = this.cookieService.get('jwt');
+    const jwtPayload = this.decodeJWT(role);
+    if (jwtPayload.role === 'profesor') {
       this.isProfesor = true;
     }
+  }
+
+  private decodeJWT(token: string): any {
+    const payload = token.split('.')[1];
+    let decodedPayload: any = {};
+    try {
+      decodedPayload = JSON.parse(atob(payload));
+    } catch (e) {
+      console.log('Invalid JWT token');
+      decodedPayload.studentID = -1;
+      decodedPayload.profesorID = -1;
+    }
+    return decodedPayload;
   }
 
   searchClicked() {
@@ -69,6 +78,13 @@ export class HeaderComponent implements OnInit {
   searchBlurred() {
     this.isInputFocused = false;
     this.animatedInput.nativeElement.value = '';
+    this.searchTerm = '';
+  }
+
+  onSearchInput(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm = target.value;
+    console.log(this.searchTerm);
   }
 
   homeClicked() {
@@ -76,17 +92,19 @@ export class HeaderComponent implements OnInit {
   }
 
   myStudyClicked() {
-    // ova metoda redirecta prema /tests u kojem se nalaze elementi izvedeni iz studomata
-    console.log('MyStudy clicked');
+    window.open('/my-study', '_blank');
   }
 
   testsClicked() {
     this.router.navigate(['/tests']);
-    // implemmentiraj ovdje metodu za redirect prema stranici o studiju ovisno o tipu studija koji korisnik pohada
   }
 
   profesorsClicked() {
-    this.router.navigate(['/profesors']);
+    if (this.isProfesor) {
+      window.open('/profesors', '_blank');
+    } else {
+      window.open('/students', '_blank');
+    }
   }
 
   profilClicked() {
@@ -99,5 +117,9 @@ export class HeaderComponent implements OnInit {
 
   settingsClicked() {
     this.router.navigate(['/settings']);
+  }
+
+  clearCookies() {
+    this.cookieService.deleteAll();
   }
 }
