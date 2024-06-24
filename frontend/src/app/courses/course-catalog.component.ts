@@ -6,18 +6,19 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { CourseService } from '../services/course/course.service';
 import { CommonModule } from '@angular/common';
 import { CourseDto } from '../services/course/course.dto';
-import {MatSelectChange, MatSelectModule} from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { FilterService } from '../services/filter/filter.service';
 import { FilterDto } from '../services/filter/filter.dto';
+import { CourseListService } from '../services/cache/course-list.service';
 
 
 @Component({
   selector: 'grid-list-overview-example',
   standalone: true,
   imports: [
-    MatGridListModule, 
-    ReactiveFormsModule, 
-    MatInputModule, 
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatFormFieldModule,
     CommonModule,
     FormsModule,
@@ -29,22 +30,23 @@ import { FilterDto } from '../services/filter/filter.dto';
 })
 
 
-export class CoursesCatalogComponent implements OnInit{
+export class CoursesCatalogComponent implements OnInit {
 
   courses: CourseDto[] = []
   backupCourses: CourseDto[] = []
 
   filters: FilterDto[] = []
-  
-  info: any[] = []  
+
+  info: any[] = []
 
   payload: any
   id: any
 
   constructor(
-    private courseService: CourseService, 
+    private courseService: CourseService,
     private filterService: FilterService,
-  ){}
+    private courseListService: CourseListService,
+  ) { }
 
 
   ngOnInit(): void {
@@ -54,13 +56,14 @@ export class CoursesCatalogComponent implements OnInit{
   }
 
 
-  
+
   getCourses() {
     if (this.id) {
       this.courseService.getCourses(this.id).subscribe({
         next: (response) => {
           // console.log('Response for the courses has been received');
           this.courses = response;
+          this.courseListService.setData(response);
           // console.log(this.courses);
           //* this line of code is used to backup all the retrieved courses from the database for search purposes
           this.backupCourses = this.courses;
@@ -79,10 +82,10 @@ export class CoursesCatalogComponent implements OnInit{
     this.payload = this.courseService.getDecodedJwtPayload()
 
     if (!this.payload) {
-      console.error('Invalid or missing JWT payload');  
+      console.error('Invalid or missing JWT payload');
     } else {
-      this.id = {studentID: this.payload.studentID, profesorID: this.payload.profesorID}
-    }   
+      this.id = { studentID: this.payload.studentID, profesorID: this.payload.profesorID }
+    }
   }
 
 
@@ -91,7 +94,7 @@ export class CoursesCatalogComponent implements OnInit{
       next: (response: FilterDto[]) => {
         this.filters = response;
         console.log(this.filters);
-        
+
       },
       error: (error) => {
         console.error('Error fetching filters:', error);
@@ -102,26 +105,26 @@ export class CoursesCatalogComponent implements OnInit{
   onFilterSelected(event: MatSelectChange) {
     const selectedFilter = event.value;
     console.log('Selected filter: ', selectedFilter);
-    
-    
-    console.log('Before sort [ ', this.courses, ' ]');
-    
 
-    this.filterService.activateFilter(this.courses ,this.payload.studentID, selectedFilter).subscribe(sortedCourses => {
+
+    console.log('Before sort [ ', this.courses, ' ]');
+
+
+    this.filterService.activateFilter(this.courses, this.payload.studentID, selectedFilter).subscribe(sortedCourses => {
       this.courses = sortedCourses
       console.log('After sort [ ', this.courses, ' ]');
     })
-      
+
   }
 
   onSearch(searchValue: string) {
     // console.log('Search value:', searchValue);
-    
-    if(searchValue.trim() !== '') {
-        this.courses = this.backupCourses.filter(course => {
-          return course.courseName.toLowerCase().includes(searchValue.trim().toLowerCase())
-        })
-        
+
+    if (searchValue.trim() !== '') {
+      this.courses = this.backupCourses.filter(course => {
+        return course.courseName.toLowerCase().includes(searchValue.trim().toLowerCase())
+      })
+
     } else {
       this.courses = [...this.backupCourses]
     }

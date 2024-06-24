@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { decodeJWT } from '../helpers/decode-jwt';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Notification } from '../entites/notification.entity';
-import { NotificationService } from '../services/notification.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NotificationService } from '../services/cache/notification.service';
 
 @Component({
   selector: 'app-notifications',
