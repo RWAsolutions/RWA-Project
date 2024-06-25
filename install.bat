@@ -1,29 +1,27 @@
 @echo off
+REM Store the current directory
+set CURRENT_DIR=%cd%
 
-REM Change to the frontend directory and install dependencies
-echo Installing dependencies in ./frontend...
-cd frontend
-IF %ERRORLEVEL% NEQ 0 (
-    echo Failed to navigate to ./frontend directory
-    exit /b 1
-)
+REM Navigate to the 'frontend' directory and install npm packages
+echo Installing frontend dependencies...
+cd %CURRENT_DIR%\frontend
 npm install
-IF %ERRORLEVEL% NEQ 0 (
-    echo npm install failed in ./frontend
+if errorlevel 1 (
+    echo Failed to install frontend dependencies.
+    pause
     exit /b 1
 )
 
-REM Change to the backend directory and install dependencies
-echo Installing dependencies in ./backend...
-cd ..\backend
-IF %ERRORLEVEL% NEQ 0 (
-    echo Failed to navigate to ./backend directory
-    exit /b 1
-)
+REM Navigate to the 'backend' directory and install npm packages
+echo Installing backend dependencies...
+cd %CURRENT_DIR%\backend
 npm install
-IF %ERRORLEVEL% NEQ 0 (
-    echo npm install failed in ./backend
+if errorlevel 1 (
+    echo Failed to install backend dependencies.
+    pause
     exit /b 1
 )
 
-echo Dependencies installed successfully in both ./frontend and ./backend
+echo All dependencies installed successfully.
+pause
+exit /b 0
