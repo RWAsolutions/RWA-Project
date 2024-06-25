@@ -2,7 +2,7 @@
 
 <div class="main">
   <div class="title">
-    <h1>Profil</h1>
+    <h1>Profile</h1>
   </div>
   <div class="parent">
     <div class="flex-row">
@@ -18,10 +18,10 @@
         <div class="margin-left-15">
           <mat-card-title>{{ user.email }}</mat-card-title>
           <mat-card-subtitle *ngIf="user.studentID">{{
-            "Identifikacijski broj: " + user.studentID
+            "Identification number: " + user.studentID
           }}</mat-card-subtitle>
           <mat-card-subtitle *ngIf="user.profesorID">{{
-            "Identifikacijski broj: " + user.profesorID
+            "Identification number: " + user.profesorID
           }}</mat-card-subtitle>
         </div>
       </mat-card>
@@ -30,14 +30,14 @@
     <div class="flex-row">
       <mat-card appearance="outlined" class="div3 flex-column-start-center">
         <div class="margin-left-15">
-          <mat-card-title>datum rođenja:</mat-card-title>
+          <mat-card-title>date of birth:</mat-card-title>
           <mat-card-subtitle>{{ user.dateOfBirth }}</mat-card-subtitle>
         </div>
       </mat-card>
 
       <mat-card appearance="outlined" class="div4 flex-column-start-center">
         <div class="margin-left-15">
-          <mat-card-title>Mjesto:</mat-card-title>
+          <mat-card-title>Address:</mat-card-title>
           <mat-card-subtitle>{{ user.address }}</mat-card-subtitle>
           <mat-card-subtitle>{{
             user.postNumber + ", " + user.city
@@ -47,7 +47,7 @@
     </div>
 
     <mat-card appearance="outlined" class="div5">
-      <mat-card-title class="div5-title">Kolegiji:</mat-card-title>
+      <mat-card-title class="div5-title">Courses</mat-card-title>
       <div class="courses-group-container">
         @for (course of user.courses; track course.courseID) {
         <div class="course-container">
