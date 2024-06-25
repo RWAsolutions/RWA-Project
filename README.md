@@ -37,12 +37,12 @@ sh ./run.sh
 #### Manual
 2. Setting up the backend
 ```
-cd ./backend | npm install
+cd ./backend; npm install
 nest start --watch
 ```
 3. Setting up the frontend
 ```
-cd ./frontend | npm install
+cd ./frontend; npm install
 ng serve --watch
 ```
 ### Windows
