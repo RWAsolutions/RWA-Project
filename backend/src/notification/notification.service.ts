@@ -60,19 +60,15 @@ export class NotificationService {
 
         // WARN: This query is not correct. It should be fixed.
 
-        await this.manager.query(`
-            INSERT INTO 
-                user_notification (userID, notificationID, isRead)
-            VALUES
-                (${notification.profesorID}, ${notificationID}, 1);
-            WHERE 
-                courseID = ${notification.courseID};
-        `);
-        await this.manager.query(`
-            INSERT INTO 
-                user_notification (userID, notificationID, isRead)
-            VALUES 
-                (${notification.profesorID}, ${notificationID}, 1);
-        `);
+        let value = await this.manager.query(`select studentID from student_course where courseID=${notification.courseID};`);
+        value.forEach(async element => {
+            console.log('element:', element.studentID)
+            await this.manager.query(`
+                INSERT INTO 
+                    user_notification (userID, notificationID, isRead)
+                VALUES 
+                    (${element.studentID}, ${notificationID}, 0);
+            `);
+        });
     }
 }
