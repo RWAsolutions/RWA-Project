@@ -28,7 +28,7 @@ export class FilterService {
         
     }
 
-activateFilter(courses: CourseDto[], id: number, selectedFilter: FilterDto): Observable<CourseDto[]> {
+    activateFilter(courses: CourseDto[], id: number, selectedFilter: FilterDto): Observable<CourseDto[]> {
     
         return this.http.get<InfoDto[]>(`http://localhost:3000/courses/${id}/course-semester-info`).pipe(
             map((info: InfoDto[]) => {
@@ -43,16 +43,24 @@ activateFilter(courses: CourseDto[], id: number, selectedFilter: FilterDto): Obs
     sortCoursesBySemester(courses: CourseDto[], info: InfoDto[], selectedFilter: FilterDto): CourseDto[] {
 
         const infoMap = new Map<number,number>()
+        
         info.forEach(item => {
             infoMap.set(item.courseID,item.semester.semesterOrdinalNumber)
         })
 
+        //* attaching the semester ordinal number for each course
+        courses.forEach(course => {
+            return course.semesterOrdinalNumber = infoMap.get(course.courseID) || 0
+        })
+
         const sortedCourses = sortData.sortBy(courses,  course => {
-            const sortKey = infoMap.get(course.courseID) || 0
+            const sortKey = course.semesterOrdinalNumber || 0
             return selectedFilter.filterID === 1 ? sortKey : -sortKey
         })
         
+        console.log('These are the sorted courses:', sortedCourses);
         
+
         return sortedCourses
     }
 }

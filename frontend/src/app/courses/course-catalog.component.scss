@@ -131,7 +131,15 @@ body {
 
 .banner {
   display: flex;
-  background-color: #00b8f8;
+  background-color: #0078bd; 
   justify-content: center;
+  align-items: center;
   width: 100%;
+  padding: 0.5rem; 
+  color: #ffffff; 
+  font-size: 1rem; 
+  font-weight: 700; 
+  border-radius: -1 0 1rem 1rem; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-transform: uppercase; 
 }
