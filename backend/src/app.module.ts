@@ -25,6 +25,8 @@ import { User } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { FilterModule } from './filter/filter.module';
 import { Filter } from './filter/filter.entity';
+import { ReplyController } from './reply/reply.controller';
+import { ReplyService } from './reply/reply.service';
 
 @Module({
   imports: [
@@ -53,7 +55,7 @@ import { Filter } from './filter/filter.entity';
     AuthModule,
     FilterModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ReplyController],
+  providers: [AppService, ReplyService],
 })
-export class AppModule {}
+export class AppModule { }

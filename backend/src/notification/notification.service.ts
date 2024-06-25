@@ -71,4 +71,30 @@ export class NotificationService {
             `);
         });
     }
+
+    getRepliesByNotificationID(id: number): any {
+        // return this.manager.query(`SELECT * FROM Reply WHERE notificationID = ${id}`)
+        return this.manager.query(`
+            SELECT 
+                Reply.userID, 
+                Reply.notificationID, 
+                Reply.content, 
+                Reply.dateAdded, 
+                Student.studentName, 
+                Student.studentSurname, 
+                Profesor.profesorName, 
+                Profesor.profesorSurname 
+            FROM 
+                Reply 
+            LEFT JOIN 
+                User ON Reply.userID = User.userID 
+            LEFT JOIN 
+                Student ON User.studentID = Student.studentID 
+            LEFT JOIN 
+                Profesor ON User.profesorID = Profesor.profesorID 
+            WHERE 
+                Reply.notificationID = ${id};
+        `)
+    }
+
 }

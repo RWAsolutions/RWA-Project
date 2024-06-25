@@ -34,4 +34,9 @@ export class NotificationController {
         await this.notificationService.createNotificationUsers(notificationID, notification);
         return HttpStatus.CREATED;
     }
+
+    @Get(':id/replies')
+    async getRepliesByNotificationID(@Param('id') id: number): Promise<any> {
+        return await this.notificationService.getRepliesByNotificationID(id);
+    }
 }

@@ -7,6 +7,7 @@ import { Notification } from "../../entites/notification.entity";
 export class NotificationService {
 
   notification: Notification | any = {
+    notificationID: -1,
     title: 'Notification Title',
     content: 'Notification Content',
     isRead: 0,

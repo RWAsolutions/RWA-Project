@@ -3,3 +3,36 @@
 <p> {{ notification.content }} </p>
 
 <p> Made by: {{ notification.profesorName }} {{ notification.profesorSurname }}</p>
+
+@for (reply of replies; track reply) {
+<!-- <p> {{ reply.dateAdded }} </p> -->
+<!-- <p> {{ reply.content }} </p> -->
+<!-- <p> {{ reply.studentName }} </p> -->
+<!-- <p> {{ reply.studentSurname }} </p> -->
+<!-- <p> {{ reply.profesorName }} </p> -->
+<!-- <p> {{ reply.profesorSurname }} </p> -->
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>{{ reply.studentName }}{{ reply.profesorName}} {{ reply.studentSurname }}{{
+        reply.profesorSurname}}</mat-card-title>
+      <mat-card-subtitle>{{ reply.dateAdded }}</mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    {{ reply.content }}
+  </mat-card-content>
+</mat-card>
+}
+
+<!-- <mat-card appearance="outlined"> -->
+<!--   <mat-card-header> -->
+<!--     <mat-card-title-group> -->
+<!--       <mat-card-title>{{ reply.studentName }}{{ reply.profesorName}} {{ reply.studentSurname }}{{ reply.profesorSurname}}</mat-card-title> -->
+<!--       <mat-card-subtitle>{{ reply.dateAdded }}</mat-card-subtitle> -->
+<!--     </mat-card-title-group> -->
+<!--   </mat-card-header> -->
+<!--   <mat-card-content> -->
+<!--     {{ reply.content }} -->
+<!--   </mat-card-content> -->
+<!-- </mat-card> -->
