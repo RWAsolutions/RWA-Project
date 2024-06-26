@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { decodeJWT } from '../helpers/decode-jwt';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification-details',
@@ -38,7 +39,9 @@ export class NotificationDetailsComponent implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private http: HttpClient,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -93,7 +96,20 @@ export class NotificationDetailsComponent implements OnInit {
     ).subscribe((reply: any) => {
       console.log('reply added to base', reply);
       this.isButtonVisible = true;
-      this.replies.push(reply);
+      this.replyContent = '';
+      this.replies.push({
+        content: this.replyContent, userID: payload.userID,
+        notificationID: this.notification.notificationID, dateAdded: dateCurrent
+      });
+      // TODO: sort here
+      this.replies.sort((a: any, b: any) => {
+        const dateA = new Date(a.dateAdded);
+        const dateB = new Date(b.dateAdded);
+        return dateB.getTime() - dateA.getTime();
+      });
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/notification']);
+      });
     });
   }
 
