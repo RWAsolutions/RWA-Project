@@ -26,8 +26,8 @@
     <button class="buttonAdd" (click)="addReply()">Add reply</button>
     } @else {
     <div class="what">
-      <textarea matInput class="add-reply-area"></textarea>
-      <button mat-stroked-button>Reply</button>
+      <textarea matInput class="add-reply-area" [(ngModel)]="replyContent"></textarea>
+      <button mat-stroked-button (click)="addReplyForReal()">Reply</button>
     </div>
     }
     @for (reply of replies; track reply) {

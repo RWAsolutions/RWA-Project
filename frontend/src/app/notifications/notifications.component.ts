@@ -47,12 +47,16 @@ export class NotificationsComponent implements OnInit {
 
   event(notification: Notification) {
 
+    console.log('notification clicked', notification);
+
     if (notification.isRead === 0) {
       let updateNotificationDto = { isRead: 1, notificationID: notification.notificationID, userID: this.jwtPayload.userID };
       this.http.patch(`http://localhost:3000/notifications`, updateNotificationDto).subscribe();
     }
-    this.router.navigate(['/notification']);
     this.notificationService.setData(notification);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/notification']);
+    });
   }
 
   markAllAsReadClicked() {

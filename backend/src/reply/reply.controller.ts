@@ -1,6 +1,5 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ReplyService } from './reply.service';
-import { EntityManager } from 'typeorm';
 
 @Controller('replies')
 export class ReplyController {
@@ -11,4 +10,10 @@ export class ReplyController {
   async getReplies(): Promise<any> {
     return await this.replyService.getReplies();
   }
+
+  @Post()
+  async createReply(@Body() data: any): Promise<any> {
+    return await this.replyService.createReply(data);
+  }
 }
+

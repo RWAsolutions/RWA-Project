@@ -6,11 +6,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { decodeJWT } from '../helpers/decode-jwt';
 
 @Component({
   selector: 'app-notification-details',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule, CommonModule, FormsModule],
   templateUrl: './notification-details.component.html',
   styleUrl: './notification-details.component.scss',
 })
@@ -29,9 +33,16 @@ export class NotificationDetailsComponent implements OnInit {
 
   isButtonVisible: boolean = true;
 
-  constructor(private notificationService: NotificationService, private http: HttpClient) { }
+  replyContent: string = '';
+
+  constructor(
+    private notificationService: NotificationService,
+    private http: HttpClient,
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
+
+    console.log('notification', this.notification);
 
     this.notification = this.notificationService.getData();
 
@@ -67,4 +78,33 @@ export class NotificationDetailsComponent implements OnInit {
     return this.isButtonVisible;
   }
 
+  addReplyForReal() {
+
+    let dateCurrent: string = this.getCurrentDate()
+
+    console.log('add reply for real', this.replyContent);
+    let token = this.cookieService.get('jwt');
+    let payload = decodeJWT(token);
+    this.http.post(`http://localhost:3000/replies`,
+      {
+        content: this.replyContent, userID: payload.userID,
+        notificationID: this.notification.notificationID, dateAdded: dateCurrent
+      }
+    ).subscribe((reply: any) => {
+      console.log('reply added to base', reply);
+      this.isButtonVisible = true;
+      this.replies.push(reply);
+    });
+  }
+
+  getCurrentDate() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+    let hours = date.getHours().toString().padStart(2, '0');
+    let minutes = date.getMinutes().toString().padStart(2, '0');
+    let seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
 }
