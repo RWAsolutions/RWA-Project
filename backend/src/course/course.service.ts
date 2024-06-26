@@ -91,4 +91,23 @@ export class CourseService {
         .select(['course.courseID', 'semester.semesterID', 'semester.semesterOrdinalNumber'])
         .getMany();
     }
+
+    async getStudentCourseInfo(studentID: number, courseID: number) {
+        return await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoinAndSelect('student_course','sc','sc.courseID = course.courseID')
+        .innerJoinAndSelect('course.semester', 'semester')
+        .innerJoin('semester.study', 'study')
+        .select([
+            'sc.dateOfEnrollment AS dateOfEnrollment',
+            'course.courseID AS courseID',
+            'semester.semesterID AS semesterID',
+            'study.studyID AS studyID',
+            'study.studyName AS studyName',
+        ])
+        .where(
+            'sc.studentID = :studentID AND sc.courseID = :courseID', { studentID, courseID },
+        )
+        .getRawOne()
+    }
 }

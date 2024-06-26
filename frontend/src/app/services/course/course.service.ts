@@ -4,7 +4,9 @@ import { Injectable } from "@angular/core";
 import { jwtDecode } from "jwt-decode";
 import { CookieService } from "ngx-cookie-service";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CourseService{
 
   constructor(private http: HttpClient, private cookieService: CookieService) {

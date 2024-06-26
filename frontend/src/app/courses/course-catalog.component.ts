@@ -11,8 +11,7 @@ import { FilterService } from '../services/filter/filter.service';
 import { FilterDto } from '../services/filter/filter.dto';
 import { RomanizePipe } from "../pipes/romanize.pipe";
 import { Router } from '@angular/router';
-import { DataSignalService } from '../services/signal/data-signal.service';
-import { error } from 'jquery';
+import { CourseSignalService } from '../services/signal/data-signal.service';
 
 
 
@@ -21,7 +20,7 @@ import { error } from 'jquery';
     standalone: true,
     templateUrl: './course-catalog.component.html',
     styleUrl: './course-catalog.component.scss',
-    providers: [CourseService, FilterService, DataSignalService],
+    providers: [CourseService, FilterService],
     imports: [
         MatGridListModule,
         ReactiveFormsModule,
@@ -66,20 +65,14 @@ export class CoursesCatalogComponent implements OnInit{
     private courseService: CourseService, 
     private filterService: FilterService,
     private router: Router,
-    private dataSignalService: DataSignalService,
+    private courseSignalService: CourseSignalService
   ){}
 
 
   ngOnInit(): void {
-
-    
     this.getJwtPayload()
     this.getFilters()
     this.getCourses()
-
-    
-   
-
   }
 
 
@@ -162,17 +155,12 @@ export class CoursesCatalogComponent implements OnInit{
     }
   }
 
-  async onSelectedCourse () {
+  onSelectedCourse (course: CourseDto) {
     // this.selectedCourse = course
     // console.log('This is the selected course ---->',this.selectedCourse);
-    this.dataSignalService.setData('Data from course catalog component......')
     
-    await this.router.navigate(['/course-info']).then(() => {
-      console.log('Navigation to the course-info component is completed!');
-      
-    }).catch(error => {
-      console.error('Error navigating to course-info:', error);
-    })
+    this.courseSignalService.setData(course)
+    this.router.navigate(['/course-info'])
   }
 
 }

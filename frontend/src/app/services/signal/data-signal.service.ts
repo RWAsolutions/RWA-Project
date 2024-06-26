@@ -1,16 +1,29 @@
 import { Injectable, signal } from "@angular/core";
+import { CourseDto } from "../course/course.dto";
+import { BehaviorSubject } from "rxjs";
 
-@Injectable()
-export class DataSignalService {
-    
-    private data = signal('')
+@Injectable({
+    providedIn: 'root'
+})
+export class CourseSignalService {
 
-    //TODO finish later
-    setData(update: string) {
-        this.data.set(update)
+    private course: BehaviorSubject<CourseDto>
+
+    constructor(){
+        this.course = new BehaviorSubject<CourseDto>({
+            courseID: 0,
+            courseName: '',
+            description: '',
+            ECTS: 0,
+            semesterOrdinalNumber: 0
+        })
     }
 
-    getData() {
-        return this.data
+    setData(update: CourseDto): void {
+        this.course.next(update)
+    }
+
+    getData(): BehaviorSubject<CourseDto> {
+        return this.course
     }
 }

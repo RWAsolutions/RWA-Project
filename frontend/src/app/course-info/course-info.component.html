@@ -8,12 +8,14 @@
                   <div class="card shadow-sm">
                     <div class="card-header bg-transparent text-center">
                       <img class="profile_img" src="../../assets/course-info-placeholder.png" alt="course image">
-                      <h3>{{ course.courseName }}</h3>
+                      <h3>{{ course.courseName  || 'No course name present'}}</h3>
                     </div>
                     <div class="card-body">
-                      <p class="mb-0"><strong class="pr-1">Course ID:</strong>{{course.courseID}}</p>
-                      <p class="mb-0"><strong class="pr-1">ECTS:</strong>{{course.ECTS}}</p>
-                      <p class="mb-0"><strong class="pr-1">Instructor:</strong>Nepoznato</p>
+                      <p class="mb-0"><strong class="pr-1">Course ID:</strong>{{course.courseID || 'No course ID present'}}</p>
+                      <p class="mb-0"><strong class="pr-1">ECTS:</strong>{{course.ECTS || 'No ECTS number present'}}</p>
+                      @if (courseInfo) {
+                        <p class="mb-0"><strong class="pr-1">Date Of Enrollment:</strong>{{ courseInfo.dateOfEnrollment | date }}</p>
+                      }
                     </div>
                   </div>
                 </div>
@@ -28,15 +30,17 @@
                       <table class="table table-bordered">
                         <tr>
                           <th width="30%">Course Description</th>
-                          <td>{{course.description}}</td>
+                          <td>{{course.description || 'No course description present'}}</td>
                         </tr>
                         <tr>
                           <th width="30%">Semester</th>
-                          <td>{{course.semesterOrdinalNumber}}</td>
+                          <td>{{course.semesterOrdinalNumber || 'No semester ordinal number present'}}</td>
                         </tr>
                         <tr>
                           <th width="30%">Study</th>
-                          <td>Placeholder</td>
+                          @if (courseInfo) {
+                            <td>{{ courseInfo.studyName }}</td>
+                          }
                         </tr>
                         <tr>
                           <th width="30%">Schedule</th>

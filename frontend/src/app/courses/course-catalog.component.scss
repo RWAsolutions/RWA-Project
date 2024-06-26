@@ -31,6 +31,16 @@ body {
 //   text-align: center;
 // }
 
+.card_link {
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+}
+
+.card_link:hover {
+  background-color: #f0f0f0; 
+}
+
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
