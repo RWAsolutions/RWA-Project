@@ -40,7 +40,7 @@ export class NotificationsComponent implements OnInit {
     if (jwtPayload.profesorID) {
       this.http.get<Notification[]>(`http://localhost:3000/profesors/${jwtPayload.profesorID}/notifications`).subscribe(notifications => {
         this.notifications = notifications;
-        console.log(notifications);
+        console.log('notifications profesor:', notifications);
       });
     }
   }
@@ -52,6 +52,7 @@ export class NotificationsComponent implements OnInit {
     if (notification.isRead === 0) {
       let updateNotificationDto = { isRead: 1, notificationID: notification.notificationID, userID: this.jwtPayload.userID };
       this.http.patch(`http://localhost:3000/notifications`, updateNotificationDto).subscribe();
+      notification.isRead = 1;
     }
     this.notificationService.setData(notification);
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

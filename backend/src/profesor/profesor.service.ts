@@ -38,26 +38,26 @@ export class ProfesorService {
 
     async getCourseByProfesor(id: number): Promise<Course[]> {
         const profesor = await this.profesorRepository.createQueryBuilder('profesor')
-          .leftJoinAndSelect('profesor.courses', 'courses')
-          .where('profesor.profesorID = :id', { id })
-          .getOne();
-    
+            .leftJoinAndSelect('profesor.courses', 'courses')
+            .where('profesor.profesorID = :id', { id })
+            .getOne();
+
         if (!profesor) {
-          throw new NotFoundException("Profesor with id ${id} not found");
+            throw new NotFoundException("Profesor with id ${id} not found");
         }
-    
+
         return profesor.courses;
-      }
+    }
     async getCitythroughProfesor(id: number): Promise<City> {
         const profesor = await this.profesorRepository.findOne({
             where: { profesorID: id },
             relations: ['city'],
         });
-    
+
         if (!profesor) {
             throw new NotFoundException("Profesor with id ${id} not found");
         }
-    
+
         return profesor.city;
-        }
+    }
 }

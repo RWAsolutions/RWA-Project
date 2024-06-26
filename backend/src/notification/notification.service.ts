@@ -47,6 +47,7 @@ export class NotificationService {
     }
 
     async createNotification(notification: CreateNotificationDTO): Promise<any> {
+        console.log('I WILL NOW ADD A NOTIFICATION');
         await this.manager.query(`
             INSERT INTO 
                 Notification (title, content, courseID, profesorID)
@@ -95,6 +96,17 @@ export class NotificationService {
             WHERE 
                 Reply.notificationID = ${id};
         `)
+    }
+
+    async updateIsReadByNotificationID(notificationID: number) {
+        return await this.manager.query(`
+            UPDATE 
+                user_notification
+            SET
+                isRead = 0
+            WHERE 
+                notificationID = ${notificationID};
+            `);
     }
 
 }

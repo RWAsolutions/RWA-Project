@@ -110,6 +110,10 @@ export class NotificationDetailsComponent implements OnInit {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/notification']);
       });
+      this.http.patch(`http://localhost:3000/notifications/${this.notification.notificationID}/read-status`, {})
+        .subscribe((notification: any) => {
+          console.log('notification read status updated', notification);
+        });
     });
   }
 

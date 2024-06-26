@@ -39,4 +39,11 @@ export class NotificationController {
     async getRepliesByNotificationID(@Param('id') id: number): Promise<any> {
         return await this.notificationService.getRepliesByNotificationID(id);
     }
+
+    @Patch(':id/read-status')
+    async updateReadStatus(@Param('id') id: number): Promise<HttpStatus> {
+        await this.notificationService.updateIsReadByNotificationID(id);
+        return HttpStatus.OK;
+    }
+
 }

@@ -46,7 +46,9 @@ export class NotificationFormComponent implements OnInit {
         profesorID: this.profesorID,
         courseID: this.notificationForm.value.course
       }
-    ).subscribe();
+    ).subscribe((status) => {
+      console.log('notification added', status);
+    });
     this.router.navigate(['/home']);
   }
 
