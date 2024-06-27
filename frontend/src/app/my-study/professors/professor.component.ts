@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import { CourseService } from "../../services/course/course.service";
 import { CookieService } from "ngx-cookie-service";
 import {HttpClient} from "@angular/common/http";
@@ -10,7 +10,8 @@ import {StudentService} from "../../services/getProfessorOrStudent/student.servi
   selector: 'app-test',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './professor.component.html',
   styleUrl: './professor.component.scss',
@@ -22,6 +23,7 @@ export class ProfessorComponent {
   courseProfessors: any[] = [];
   courses: any[] = [];
 
+  isProfessorLoggedIn: any;
   id: any;
 
   constructor( private http: HttpClient,
@@ -38,10 +40,13 @@ export class ProfessorComponent {
       console.log(this.id)
       await new Promise(f => setTimeout(f, 200));
       if (this.id.studentID){
+        this.isProfessorLoggedIn = true;
         this.fetchCourseProfessors();
       }else {
+        this.isProfessorLoggedIn = false;
         this.fetchStudents();
       }
+      console.log(this.isProfessorLoggedIn);
     })();
   }
 

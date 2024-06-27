@@ -26,34 +26,41 @@
 
 </header>
 <div>
-  <h1 class="title">Profesori</h1>
+  <h1 *ngIf="isProfessorLoggedIn" class="title">Profesori</h1>
+  <h1 *ngIf="!isProfessorLoggedIn" class="title">Studenti</h1>
 </div>
 <div class="divButBigger">
   <div>
-
     <table>
       <thead>
-      <tr>
+      <tr *ngIf="isProfessorLoggedIn">
         <th>Title</th>
         <th class="tdLeft">Ime</th>
         <th class="tdLeft">Email</th>
       </tr>
+      <tr *ngIf="!isProfessorLoggedIn">
+        <th>Name</th>
+        <th>Surname</th>
+      </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let professor of courseProfessors">
-        <td>{{ professor.title }}</td>
-        <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
-        <td class="tdLeft">{{ getEmail(professor) }}</td>
-      </tr>
-      <tr *ngFor="let student of courseProfessors">
-        <td> {{ student.studentName }}</td>
-        <td>{{ student.studentSurname }}</td>
-      </tr>
+      <ng-container *ngIf="isProfessorLoggedIn; else studentTemplate">
+        <tr *ngFor="let professor of courseProfessors">
+          <td>{{ professor.title }}</td>
+          <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
+          <td class="tdLeft">{{ getEmail(professor) }}</td>
+        </tr>
+      </ng-container>
+      <ng-template #studentTemplate>
+        <tr *ngFor="let student of courseProfessors">
+          <td>{{ student.studentName }}</td>
+          <td>{{ student.studentSurname }}</td>
+        </tr>
+      </ng-template>
       </tbody>
     </table>
   </div>
 </div>
-
 
 </body>
 </html>
