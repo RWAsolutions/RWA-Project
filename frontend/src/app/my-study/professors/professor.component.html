@@ -45,6 +45,10 @@
         <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
         <td class="tdLeft">{{ getEmail(professor) }}</td>
       </tr>
+      <tr *ngFor="let student of courseProfessors">
+        <td> {{ student.studentName }}</td>
+        <td>{{ student.studentSurname }}</td>
+      </tr>
       </tbody>
     </table>
   </div>

@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
 import { CourseService } from "../../services/course/course.service";
 import { CookieService } from "ngx-cookie-service";
-import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {FilterService} from "../../services/filter/filter.service";
-import {ProfessorService} from "../../services/professor/professor.service";
+import {ProfessorService} from "../../services/getProfessorOrStudent/professor.service";
+import {StudentService} from "../../services/getProfessorOrStudent/student.service";
 
 @Component({
   selector: 'app-test',
@@ -15,31 +14,37 @@ import {ProfessorService} from "../../services/professor/professor.service";
   ],
   templateUrl: './professor.component.html',
   styleUrl: './professor.component.scss',
-  providers: [CourseService, ProfessorService],
+  providers: [CourseService, ProfessorService, StudentService],
 })
 export class ProfessorComponent {
 
   private apiUrl = 'http://localhost:3000';
-  allProfessors: any[] = [];
   courseProfessors: any[] = [];
   courses: any[] = [];
 
   id: any;
 
-  constructor( private http: HttpClient, private cookieService: CookieService, private courseService: CourseService, private professorService: ProfessorService) { }
+  constructor( private http: HttpClient,
+               private cookieService: CookieService,
+               private courseService: CourseService,
+               private professorService: ProfessorService,
+               private studentService: StudentService,
+  ){
+  }
 
   ngOnInit(): void {
     (async () => {
       this.fetchCourses();
-      this.fetchAllProfessors();
-      await new Promise(f => setTimeout(f, 500));
-      this.fetchCourseProfessors();
+      console.log(this.id)
+      await new Promise(f => setTimeout(f, 200));
+      if (this.id.studentID){
+        this.fetchCourseProfessors();
+      }else {
+        this.fetchStudents();
+      }
     })();
   }
 
-  getProfessors(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/profesors`);
-  }
 
   fetchCourses(){
     const jwt = this.cookieService.get('jwt');
@@ -56,39 +61,34 @@ export class ProfessorComponent {
       }
     )
   }
-  fetchAllProfessors() {
-    const jwt = this.cookieService.get('jwt');
-    const jwtPayload = this.decodeJWT(jwt);
-    this.id = {
-      studentID: jwtPayload.studentID,
-      profesorID: jwtPayload.profesorID,
-    };
 
-    this.getProfessors().subscribe(
-      (data) => {
-        this.allProfessors = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching professors', error);
-      }
-    );
-  }
 
   fetchCourseProfessors() {
-    console.log("Starting fetchCourseProfessors");
-
     this.courses.forEach(crs => {
-      console.log("Processing course:", crs);
-
-      const currentId = crs.courseID; // Capture the current ID in a local variable
-      console.log("Current course ID:", currentId);
-
+      //console.log("Processing course:", crs);
+      const currentId = crs.courseID;
+      //console.log("Current course ID:", currentId);
       this.professorService.getProfessors(currentId).subscribe({
         next: (response) => {
-          console.log(`Response for course ID ${currentId} has been received`);
+          //console.log(`Response for course ID ${currentId} has been received`);
+          this.courseProfessors.push(...response);
 
-          // Add the received professors directly to the courseProfessors array
+          console.log("Updated courseProfessors array:", this.courseProfessors);
+        },
+        error: (err) => {
+          console.error(`Error fetching professors for course ID ${currentId}`, err);
+        }
+      });
+    });
+  }
+
+  fetchStudents(){
+    this.courses.forEach(crs => {
+      const currentId = crs.courseID;
+      //console.log("Current course ID:", currentId);
+      this.studentService.getStudents(currentId).subscribe({
+        next: (response) => {
+          //console.log(`Response for course ID ${currentId} has been received`);
           this.courseProfessors.push(...response);
 
           console.log("Updated courseProfessors array:", this.courseProfessors);
