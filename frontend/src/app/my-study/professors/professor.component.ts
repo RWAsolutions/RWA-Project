@@ -29,9 +29,12 @@ export class ProfessorComponent {
   constructor( private http: HttpClient, private cookieService: CookieService, private courseService: CourseService, private professorService: ProfessorService) { }
 
   ngOnInit(): void {
-    this.fetchCourses()
-    this.fetchAllProfessors();
-
+    (async () => {
+      this.fetchCourses();
+      this.fetchAllProfessors();
+      await new Promise(f => setTimeout(f, 500));
+      this.fetchCourseProfessors();
+    })();
   }
 
   getProfessors(): Observable<any[]> {
@@ -49,9 +52,7 @@ export class ProfessorComponent {
       (data) => {
         console.log(data);
         this.courses = data;
-        for (var crs of this.courses){
-          this.fetchCourseProfessors(crs.courseID);
-        }
+
       }
     )
   }
@@ -74,17 +75,29 @@ export class ProfessorComponent {
     );
   }
 
-  fetchCourseProfessors(profID: number){
-    console.log("HAHA1");
-    this.id = profID;
-    this.professorService.getProfessors(this.id).subscribe({
-        next: (response) => {
-          console.log('Response for the courses has been received');
-          this.courseProfessors = response;
+  fetchCourseProfessors() {
+    console.log("Starting fetchCourseProfessors");
 
+    this.courses.forEach(crs => {
+      console.log("Processing course:", crs);
+
+      const currentId = crs.courseID; // Capture the current ID in a local variable
+      console.log("Current course ID:", currentId);
+
+      this.professorService.getProfessors(currentId).subscribe({
+        next: (response) => {
+          console.log(`Response for course ID ${currentId} has been received`);
+
+          // Add the received professors directly to the courseProfessors array
+          this.courseProfessors.push(...response);
+
+          console.log("Updated courseProfessors array:", this.courseProfessors);
+        },
+        error: (err) => {
+          console.error(`Error fetching professors for course ID ${currentId}`, err);
         }
-      }
-    )
+      });
+    });
   }
 
   getEmail(professor: any): string {
