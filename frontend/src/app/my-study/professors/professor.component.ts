@@ -22,6 +22,7 @@ export class ProfessorComponent {
   private apiUrl = 'http://localhost:3000';
   courseProfessors: any[] = [];
   courses: any[] = [];
+  studentsCourses: any[] = [];
 
   isProfessorLoggedIn: any;
   id: any;
@@ -45,6 +46,7 @@ export class ProfessorComponent {
       }else {
         this.isProfessorLoggedIn = false;
         this.fetchStudents();
+
       }
       console.log(this.isProfessorLoggedIn);
     })();
@@ -105,11 +107,20 @@ export class ProfessorComponent {
     });
   }
 
+
+
   getEmail(professor: any): string {
     const frstLetterInName = professor.profesorName.charAt(0).toLowerCase();
     const lastName = professor.profesorSurname.toLowerCase();
     const idProfessor = professor.profesorID;
     return `${frstLetterInName}${lastName}${idProfessor}@uni.prof.hr`;
+  }
+
+  getStudentEmail(student: any){
+    const frstLetterInName = student.studentName.charAt(0).toLowerCase();
+    const lastName = student.studentSurname.toLowerCase();
+    const idStudent = student.studentID;
+    return `${frstLetterInName}${lastName}${idStudent}@uni.hr`;
   }
 
   getProfessorFullName(professor: any): string{

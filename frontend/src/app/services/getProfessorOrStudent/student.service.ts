@@ -11,4 +11,8 @@ export class StudentService{
   getStudents(courseID: number): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/courses/${courseID}/students`);
   }
+
+  getCourseByStudent(studentID: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/students/${studentID}/courses`);
+  }
 }

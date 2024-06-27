@@ -41,6 +41,8 @@
       <tr *ngIf="!isProfessorLoggedIn">
         <th>Name</th>
         <th>Surname</th>
+        <th>Gender</th>
+        <th>Email</th>
       </tr>
       </thead>
       <tbody>
@@ -51,11 +53,17 @@
           <td class="tdLeft">{{ getEmail(professor) }}</td>
         </tr>
       </ng-container>
+
       <ng-template #studentTemplate>
-        <tr *ngFor="let student of courseProfessors">
-          <td>{{ student.studentName }}</td>
-          <td>{{ student.studentSurname }}</td>
-        </tr>
+          <ng-container *ngFor="let student of courseProfessors" >
+            <tr>
+              <td>{{ student.studentName }}</td>
+              <td>{{ student.studentSurname }}</td>
+              <td>{{ student.gender }}</td>
+              <td>{{ getStudentEmail(student) }}</td>
+            </tr>
+          </ng-container>
+
       </ng-template>
       </tbody>
     </table>

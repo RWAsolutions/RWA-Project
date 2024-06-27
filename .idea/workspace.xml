@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/getProfessorOrStudent/student.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/getProfessorOrStudent/student.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +111,7 @@
       <workItem from="1719493222857" duration="214000" />
       <workItem from="1719493531450" duration="1562000" />
       <workItem from="1719495247026" duration="9258000" />
-      <workItem from="1719506882006" duration="390000" />
+      <workItem from="1719506882006" duration="7404000" />
     </task>
     <servers />
   </component>
