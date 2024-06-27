@@ -11,7 +11,7 @@ import { FilterService } from '../services/filter/filter.service';
 import { FilterDto } from '../services/filter/filter.dto';
 import { RomanizePipe } from "../pipes/romanize.pipe";
 import { Router } from '@angular/router';
-import { CourseSignalService } from '../services/signal/data-signal.service';
+import { CourseStorageService } from '../services/signal/course-storage.service';
 
 
 
@@ -65,7 +65,7 @@ export class CoursesCatalogComponent implements OnInit{
     private courseService: CourseService, 
     private filterService: FilterService,
     private router: Router,
-    private courseSignalService: CourseSignalService
+    private courseStorageService: CourseStorageService
   ){}
 
 
@@ -129,15 +129,15 @@ export class CoursesCatalogComponent implements OnInit{
     console.log(event);
     
     const selectedFilter = event.value;
-    console.log('Selected filter: ', selectedFilter);
+    // console.log('Selected filter: ', selectedFilter);
     
     
-    console.log('Before sort [ ', this.courses, ' ]');
+    // console.log('Before sort [ ', this.courses, ' ]');
     
 
     this.filterService.activateFilter(this.courses ,this.payload.studentID, selectedFilter).subscribe(sortedCourses => {
       this.courses = sortedCourses
-      console.log('After sort [ ', this.courses, ' ]');
+      // console.log('After sort [ ', this.courses, ' ]');
     })
       
   }
@@ -159,7 +159,8 @@ export class CoursesCatalogComponent implements OnInit{
     // this.selectedCourse = course
     // console.log('This is the selected course ---->',this.selectedCourse);
     
-    this.courseSignalService.setData(course)
+    // this.courseStorageService.setData(course)
+    this.courseStorageService.setSelectedCourse(course);
     this.router.navigate(['/course-info'])
   }
 

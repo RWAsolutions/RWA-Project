@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CourseDto } from '../services/course/course.dto';
-import { CourseSignalService } from '../services/signal/data-signal.service';
+import { CourseStorageService } from '../services/signal/course-storage.service';
 import { CourseInfoService } from '../services/course-info/course-info.service';
 import { CourseService } from '../services/course/course.service';
 import { CourseInfoDto } from '../services/course-info/courseInfo.dto';
@@ -12,18 +12,20 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-course-info',
-  standalone: true,
-  imports: [
-    MatTabsModule,
-    MatGridTile,
-    MatGridList,
-    MatCardModule,
-    CommonModule
-  ],
-  providers: [],
-  templateUrl: './course-info.component.html',
-  styleUrl: './course-info.component.scss'
+    selector: 'app-course-info',
+    standalone: true,
+    providers: [],
+    templateUrl: './course-info.component.html',
+    styleUrl: './course-info.component.scss',
+    imports: [
+        MatTabsModule,
+        MatGridTile,
+        MatGridList,
+        MatCardModule,
+        CommonModule,
+    ],
+    encapsulation: ViewEncapsulation.ShadowDom
+
 })
 export class CourseInfoComponent implements OnInit{
  
@@ -42,20 +44,43 @@ export class CourseInfoComponent implements OnInit{
   courseInfo!: CourseInfoDto
     
   constructor(
-    private courseSignalService: CourseSignalService,
+    private courseStorageService: CourseStorageService,
     private courseInfoService: CourseInfoService,
     private courseService: CourseService,
   ){}
   
   ngOnInit(): void {
-    this.payload = this.courseService.getDecodedJwtPayload()
+
+    this.retrieveDataFromLocalStorage()
+
+    if (!this.payload) {
+      this.payload = this.courseService.getDecodedJwtPayload();
+      this.saveDataToLocalStorage('payload', this.payload);
+      
+    }
     
 
-    this.courseSignalService.getData().subscribe((course) => {
-      this.course = course
+    // this.courseStorageService.getData().subscribe((course: CourseDto) => {
+    //   this.course = course
+    //   this.saveDataToLocalStorage('course', this.course);
+
+    // })
+
+    this.courseStorageService.getSelectedCourse().subscribe((data: CourseDto | null) => {
+      if(data) {
+         this.course = data
+         console.log('the returend subject', this.course);
+         this.saveDataToLocalStorage('selectedCourse',this.course)
+         
+      } else {
+        console.error('The returned behaviour subject for selected course is null');
+        
+      }
     })
 
+
     this.getCourseInfo()
+
   }
 
   getCourseInfo() {
@@ -63,15 +88,30 @@ export class CourseInfoComponent implements OnInit{
     this.courseInfoService.getCourseInfo(this.payload.studentID, this.course.courseID).subscribe({
       next: (response) => {
         this.courseInfo = response
-        console.log('Course info retrieved --> ',this.courseInfo);
+        this.saveDataToLocalStorage('courseInfo',this.courseInfo)
 
       },
       error: (error) => {
         console.error('Error fetching the course info');    
       }
     })
-    
-    
   }
+
+  private saveDataToLocalStorage(key: string, data: any) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  private retrieveDataFromLocalStorage() {
+    const payload = localStorage.getItem('payload');
+    const course = localStorage.getItem('selectedCourse');
+    const courseInfo = localStorage.getItem('courseInfo');
+
+    if (payload && course && courseInfo) {
+      this.payload = JSON.parse(payload)
+      this.course = JSON.parse(course)
+      this.courseInfo = JSON.parse(courseInfo)
+    }
+  }
+
   
 }

@@ -2,72 +2,70 @@
     <mat-tab label="Course Details">
         <div class="course-profile py-4">
             <div class="container">
-              <div class="row">
-                <!-- Left Column: Course Overview -->
-                <div class="col-lg-4">
-                  <div class="card shadow-sm">
-                    <div class="card-header bg-transparent text-center">
-                      <img class="profile_img" src="../../assets/course-info-placeholder.png" alt="course image">
-                      <h3>{{ course.courseName  || 'No course name present'}}</h3>
+                <div class="row">
+                    <!-- Left Column: Course Overview -->
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-transparent text-center">
+                                <img class="profile_img" src="../../assets/course-info-placeholder.png" alt="course image">
+                                <h3>{{ course.courseName  || 'No course name present'}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-0"><strong class="pr-1">Course ID:</strong>{{course.courseID || 'No course ID present'}}</p>
+                                <p class="mb-0"><strong class="pr-1">ECTS:</strong>{{course.ECTS || 'No ECTS number present'}}</p>
+                                @if (courseInfo) {
+                                    <p class="mb-0"><strong class="pr-1">Date Of Enrollment:</strong>{{ courseInfo.dateOfEnrollment | date }}</p>
+                                }
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                      <p class="mb-0"><strong class="pr-1">Course ID:</strong>{{course.courseID || 'No course ID present'}}</p>
-                      <p class="mb-0"><strong class="pr-1">ECTS:</strong>{{course.ECTS || 'No ECTS number present'}}</p>
-                      @if (courseInfo) {
-                        <p class="mb-0"><strong class="pr-1">Date Of Enrollment:</strong>{{ courseInfo.dateOfEnrollment | date }}</p>
-                      }
+                    <!-- Right Column: Course Details -->
+                    <div class="col-lg-8">
+                        <!-- General Information Card -->
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-header bg-transparent border-0">
+                                <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+                            </div>
+                            <div class="card-body pt-0">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th width="30%">Course Description</th>
+                                        <td>{{course.description || 'No course description present'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%">Semester</th>
+                                        <td>{{course.semesterOrdinalNumber || 'No semester ordinal number present'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th width="30%">Study</th>
+                                        @if (courseInfo) {
+                                            <td>{{ courseInfo.studyName }}</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <th width="30%">Schedule</th>
+                                        <td>
+                                            Monday: 10:00 AM - 11:30 AM <br>
+                                            Friday: 10:00 AM - 11:30 AM
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Other Information Card -->
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-transparent border-0">
+                                <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Other Information</h3>
+                            </div>
+                            <div class="card-body pt-0">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <!-- Right Column: Course Details -->
-                <div class="col-lg-8">
-                  <!-- General Information Card -->
-                  <div class="card shadow-sm mb-3">
-                    <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
-                    </div>
-                    <div class="card-body pt-0">
-                      <table class="table table-bordered">
-                        <tr>
-                          <th width="30%">Course Description</th>
-                          <td>{{course.description || 'No course description present'}}</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Semester</th>
-                          <td>{{course.semesterOrdinalNumber || 'No semester ordinal number present'}}</td>
-                        </tr>
-                        <tr>
-                          <th width="30%">Study</th>
-                          @if (courseInfo) {
-                            <td>{{ courseInfo.studyName }}</td>
-                          }
-                        </tr>
-                        <tr>
-                          <th width="30%">Schedule</th>
-                          <td>
-                            Monday: 10:00 AM - 11:30 AM <br>
-                            Friday: 10:00 AM - 11:30 AM 
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  <!-- Other Information Card -->
-                  <div class="card shadow-sm">
-                    <div class="card-header bg-transparent border-0">
-                      <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Other Information</h3>
-                    </div>
-                    <div class="card-body pt-0">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
         </div>
     </mat-tab>
-  
+
     <mat-tab label="Participants"></mat-tab>
-    <mat-tab label="Staff Contacts">Staff Contacts</mat-tab>
-  </mat-tab-group>
-  
+</mat-tab-group>
