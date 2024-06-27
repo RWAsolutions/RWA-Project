@@ -10,8 +10,7 @@
     <div (click)="event(notification)" matRipple class="prevent-select notification-item">
       @if (notification.isRead === 0) {
       <p style="font-weight: bold;">{{ notification.title }}</p>
-      }
-      @if (notification.isRead === 1) {
+      } @else {
       <p>{{ notification.title }}</p>
       }
       <mat-divider></mat-divider>

@@ -27,12 +27,22 @@ export class ProfesorService {
     async getNotificationByProfesorId(id: number) {
         return this.manager.query(`
             SELECT 
+                Notification.notificationID,
                 Notification.title, 
-                Notification.content
+                Notification.content,
+                user_notification.isRead,
+                Profesor.profesorName,
+                Profesor.profesorSurname
             FROM 
-                Notification
+                user_notification 
+              JOIN 
+            User ON user_notification.userID = User.userID 
+              JOIN 
+            Profesor ON User.userID = Profesor.profesorID
+              JOIN 
+            Notification ON Notification.notificationID = user_notification.notificationID 
             WHERE 
-                profesorID = ${id};
+                User.userID = ${id};
             `);
     }
 

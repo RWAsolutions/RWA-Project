@@ -59,16 +59,26 @@ export class NotificationService {
 
     async createNotificationUsers(notificationID: any, notification: CreateNotificationDTO) {
 
-        // WARN: This query is not correct. It should be fixed.
-
         let value = await this.manager.query(`select studentID from student_course where courseID=${notification.courseID};`);
-        value.forEach(async element => {
-            console.log('element:', element.studentID)
-            await this.manager.query(`
+        value.forEach(element => {
+            console.log('will input user_notification on students element:', element.studentID)
+            this.manager.query(`
                 INSERT INTO 
                     user_notification (userID, notificationID, isRead)
                 VALUES 
                     (${element.studentID}, ${notificationID}, 0);
+            `);
+        });
+
+        let valueProfesor = await this.manager.query(`select profesorID from profesor_course where courseID=${notification.courseID};`);
+        console.log('valueProfesor:', valueProfesor);
+        valueProfesor.forEach(element => {
+            console.log('element profesor:', element.profesorID)
+            this.manager.query(`
+                INSERT INTO 
+                    user_notification (userID, notificationID, isRead)
+                VALUES 
+                    (${element.profesorID}, ${notificationID}, 0);
             `);
         });
     }
