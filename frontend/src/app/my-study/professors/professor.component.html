@@ -40,7 +40,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let professor of profesors">
+      <tr *ngFor="let professor of allProfessors">
         <td>{{ professor.title }}</td>
         <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
         <td class="tdLeft">{{ getEmail(professor) }}</td>
