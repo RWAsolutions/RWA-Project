@@ -67,5 +67,38 @@
         </div>
     </mat-tab>
 
-    <mat-tab label="Participants"></mat-tab>
+    <mat-tab label="Participants">
+
+        <div class="participants-table py-4">
+            <div class="container">
+                <mat-form-field appearance="outline">
+                    <mat-label>Search</mat-label>
+                    <input matInput #searchInput (input)="onSearch(searchInput.value)" placeholder="Input a name:">
+                </mat-form-field>
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Profile</th>
+                            <th>User ID</th>
+                            <th>Name and surname</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (participant of courseParticipants; track $index) {
+                            <tr>
+                                <td>
+                                    <img src="../../assets/profile-icon.jpg" alt="missing profile-icon"  class="profile-icon-image">
+                                </td>
+                                <td>{{participant.id}}</td>
+                                <td> {{participant.name}}</td>
+                                <td>{{participant.role | uppercase}}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </mat-tab>
 </mat-tab-group>

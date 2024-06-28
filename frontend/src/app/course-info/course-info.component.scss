@@ -17,4 +17,23 @@
     margin-top: 10px;
   }
   
+  .participants-table {
+    padding-top: 20px;
+  }
   
+  .table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+  }
+
+  .profile-icon-image {
+    text-align: center;
+    width: 80px; 
+    height: auto; 
+    border-radius: 40%;
+    display: block; 
+    margin: 0 auto; 
+  }

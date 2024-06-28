@@ -61,5 +61,10 @@ export class CourseController {
     ): Promise<any> {
         return this.courseService.getStudentCourseInfo(studentID, courseID)
     }
+
+    @Get(':id/participants-of-course')
+    getAllParticipantsOfTheCourse(@Param('id') id: number): Promise<any> {
+        return this.courseService.getAllParticipantsOfTheCourse(id)
+    }
     
 }

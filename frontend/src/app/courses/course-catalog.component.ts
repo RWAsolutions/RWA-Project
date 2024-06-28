@@ -156,10 +156,6 @@ export class CoursesCatalogComponent implements OnInit{
   }
 
   onSelectedCourse (course: CourseDto) {
-    // this.selectedCourse = course
-    // console.log('This is the selected course ---->',this.selectedCourse);
-    
-    // this.courseStorageService.setData(course)
     this.courseStorageService.setSelectedCourse(course);
     this.router.navigate(['/course-info'])
   }

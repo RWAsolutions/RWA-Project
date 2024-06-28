@@ -110,4 +110,33 @@ export class CourseService {
         )
         .getRawOne()
     }
+
+    async getAllParticipantsOfTheCourse(id: number) {
+        const professors = await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoin('profesor_course', 'pc', 'pc.courseID = course.courseID')
+        .innerJoin('Profesor', 'profesor', 'profesor.profesorID = pc.profesorID')
+        .select([
+            'profesor.profesorID AS profesorID',
+            'profesor.profesorName AS profesorName',
+            'profesor.profesorSurname AS profesorSurname'
+        ])
+        .where('course.courseID = :id', { id })
+        .getRawMany();
+
+        const students = await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoin('student_course', 'sc', 'sc.courseID = course.courseID')
+        .innerJoin('Student', 'student', 'student.studentID = sc.studentID')
+        .select([
+            'student.studentID AS studentID',
+            'student.studentName AS studentName',
+            'student.studentSurname AS studentSurname'
+        ])
+        .where('course.courseID = :id', { id })
+        .getRawMany();
+
+        return {professors, students}
+
+    }
 }
