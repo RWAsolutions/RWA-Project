@@ -4,7 +4,6 @@ import { Student } from './student.entity';
 import { EntityManager, Repository } from 'typeorm';
 import { Course } from 'src/course/course.entity';
 import { City } from 'src/city/city.entity';
-import { Faculty } from '../faculty/faculty.entity';
 
 @Injectable()
 export class StudentService {

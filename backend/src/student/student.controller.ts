@@ -2,7 +2,6 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { Role } from 'src/auth/roles/roles.enum';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import {Faculty} from "../faculty/faculty.entity";
 
 @Controller('students')
 export class StudentController {

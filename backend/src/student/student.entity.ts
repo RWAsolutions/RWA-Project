@@ -9,9 +9,8 @@ import {
   ManyToMany,
   JoinColumn,
   JoinTable,
-  OneToMany, OneToOne,
+  OneToMany,
 } from 'typeorm';
-import { Faculty } from '../faculty/faculty.entity';
 
 @Entity('Student')
 export class Student {
