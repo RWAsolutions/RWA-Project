@@ -71,7 +71,7 @@ export class CourseInfoComponent implements OnInit{
     this.courseStorageService.getSelectedCourse().subscribe((data: CourseDto | null) => {
       if(data) {
          this.course = data
-         console.log('the returend subject', this.course);
+        //  console.log('the returned subject', this.course);
          this.saveDataToLocalStorage('selectedCourse',this.course)
          
       } else {
@@ -128,7 +128,6 @@ export class CourseInfoComponent implements OnInit{
         console.error('Error fetching participants', error);
       }
     })
-    
   }
 
   onSearch(searchValue: string) {

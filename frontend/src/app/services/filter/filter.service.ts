@@ -14,7 +14,9 @@ interface InfoDto {
 }
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FilterService {
 
 
@@ -28,9 +30,16 @@ export class FilterService {
         
     }
 
-    activateFilter(courses: CourseDto[], id: number, selectedFilter: FilterDto): Observable<CourseDto[]> {
+    activateFilter(courses: CourseDto[], id: {studentID: number, profesorID: number}, selectedFilter: FilterDto): Observable<CourseDto[]> {
+        let type: 'student' | 'profesor' = 'student'
+        let userID: number = id.studentID
+
+        if(id.studentID === null) {
+            userID = id.profesorID
+            type = 'profesor'
+        }
     
-        return this.http.get<InfoDto[]>(`http://localhost:3000/courses/${id}/course-semester-info`).pipe(
+        return this.http.get<InfoDto[]>(`http://localhost:3000/courses/${userID}/course-semester-info?type=${type}`).pipe(
             map((info: InfoDto[]) => {
                 // console.log('Info received:', info);
                 return this.sortCoursesBySemester(courses, info, selectedFilter);

@@ -20,7 +20,6 @@ import { CourseStorageService } from '../services/signal/course-storage.service'
     standalone: true,
     templateUrl: './course-catalog.component.html',
     styleUrl: './course-catalog.component.scss',
-    providers: [CourseService, FilterService],
     imports: [
         MatGridListModule,
         ReactiveFormsModule,
@@ -45,6 +44,7 @@ export class CoursesCatalogComponent implements OnInit{
 
   payload: any
   id: any
+
 
   selectedCourse: CourseDto = {
     courseID: 0,
@@ -108,6 +108,8 @@ export class CoursesCatalogComponent implements OnInit{
       console.error('Invalid or missing JWT payload');  
     } else {
       this.id = {studentID: this.payload.studentID, profesorID: this.payload.profesorID}
+      console.log('ID object from our payload',this.id);
+      
     }   
   }
 
@@ -131,11 +133,9 @@ export class CoursesCatalogComponent implements OnInit{
     const selectedFilter = event.value;
     // console.log('Selected filter: ', selectedFilter);
     
-    
     // console.log('Before sort [ ', this.courses, ' ]');
-    
 
-    this.filterService.activateFilter(this.courses ,this.payload.studentID, selectedFilter).subscribe(sortedCourses => {
+    this.filterService.activateFilter(this.courses ,this.id, selectedFilter).subscribe(sortedCourses => {
       this.courses = sortedCourses
       // console.log('After sort [ ', this.courses, ' ]');
     })
