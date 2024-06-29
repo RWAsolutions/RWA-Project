@@ -5,26 +5,7 @@
   <meta charset="UTF-8">
 </head>
 <body>
-
-<header class="headerDiv">
-  <div>
-    <div >
-      <ul>
-        <li>
-          <a href="my_study"class="move2Left">Naslovnica</a>
-        </li>
-        <li>
-          <a href="professors">Profesori</a>
-        </li>
-        <li>
-          <a href="studies">Studiji</a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-
-</header>
+<app-header></app-header>
 <div>
   <h1 *ngIf="isProfessorLoggedIn" class="title">Profesori</h1>
   <h1 *ngIf="!isProfessorLoggedIn" class="title">Studenti</h1>
@@ -55,7 +36,7 @@
       </ng-container>
 
       <ng-template #studentTemplate>
-          <ng-container *ngFor="let student of courseProfessors" >
+          <ng-container *ngFor="let student of students" >
             <tr>
               <td>{{ student.studentName }}</td>
               <td>{{ student.studentSurname }}</td>

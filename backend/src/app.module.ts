@@ -26,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
 import { FilterModule } from './filter/filter.module';
 import { Filter } from './filter/filter.entity';
 import { EmailModule } from './mail/email.module';
+import { StudentFacultyModule } from './student-faculty/studentFaculty.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { EmailModule } from './mail/email.module';
     StudentModule,
     TestModule,
     FacultyModule,
+    StudentFacultyModule,
     StudyModule,
     NotificationModule,
     ProfesorModule,

@@ -5,13 +5,15 @@ import { CookieService } from "ngx-cookie-service";
 import {HttpClient} from "@angular/common/http";
 import {ProfessorService} from "../../services/getProfessorOrStudent/professor.service";
 import {StudentService} from "../../services/getProfessorOrStudent/student.service";
+import {HeaderComponent} from "../../header/header.component";
 
 @Component({
   selector: 'app-test',
   standalone: true,
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    HeaderComponent
   ],
   templateUrl: './professor.component.html',
   styleUrl: './professor.component.scss',
@@ -21,8 +23,15 @@ export class ProfessorComponent {
 
   private apiUrl = 'http://localhost:3000';
   courseProfessors: any[] = [];
+
   courses: any[] = [];
-  studentsCourses: any[] = [];
+  backupCourses: any[] = [];
+
+  students: any[] = [];
+  backupStudents: any[] = [];
+
+  studentCourses: any[] = [];
+  backupStudentCourses: any[] = [];
 
   isProfessorLoggedIn: any;
   id: any;
@@ -32,21 +41,19 @@ export class ProfessorComponent {
                private courseService: CourseService,
                private professorService: ProfessorService,
                private studentService: StudentService,
-  ){
-  }
+  ){}
 
   ngOnInit(): void {
     (async () => {
       this.fetchCourses();
       console.log(this.id)
-      await new Promise(f => setTimeout(f, 200));
+      await new Promise(f => setTimeout(f, 500));
       if (this.id.studentID){
         this.isProfessorLoggedIn = true;
         this.fetchCourseProfessors();
       }else {
         this.isProfessorLoggedIn = false;
         this.fetchStudents();
-
       }
       console.log(this.isProfessorLoggedIn);
     })();
@@ -65,6 +72,7 @@ export class ProfessorComponent {
         console.log(data);
         this.courses = data;
 
+        this.backupCourses = this.courses;
       }
     )
   }
@@ -96,9 +104,11 @@ export class ProfessorComponent {
       this.studentService.getStudents(currentId).subscribe({
         next: (response) => {
           //console.log(`Response for course ID ${currentId} has been received`);
-          this.courseProfessors.push(...response);
+          this.students.push(...response);
 
-          console.log("Updated courseProfessors array:", this.courseProfessors);
+          this.backupStudents = this.students;
+
+          console.log("Updated courseProfessors array:", this.students);
         },
         error: (err) => {
           console.error(`Error fetching professors for course ID ${currentId}`, err);
@@ -106,7 +116,6 @@ export class ProfessorComponent {
       });
     });
   }
-
 
 
   getEmail(professor: any): string {
@@ -144,5 +153,7 @@ export class ProfessorComponent {
     }
     return decodedPayload;
   }
+
+
 
 }

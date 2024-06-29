@@ -1,14 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Student } from './student.entity';
-import { EntityManager, Repository, getManager } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { Course } from 'src/course/course.entity';
 import { City } from 'src/city/city.entity';
+import { Faculty } from '../faculty/faculty.entity';
 
 @Injectable()
 export class StudentService {
-
-  constructor(@InjectRepository(Student) private studentRepository: Repository<Student>, private manager: EntityManager) { }
+  constructor(
+    @InjectRepository(Student) private studentRepository: Repository<Student>,
+    private manager: EntityManager,
+  ) {}
 
   async getAll(): Promise<Student[]> {
     return this.studentRepository.find();
@@ -19,13 +22,14 @@ export class StudentService {
   }
 
   async getCourseByStudent(id: number): Promise<Course[]> {
-    const student = await this.studentRepository.createQueryBuilder('student')
+    const student = await this.studentRepository
+      .createQueryBuilder('student')
       .leftJoinAndSelect('student.courses', 'courses')
       .where('student.studentID = :id', { id })
       .getOne();
 
     if (!student) {
-      throw new NotFoundException("Student with id ${id} not found");
+      throw new NotFoundException('Student with id ${id} not found');
     }
 
     return student.courses;
@@ -57,16 +61,15 @@ export class StudentService {
 
   async getCitythroughStudent(id: number): Promise<City> {
     const student = await this.studentRepository.findOne({
-        where: { studentID: id },
-        relations: ['city'],
+      where: { studentID: id },
+      relations: ['city'],
     });
 
     if (!student) {
-        throw new NotFoundException("Student with id ${id} not found");
+      throw new NotFoundException('Student with id ${id} not found');
     }
 
     return student.city;
-    }
-
+  }
 
 }

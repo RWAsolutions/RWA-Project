@@ -1,7 +1,19 @@
 import { City } from "src/city/city.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn
+} from "typeorm";
+import {Student} from "../student/student.entity";
+import {Course} from "../course/course.entity";
 
-@Entity()
+@Entity("Faculty")
 export class Faculty {
 
     @PrimaryGeneratedColumn()
@@ -25,4 +37,5 @@ export class Faculty {
     @ManyToOne(() => City, (city) => city.postNumber)
     @JoinColumn({name: 'cityID'})
     city: City
+
 }

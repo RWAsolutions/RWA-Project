@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="385c26ad-a29a-45a5-9703-8b987906057f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/student-faculty/studentFaculty.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/student-faculty/studentFaculty.entity.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/student-faculty/studentFaculty.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/student-faculty/studentFaculty.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/faculty/faculty.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/faculty/faculty.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/faculty/faculty.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/faculty/faculty.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/faculty/faculty.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/faculty/faculty.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/student/student.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/student/student.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/student/student.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/student/student.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/student/student.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/student/student.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/my-study.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/my-study.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/getProfessorOrStudent/student.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/getProfessorOrStudent/student.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,9 +46,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
   <component name="ProjectId" id="2hdP3gQpaf8ZTNP9zNgbi0gfjtk" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -59,10 +67,8 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\josip.kis\\WebstormProjects\\RWA-Project\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Josip\\WebstormProjects\\RWA-Project\\backend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -73,13 +79,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Josip\WebstormProjects\RWA-Project\frontend\src\app\my-study\professors" />
     </key>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -103,15 +102,8 @@
       <workItem from="1719071993320" duration="10314000" />
       <workItem from="1719129833442" duration="4669000" />
       <workItem from="1719149615466" duration="2279000" />
-      <workItem from="1719491233396" duration="433000" />
-      <workItem from="1719491680153" duration="246000" />
-      <workItem from="1719491937946" duration="454000" />
-      <workItem from="1719492407862" duration="210000" />
-      <workItem from="1719492629104" duration="577000" />
-      <workItem from="1719493222857" duration="214000" />
-      <workItem from="1719493531450" duration="1562000" />
-      <workItem from="1719495247026" duration="9258000" />
-      <workItem from="1719506882006" duration="7404000" />
+      <workItem from="1719474007094" duration="7485000" />
+      <workItem from="1719654132625" duration="3549000" />
     </task>
     <servers />
   </component>
