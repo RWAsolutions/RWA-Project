@@ -2,7 +2,7 @@ import { Faculty } from "src/faculty/faculty.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
-@Entity()
+@Entity('Study')
 export class Study {
 
     @PrimaryGeneratedColumn()

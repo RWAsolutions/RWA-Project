@@ -23,9 +23,9 @@
   <ul class="cards">
     @for (course of courses; track course.courseID) {
     <li class="cards_item">
-      <a href="#" class="card_link" style="text-decoration: none;">
+      <a false class="card_link"  (click)="onSelectedCourse(course)" style="text-decoration: none;">
         <div class="card">
-          <div class="banner">semester III</div>
+          <div class="banner">Semester {{ course.semesterOrdinalNumber | romanize }}</div>
           <div class="card_image">
             <img src="../../assets/placeholder.jpg" alt="Placeholder Image">
           </div>

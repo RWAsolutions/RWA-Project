@@ -32,6 +32,16 @@ body {
   margin-bottom: 5px;
 }
 
+.card_link {
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+}
+
+.card_link:hover {
+  background-color: #f0f0f0; 
+}
+
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -132,7 +142,15 @@ body {
 
 .banner {
   display: flex;
-  background-color: #00b8f8;
+  background-color: #0078bd; 
   justify-content: center;
+  align-items: center;
   width: 100%;
+  padding: 0.5rem; 
+  color: #ffffff; 
+  font-size: 1rem; 
+  font-weight: 700; 
+  border-radius: -1 0 1rem 1rem; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  text-transform: uppercase; 
 }
