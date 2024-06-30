@@ -13,12 +13,14 @@ import { HomeComponent } from './home/home.component';
 import { OcjeneComponent } from './ocjene/ocjene.component';
 import { ProfilComponent } from './profil/profil.component';
 import { SettingsComponent } from './settings/settings.component';
+import { CourseInfoComponent } from './course-info/course-info.component';
 
 export const routes: Routes = [
   { path: 'login', component: FormComponent },
   { path: '', component: FormComponent },
   { path: 'courses', component: CoursesCatalogComponent },
-  { path: 'home', component: HomeComponent},
+  { path: 'course-info', component: CourseInfoComponent },
+  { path: 'home', component: HomeComponent}, 
   { path: 'ocjene', component: OcjeneComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'settings', component: SettingsComponent },

@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 import { CourseService } from './course.service';
 import { Course } from './course.entity';
@@ -50,8 +50,38 @@ export class CourseController {
     }
 
     @Get(':id/course-semester-info')
-    getCoursesWithSemesterInfo(@Param('id') id: number): Promise<any[]> {
-        return this.courseService.getCoursesWithSemesterInfo(id)
+    getCoursesWithSemesterInfo(
+        @Param('id') id: number,
+        @Query('type') type: 'student' | 'profesor'
+    ): Promise<any[]> {
+        if(type === 'student') {
+            return this.courseService.getCoursesWithSemesterInfo(id, null);
+        } else if (type === 'profesor') {
+            return this.courseService.getCoursesWithSemesterInfo(null, id);
+        } else {
+            throw new Error('Invalid type provided');
+        }
+    }
+
+    @Get(':id/student-course-info')
+    getStudentCourseInfo(
+        @Param('id') studentID: number,
+        @Query('courseID') courseID: number
+    ): Promise<any> {
+        return this.courseService.getStudentCourseInfo(studentID, courseID)
+    }
+
+    @Get(':id/profesor-course-info')
+    getProfesorCourseInfo(
+        @Param('id') profesorID: number,
+        @Query('courseID') courseID: number
+    ): Promise<any> {
+        return this.courseService.getProfesorCourseInfo(profesorID, courseID)
+    }
+
+    @Get(':id/participants-of-course')
+    getAllParticipantsOfTheCourse(@Param('id') id: number): Promise<any> {
+        return this.courseService.getAllParticipantsOfTheCourse(id)
     }
     
 }

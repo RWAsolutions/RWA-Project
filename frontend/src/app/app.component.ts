@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(public router: Router) { }
 
   validNotificationRoute(): boolean {
-    let validUrls: string[] = ['/user', '/courses', '/profil'];
+    let validUrls: string[] = ['/user', '/courses', '/profil', '/course-info'];
     return validUrls.includes(this.router.url);
   }
 }

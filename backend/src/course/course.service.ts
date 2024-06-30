@@ -82,13 +82,96 @@ export class CourseService {
         return course.notifications;
     }
 
-    async getCoursesWithSemesterInfo(studentID: number): Promise<any[]> {
+    async getCoursesWithSemesterInfo(studentID?: number, profesorID?: number): Promise<any[]> {
+        // return await this.courseRepository
+        // .createQueryBuilder('course')
+        // .innerJoin('student_course','sc','sc.courseID = course.courseID')
+        // .innerJoin('course.semester','semester')
+        // .where('sc.studentID = :studentID', { studentID })
+        // .select(['course.courseID', 'semester.semesterID', 'semester.semesterOrdinalNumber'])
+        // .getMany();
+
+        const query = this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoin('course.semester', 'semester')
+        .select(['course.courseID', 'semester.semesterID', 'semester.semesterOrdinalNumber'])
+
+        if(studentID) {
+            query
+            .innerJoin('student_course', 'sc', 'sc.courseID = course.courseID')
+            .where('sc.studentID = :studentID', { studentID });
+        } else {
+            query
+            .innerJoin('profesor_course', 'pc', 'pc.courseID = course.courseID')
+            .where('pc.profesorID = :profesorID', { profesorID });
+        }
+
+        return await query.getMany()
+    }
+
+    async getStudentCourseInfo(studentID: number, courseID: number) {
         return await this.courseRepository
         .createQueryBuilder('course')
-        .innerJoin('student_course','sc','sc.courseID = course.courseID')
-        .innerJoin('course.semester','semester')
-        .where('sc.studentID = :studentID', { studentID })
-        .select(['course.courseID', 'semester.semesterID', 'semester.semesterOrdinalNumber'])
-        .getMany();
+        .innerJoinAndSelect('student_course','sc','sc.courseID = course.courseID')
+        .innerJoinAndSelect('course.semester', 'semester')
+        .innerJoin('semester.study', 'study')
+        .select([
+            'sc.dateOfEnrollment AS dateOfEnrollment',
+            'course.courseID AS courseID',
+            'semester.semesterID AS semesterID',
+            'study.studyID AS studyID',
+            'study.studyName AS studyName',
+        ])
+        .where(
+            'sc.studentID = :studentID AND sc.courseID = :courseID', { studentID, courseID },
+        )
+        .getRawOne()
+    }
+
+    async getProfesorCourseInfo(profesorID: number, courseID: number) {
+        return await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoinAndSelect('profesor_course','pc','pc.courseID = course.courseID')
+        .innerJoinAndSelect('course.semester', 'semester')
+        .innerJoin('semester.study', 'study')
+        .select([
+            'course.courseID AS courseID',
+            'semester.semesterID AS semesterID',
+            'study.studyID AS studyID',
+            'study.studyName AS studyName',
+        ])
+        .where(
+            'pc.profesorID = :profesorID AND pc.courseID = :courseID', { profesorID, courseID },
+        )
+        .getRawOne()
+    }
+
+    async getAllParticipantsOfTheCourse(id: number) {
+        const professors = await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoin('profesor_course', 'pc', 'pc.courseID = course.courseID')
+        .innerJoin('Profesor', 'profesor', 'profesor.profesorID = pc.profesorID')
+        .select([
+            'profesor.profesorID AS profesorID',
+            'profesor.profesorName AS profesorName',
+            'profesor.profesorSurname AS profesorSurname'
+        ])
+        .where('course.courseID = :id', { id })
+        .getRawMany();
+
+        const students = await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoin('student_course', 'sc', 'sc.courseID = course.courseID')
+        .innerJoin('Student', 'student', 'student.studentID = sc.studentID')
+        .select([
+            'student.studentID AS studentID',
+            'student.studentName AS studentName',
+            'student.studentSurname AS studentSurname'
+        ])
+        .where('course.courseID = :id', { id })
+        .getRawMany();
+
+        return {professors, students}
+
     }
 }
