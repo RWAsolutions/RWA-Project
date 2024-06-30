@@ -128,23 +128,23 @@ export class CourseService {
         .getRawOne()
     }
 
-    // async getProfesorCourseInfo(profesorID: number, courseID: number) {
-    //     return await this.courseRepository
-    //     .createQueryBuilder('course')
-    //     .innerJoinAndSelect('profesor_course','pc','pc.courseID = course.courseID')
-    //     .innerJoinAndSelect('course.semester', 'semester')
-    //     .innerJoin('semester.study', 'study')
-    //     .select([
-    //         'course.courseID AS courseID',
-    //         'semester.semesterID AS semesterID',
-    //         'study.studyID AS studyID',
-    //         'study.studyName AS studyName',
-    //     ])
-    //     .where(
-    //         'pc.profesorID = :profesorID AND pc.courseID = :courseID', { profesorID, courseID },
-    //     )
-    //     .getRawOne()
-    // }
+    async getProfesorCourseInfo(profesorID: number, courseID: number) {
+        return await this.courseRepository
+        .createQueryBuilder('course')
+        .innerJoinAndSelect('profesor_course','pc','pc.courseID = course.courseID')
+        .innerJoinAndSelect('course.semester', 'semester')
+        .innerJoin('semester.study', 'study')
+        .select([
+            'course.courseID AS courseID',
+            'semester.semesterID AS semesterID',
+            'study.studyID AS studyID',
+            'study.studyName AS studyName',
+        ])
+        .where(
+            'pc.profesorID = :profesorID AND pc.courseID = :courseID', { profesorID, courseID },
+        )
+        .getRawOne()
+    }
 
     async getAllParticipantsOfTheCourse(id: number) {
         const professors = await this.courseRepository

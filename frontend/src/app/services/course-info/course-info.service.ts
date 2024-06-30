@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { error } from "jquery";
 import { Observable } from "rxjs";
 import { CourseParticipant } from "./course-participant.dto";
 
@@ -13,11 +12,13 @@ export class CourseInfoService {
     constructor(private http: HttpClient,){}
 
 
-    getCourseInfo(studentID: number, courseID: number): Observable<any> {
-        if(studentID && courseID) {
+    getCourseInfo(studentID: number, profesorID: number, courseID: number): Observable<any> {
+        if (studentID && courseID) {
             return this.http.get<any>(`http://localhost:3000/Courses/${studentID}/student-course-info?courseID=${courseID}`)
-        } else {   
-            throw console.error(`Student ID ${studentID} or course ID ${courseID} does not have valid input`);
+        } else if(profesorID && courseID) {   
+            return this.http.get<any>(`http://localhost:3000/courses/${profesorID}/profesor-course-info?courseID=${courseID}`)
+        } else {
+            throw console.error(`Student ID ${studentID}, Profesor ID ${profesorID} or course ID ${courseID} does not have valid input`);
         }
     }
 

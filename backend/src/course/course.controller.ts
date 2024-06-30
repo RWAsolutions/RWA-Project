@@ -71,13 +71,13 @@ export class CourseController {
         return this.courseService.getStudentCourseInfo(studentID, courseID)
     }
 
-    // @Get(':id/profesor-course-info')
-    // getProfesorCourseInfo(
-    //     @Param('id') profesorID: number,
-    //     @Query('courseID') courseID: number
-    // ): Promise<any> {
-    //     return this.courseService.getProfesorCourseInfo(profesorID, courseID)
-    // }
+    @Get(':id/profesor-course-info')
+    getProfesorCourseInfo(
+        @Param('id') profesorID: number,
+        @Query('courseID') courseID: number
+    ): Promise<any> {
+        return this.courseService.getProfesorCourseInfo(profesorID, courseID)
+    }
 
     @Get(':id/participants-of-course')
     getAllParticipantsOfTheCourse(@Param('id') id: number): Promise<any> {

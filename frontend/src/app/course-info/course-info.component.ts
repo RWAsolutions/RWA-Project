@@ -60,19 +60,18 @@ export class CourseInfoComponent implements OnInit{
   
   ngOnInit(): void {
 
-    this.retrieveDataFromLocalStorage()
+    this.retrieveDataFromSessionStorage()
 
     if (!this.payload) {
       this.payload = this.courseService.getDecodedJwtPayload();
-      this.saveDataToLocalStorage('payload', this.payload);
+      this.saveDataToSessionStorage('payload', this.payload);
       
     }
     
     this.courseStorageService.getSelectedCourse().subscribe((data: CourseDto | null) => {
       if(data) {
          this.course = data
-        //  console.log('the returned subject', this.course);
-         this.saveDataToLocalStorage('selectedCourse',this.course)
+         this.saveDataToSessionStorage('selectedCourse',this.course)
          
       } else {
         console.error('The returned behaviour subject for selected course is null');
@@ -88,10 +87,16 @@ export class CourseInfoComponent implements OnInit{
 
   getCourseInfo() {
     
-    this.courseInfoService.getCourseInfo(this.payload.studentID, this.course.courseID).subscribe({
+    this.courseInfoService.getCourseInfo(this.payload.studentID, this.payload.profesorID, this.course.courseID).subscribe({
       next: (response) => {
         this.courseInfo = response
-        this.saveDataToLocalStorage('courseInfo',this.courseInfo)
+        console.log('This is what was returned from the get request -->', this.courseInfo);
+        console.log('The profesor ID -->', this.payload.userID);
+        console.log('The student ID -->', this.payload.studentID);
+        console.log('The Payload -->', this.payload);
+        
+        
+        this.saveDataToSessionStorage('courseInfo',this.courseInfo)
 
       },
       error: (error) => {
@@ -118,7 +123,7 @@ export class CourseInfoComponent implements OnInit{
               role: 'student'
             }))
           ];
-          this.saveDataToLocalStorage('participants', this.courseParticipants);
+          this.saveDataToSessionStorage('participants', this.courseParticipants);
         } else {
           throw console.error('Unexpected data structure');
         }
@@ -142,15 +147,15 @@ export class CourseInfoComponent implements OnInit{
   }
 
 
-  private saveDataToLocalStorage(key: string, data: any) {
-    localStorage.setItem(key, JSON.stringify(data));
+  private saveDataToSessionStorage(key: string, data: any) {
+    sessionStorage.setItem(key, JSON.stringify(data));
   }
 
-  private retrieveDataFromLocalStorage() {
-    const payload = localStorage.getItem('payload');
-    const course = localStorage.getItem('selectedCourse');
-    const courseInfo = localStorage.getItem('courseInfo');
-    const participants = localStorage.getItem('participants')
+  private retrieveDataFromSessionStorage() {
+    const payload = sessionStorage.getItem('payload');
+    const course = sessionStorage.getItem('selectedCourse');
+    const courseInfo = sessionStorage.getItem('courseInfo');
+    const participants = sessionStorage.getItem('participants')
 
     if (payload && course && courseInfo && participants ) {
       this.payload = JSON.parse(payload)
