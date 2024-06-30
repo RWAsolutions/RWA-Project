@@ -13,6 +13,7 @@ import { FilterDto } from '../services/filter/filter.dto';
 import { RomanizePipe } from "../pipes/romanize.pipe";
 import { Router } from '@angular/router';
 import { CourseStorageService } from '../services/signal/course-storage.service';
+import { CourseListService } from '../services/cache/course-list.service';
 
 
 @Component({
