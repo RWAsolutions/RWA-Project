@@ -7,7 +7,7 @@
     <div class="example-container">
       <mat-form-field>
         <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="ihorvat@uni.hr" [formControl]="email" (blur)="updateErrorMessage()" required (keydown.enter)="onEnterPressedEmail()">
+        <input matInput placeholder="ihorvat91@uni.hr" [formControl]="email" (blur)="updateErrorMessage()" required (keydown.enter)="onEnterPressedEmail()">
         <mat-error *ngIf="email.invalid">{{errorMessage}}</mat-error>
       </mat-form-field>
     </div>

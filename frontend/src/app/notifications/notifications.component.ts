@@ -34,14 +34,13 @@ export class NotificationsComponent implements OnInit {
     if (jwtPayload.studentID) {
       this.http.get<Notification[]>(`http://localhost:3000/students/${jwtPayload.studentID}/notifications`).subscribe(notifications => {
         this.notifications = notifications;
-        console.log(notifications);
+        //console.log(notifications);
       });
     }
     if (jwtPayload.profesorID) {
       console.log('getting notification as a profesor')
       this.http.get<Notification[]>(`http://localhost:3000/profesors/${jwtPayload.profesorID}/notifications`).subscribe(notifications => {
         this.notifications = notifications;
-        console.log('notifications profesor:', notifications);
       });
     }
   }

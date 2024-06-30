@@ -2,22 +2,32 @@
 
 ## Entities
 - City
-- Faculty
-- Study
-- Semester
 - Course
-- Test
-- Student
-- Profesor
+- Faculty
+- Filter
 - Notification
+- Profesor
 - profesor_course
+- Semester
+- Student
 - student_course
+- Study
+- Test
+- User
+- user_notification
 
 ## Atributes
 
 #### City
 - <ins>postNumber</ins>
 - cityName
+
+#### Course
+- <ins>courseID</ins>
+- courseName
+- ECTS
+- description
+- *semesterID*
 
 #### Faculty
 - <ins>facultyID</ins>
@@ -28,40 +38,16 @@
 - contactMail
 - *cityID*
 
-#### Study
-- <ins>studyID</ins>
-- studyName
-- type (strucni/sveucilisni)
-- firstDegree
-- secondDegree
-- *facultyID*
+#### Filter
+- <ins>filterID</ins>
+- filterName
+- filterDescription
 
-#### Semester
-- <ins>semesterID</ins>
-- semesterOrdinalNumber
-- *studyID*
-
-#### Course
-- <ins>courseID</ins>
-- courseName
-- ECTS
-- description
-- *semesterID*
-
-#### Test
-- <ins>testID</ins>
-- grade
+#### Notification
+- <ins>notificationID</ins>
+- title
+- content
 - *courseID*
-
-#### Student
-- <ins>studentID</ins>
-- studentName
-- studentSurname
-- dateOfBirth
-- gender
-- street
-- streetNumber
-- *cityID*
 
 #### Profesor
 - <ins>profesorID</ins>
@@ -74,20 +60,60 @@
 - streetNumber
 - *cityID*
 
-#### Notification
-- <ins>notificationID</ins>
-- title
-- content
-- *courseID*
-
 #### profesor_course
 - *profesorID*
 - *courseID*
+
+#### Semester
+- <ins>semesterID</ins>
+- semesterOrdinalNumber
+- *studyID*
+
+#### Student
+- <ins>studentID</ins>
+- studentName
+- studentSurname
+- dateOfBirth
+- gender
+- street
+- streetNumber
+- *cityID*
 
 #### student_course
 - dateOfEnrollment
 - *studentID*
 - *courseID*
+
+#### Study
+- <ins>studyID</ins>
+- studyName
+- type (strucni/sveucilisni)
+- firstDegree
+- secondDegree
+- *facultyID*
+
+
+
+
+
+
+#### Test
+- <ins>testID</ins>
+- grade
+- *courseID*
+
+#### User
+- <ins>userID</ins>
+- email
+- password
+- role
+- *studentID*
+- *profesorID*
+
+#### user_notification
+- *userID*
+- *notificationID*
+- isRead
 
 ## Relations
 

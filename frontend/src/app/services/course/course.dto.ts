@@ -3,4 +3,5 @@ export interface CourseDto {
     courseName: string 
     ECTS: number 
     description: string
+    semesterOrdinalNumber: number
 }

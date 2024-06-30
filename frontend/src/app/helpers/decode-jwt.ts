@@ -4,7 +4,7 @@ export function decodeJWT(token: string): any {
   try {
     decodedPayload = JSON.parse(atob(payload));
   } catch (e) {
-    console.log('Invalid JWT token');
+    //console.log('Invalid JWT token');
     decodedPayload.studentID = -1;
     decodedPayload.profesorID = -1;
   }

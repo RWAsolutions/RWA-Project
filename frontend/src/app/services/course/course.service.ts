@@ -4,13 +4,13 @@ import { Injectable } from "@angular/core";
 import { jwtDecode } from "jwt-decode";
 import { CookieService } from "ngx-cookie-service";
 
-@Injectable()
-export class CourseService {
+@Injectable({
+  providedIn: 'root'
+})
+export class CourseService{
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
   }
-
-
 
   getCourses(id: { studentID: number, profesorID: number }): Observable<any> {
     if (id) {

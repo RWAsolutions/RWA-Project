@@ -5,51 +5,51 @@
   <meta charset="UTF-8">
 </head>
 <body>
-
-<header class="headerDiv">
-  <div>
-    <div >
-      <ul>
-        <li>
-          <a href="my_study"class="move2Left">Naslovnica</a>
-        </li>
-        <li>
-          <a href="professors">Profesori</a>
-        </li>
-        <li>
-          <a href="studies">Studiji</a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-
-</header>
+<app-header></app-header>
 <div>
-  <h2>Profesori</h2>
+  <h1 *ngIf="isProfessorLoggedIn" class="title">Profesori</h1>
+  <h1 *ngIf="!isProfessorLoggedIn" class="title">Studenti</h1>
 </div>
 <div class="divButBigger">
   <div>
-
     <table>
       <thead>
-      <tr>
+      <tr *ngIf="isProfessorLoggedIn">
         <th>Title</th>
         <th class="tdLeft">Ime</th>
         <th class="tdLeft">Email</th>
       </tr>
+      <tr *ngIf="!isProfessorLoggedIn">
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Gender</th>
+        <th>Email</th>
+      </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let professor of profesors">
-        <td>{{ professor.title }}</td>
-        <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
-        <td class="tdLeft">{{ getEmail(professor) }}</td>
-      </tr>
+      <ng-container *ngIf="isProfessorLoggedIn; else studentTemplate">
+        <tr *ngFor="let professor of courseProfessors">
+          <td>{{ professor.title }}</td>
+          <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
+          <td class="tdLeft">{{ getEmail(professor) }}</td>
+        </tr>
+      </ng-container>
+
+      <ng-template #studentTemplate>
+          <ng-container *ngFor="let student of students" >
+            <tr>
+              <td>{{ student.studentName }}</td>
+              <td>{{ student.studentSurname }}</td>
+              <td>{{ student.gender }}</td>
+              <td>{{ getStudentEmail(student) }}</td>
+            </tr>
+          </ng-container>
+
+      </ng-template>
       </tbody>
     </table>
   </div>
 </div>
-
 
 </body>
 </html>

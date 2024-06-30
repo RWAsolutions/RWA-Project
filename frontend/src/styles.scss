@@ -2,5 +2,5 @@
 @import './styles/app-header.scss';
 @import './styles/title.scss';
 
-html { height: 100%; }
+html, body { height: 100%; }
 body { margin: 0; font-family: 'Arial'; background-color: $white-color; }

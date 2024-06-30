@@ -27,6 +27,8 @@ import { FilterModule } from './filter/filter.module';
 import { Filter } from './filter/filter.entity';
 import { ReplyController } from './reply/reply.controller';
 import { ReplyService } from './reply/reply.service';
+import { EmailModule } from './mail/email.module';
+import { StudentFacultyModule } from './student-faculty/studentFaculty.module';
 
 @Module({
   imports: [
@@ -48,12 +50,14 @@ import { ReplyService } from './reply/reply.service';
     StudentModule,
     TestModule,
     FacultyModule,
+    StudentFacultyModule,
     StudyModule,
     NotificationModule,
     ProfesorModule,
     UserModule,
     AuthModule,
     FilterModule,
+    EmailModule,
   ],
   controllers: [AppController, ReplyController],
   providers: [AppService, ReplyService],
