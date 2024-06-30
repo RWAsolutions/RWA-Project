@@ -1,9 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { CourseDto } from '../services/course/course.dto';
+import { CourseService } from '../services/course/course.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 
 export interface User {
@@ -13,20 +15,22 @@ export interface User {
   address: string;
   studentID: number | null;
   profesorID: number | null;
+  id: any;
   email: string;
   city: string;
   postNumber: number | null;
-  courses: any[];
+  courses: CourseDto[];
 }
 
 @Component({
   selector: 'app-user-info',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, HeaderComponent],
   templateUrl: './profil.component.html',
-  styleUrl: './profil.component.scss',
+  styleUrls: ['./profil.component.scss'],
+  providers: [CookieService, CourseService],
+  imports: [CommonModule, MatIconModule, MatCardModule, HeaderComponent]
 })
-export class ProfilComponent implements AfterViewInit {
+export class ProfilComponent implements OnInit {
   user: User = {
     firstName: '',
     lastName: '',
@@ -34,78 +38,111 @@ export class ProfilComponent implements AfterViewInit {
     address: '',
     studentID: null,
     profesorID: null,
+    id: null,
     email: '',
     city: '',
     postNumber: null,
     courses: [],
   };
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private courseService: CourseService
+  ) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    console.log("starting generateUser");
+    this.generateUser().then(() => {
+      console.log("user generated, starting getCourses");
+      console.log(this.user.id);
+      this.getCourses();
+      console.log("got courses of user: "+ this.user.firstName);
+    }).catch(error => {
+      console.error('Error generating user:', error);
+    });
+  }
+
+  generateUser(): Promise<void> {
     const jwt = this.cookieService.get('jwt');
     const jwtPayload = this.decodeJWT(jwt);
 
+    return new Promise((resolve, reject) => {
+      if (jwtPayload.studentID) {
+        this.http.get<any>(`http://localhost:3000/students/${jwtPayload.studentID}`).subscribe(user => {
+          this.populateUser(user.studentName, user.studentSurname, user.dateOfBirth, user.street, user.streetNumber, jwtPayload);
+          resolve();
+        }, error => {
+          reject(error);
+        });
+      } else if (jwtPayload.profesorID) {
+        this.http.get<any>(`http://localhost:3000/profesors/${jwtPayload.profesorID}`).subscribe(user => {
+          this.populateUser(user.profesorName, user.profesorSurname, user.dateOfBirth, user.street, user.streetNumber, jwtPayload);
+          resolve();
+        }, error => {
+          reject(error);
+        });
+      } else {
+        reject('No valid ID found in JWT payload');
+      }
+    });
+  }
+
+  private populateUser(firstName: string, lastName: string, dateOfBirth: string, street: string, streetNumber: string, jwtPayload: any): void {
+    this.user.firstName = firstName;
+    this.user.lastName = lastName;
+    this.user.dateOfBirth = this.formatBirthDate(dateOfBirth);
+    this.user.address = `${street} ${streetNumber}`;
+    this.user.email = jwtPayload.email;
+    this.user.studentID = jwtPayload.studentID;
+    this.user.profesorID = jwtPayload.profesorID;
+    this.user.id = { studentID: jwtPayload.studentID, profesorID: jwtPayload.profesorID };
+    
     if (jwtPayload.studentID) {
-      this.http
-        .get<any>(`http://localhost:3000/students/${jwtPayload.studentID}`)
-        .subscribe((user) => {
-          this.user.firstName = user.studentName;
-          this.user.lastName = user.studentSurname;
-          this.user.dateOfBirth = formatBirthDate(user.dateOfBirth);
-          this.user.address = user.street + ' ' + user.streetNumber;
-          this.user.studentID = user.studentID;
-          this.user.profesorID = user.profesorID;
-          this.user.email = jwtPayload.email;
-        });
-      this.http
-        .get<any>(`http://localhost:3000/students/${jwtPayload.studentID}/city`)
-        .subscribe((user) => {
-          this.user.city = user.cityName;
-          this.user.postNumber = user.postNumber;
-        });
-    } else if (jwtPayload.profesorID) {
-      this.http
-        .get<any>(`http://localhost:3000/profesors/${jwtPayload.profesorID}`)
-        .subscribe((user) => {
-          this.user.firstName = user.profesorName;
-          this.user.lastName = user.profesorSurname;
-          this.user.dateOfBirth = formatBirthDate(user.dateOfBirth);
-          this.user.address = user.street + ' ' + user.streetNumber;
-          this.user.studentID = user.studentID;
-          this.user.profesorID = user.profesorID;
-          this.user.email = jwtPayload.email;
-        });
-      this.http
-        .get<any>(
-          `http://localhost:3000/profesors/${jwtPayload.profesorID}/city`
-        )
-        .subscribe((user) => {
-          this.user.city = user.cityName;
-          this.user.postNumber = user.postNumber;
-        });
+      this.http.get<any>(`http://localhost:3000/students/${this.user.studentID}/city`).subscribe(city => {
+        this.user.city = city.cityName;
+        this.user.postNumber = city.postNumber;
+      });
+    } else {
+      this.http.get<any>(`http://localhost:3000/profesors/${this.user.profesorID}/city`).subscribe(city => {
+        this.user.city = city.cityName;
+        this.user.postNumber = city.postNumber;
+      });
     }
   }
 
-  // if the jwt cannot be decoded, the user is redirected to the login page
+  getCourses() {
+    if (this.user.id) {
+      this.courseService.getCourses(this.user.id).subscribe({
+        next: response => {
+          this.user.courses = response;
+          console.log('COURSES:', this.user.courses);
+        },
+        error: error => {
+          console.error('Error fetching courses:', error);
+        }
+      });
+    } else {
+      console.error('No valid ID found to fetch courses');
+    }
+  }
+
   private decodeJWT(token: string): any {
-    const payload = token.split('.')[1];
-    let decodedPayload: any = {};
     try {
-      decodedPayload = JSON.parse(atob(payload));
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
     } catch (e) {
       console.log('Invalid JWT token');
-      decodedPayload.studentID = -1;
-      decodedPayload.profesorID = -1;
+      return { studentID: -1, profesorID: -1 };
     }
-    return decodedPayload;
   }
-}
 
-function formatBirthDate(dateOfBirth: any): string {
-  const year = dateOfBirth.substring(0, 4);
-  const month = dateOfBirth.substring(5, 7);
-  const day = dateOfBirth.substring(8, 10);
-  const formatedDateOfBirth = day + '.' + month + '.' + year;
-  return formatedDateOfBirth;
+  private formatBirthDate(dateOfBirth: string): string {
+    const date = new Date(dateOfBirth);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() returns zero-based month
+    const year = date.getFullYear();
+  
+    return `${day}.${month}.${year}.`;
+  }
 }

@@ -13,7 +13,7 @@ export class UserService {
 
         const found: User[] = await this.userRepo.find()
 
-        console.log(found[0])
+        //console.log(found[0])
 
         return found
     }

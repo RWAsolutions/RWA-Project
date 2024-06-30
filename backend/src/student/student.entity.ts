@@ -1,7 +1,16 @@
-import { City } from "src/city/city.entity";
-import { Course } from "src/course/course.entity";
-import { Test } from "src/test/test.entity";
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinColumn, JoinTable, OneToMany } from "typeorm";
+import { City } from 'src/city/city.entity';
+import { Course } from 'src/course/course.entity';
+import { Test } from 'src/test/test.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinColumn,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
 
 @Entity('Student')
 export class Student {
@@ -26,7 +35,7 @@ export class Student {
   @Column()
   streetNumber: number;
 
-  @ManyToOne(() => City, city => city.postNumber)
+  @ManyToOne(() => City, (city) => city.postNumber)
   @JoinColumn({ name: 'cityID' })
   city: City;
 
@@ -37,16 +46,16 @@ export class Student {
     name: 'student_course',
     joinColumn: {
       name: 'studentID',
-      referencedColumnName: 'studentID'
+      referencedColumnName: 'studentID',
     },
     inverseJoinColumn: {
       name: 'courseID',
-      referencedColumnName: 'courseID'
-    }
+      referencedColumnName: 'courseID',
+    },
   })
   courses: Course[];
 
-
-  @OneToMany(() => Test, test => test.student)
+  @OneToMany(() => Test, (test) => test.student)
   tests: Test[];
+
 }

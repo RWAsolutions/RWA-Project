@@ -18,4 +18,6 @@ export class FacultyController {
     getCityThroughCourse(@Param('id') id: number): Promise<City> {
         return this.facultyService.getCityThroughFaculty(id)
     }
+
+
 }

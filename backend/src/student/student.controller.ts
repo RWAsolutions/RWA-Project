@@ -33,4 +33,5 @@ export class StudentController {
   getCitythroughStudent(@Param('id') id: number) {
     return this.studentService.getCitythroughStudent(id);
   }
+
 }

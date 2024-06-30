@@ -73,7 +73,7 @@ export class FormComponent {
   }
 
   openDialog(): void {
-    console.log("dialog opened");
+    //console.log("dialog opened");
     this.dialog.open(DialogComponent, {
       width: '250px',
     });
@@ -113,7 +113,7 @@ export class FormComponent {
       )
       .subscribe({
         next: (response) => {
-          console.log('Response:', response);
+          //console.log('Response:', response);
           const token = response.accessToken;
           this.cookieService.set('jwt', token);
 

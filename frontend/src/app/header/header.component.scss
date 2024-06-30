@@ -6,7 +6,7 @@
   align-items: center;
   padding: 1rem;
   background-color: rgba($primary-color, 0.9);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   height: 24px;
 
   .left-side {
@@ -66,9 +66,13 @@
   }
 
   .icon-border {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 3px solid rgba(0, 0, 0, 0.2); /* Vertical line */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-right: 3px solid rgba(0, 0, 0, 0.2);
     padding-right: 20px;
+  }
+
+  .icon-color {
+    background-color: $primary-color;
   }
 }
 
@@ -117,6 +121,10 @@
     color: #349af0;
   }
 
+  #animated-input {
+    cursor: pointer;
+  }
+
   .animated-search input {
     width: 40px;
     height: 40px;
@@ -143,4 +151,8 @@
     box-shadow: 1px 1px 6px -1px #349af0, -1px -1px 6px -1px #349af0;
     width: 225px;
   }
+}
+
+mat-icon {
+  color: $white-color;
 }
