@@ -112,6 +112,7 @@ export class HeaderComponent implements OnInit {
   }
 
   odjavaClicked() {
+    this.cookieService.delete('jwt');
     this.router.navigate(['/login']);
   }
 

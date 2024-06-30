@@ -1,13 +1,23 @@
 <div class="body">
-  @for (notification of this.notifications; track notification.title) {
-  <div (click)="event(notification)" matRipple class="prevent-select notification-item">
-    @if (notification.isRead === 0) {
-    <p style="font-weight: bold;">{{ notification.title }}</p>
-    }
-    @if (notification.isRead === 1) {
-    <p>{{ notification.title }}</p>
-    }
-    <mat-divider></mat-divider>
+  <div class="header">
+    <div class="title">Notifications</div>
+    <button mat-icon-button (click)="markAllAsReadClicked()">
+      <img src="../../assets/images/eye.png" alt="close">
+    </button>
   </div>
+  <div class="content">
+    @for (notification of this.notifications; track notification) {
+    <div (click)="event(notification)" matRipple class="prevent-select notification-item">
+      @if (notification.isRead === 0) {
+      <p style="font-weight: bold;">{{ notification.title }}</p>
+      } @else {
+      <p>{{ notification.title }}</p>
+      }
+      <mat-divider></mat-divider>
+    </div>
+    }
+  </div>
+  @if (profesorLogged()) {
+  <button mat-stroked-button class="button" (click)="addNewNotificationClicked()">+</button>
   }
 </div>

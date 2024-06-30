@@ -1,5 +1,59 @@
-<h1> {{ notification.title }} </h1>
+<div class="body">
+  <div class="notification">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title style="font-size: 30px; font-weight: bold;">{{ notification.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <div class="circular-image">
+            <img
+              src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+              alt="profesorImage">
+          </div>
+          <div class="profesor-details">
+            {{ notification.profesorName }}
+            {{ notification.profesorSurname }}
+          </div>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ notification.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-<p> {{ notification.content }} </p>
-
-<p> Made by: {{ notification.profesorName }} {{ notification.profesorSurname }}</p>
+  <div class="replies">
+    @if (buttonVisible()) {
+    <button class="buttonAdd" (click)="addReply()">Add reply</button>
+    } @else {
+    <div class="what">
+      <textarea matInput class="add-reply-area" [(ngModel)]="replyContent"></textarea>
+      <button mat-stroked-button (click)="addReplyForReal()">Reply</button>
+    </div>
+    }
+    @for (reply of replies; track reply) {
+    <mat-card appearance="outlined" class="reply-card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>
+            <div class="circular-image">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                alt="profesorImage">
+            </div>
+            <div class="name-details">
+              {{ reply.studentName }}{{ reply.profesorName}} {{ reply.studentSurname }}{{
+              reply.profesorSurname}}
+            </div>
+          </mat-card-title>
+          <div class="date">
+            {{ reply.dateAdded }}
+          </div>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        {{ reply.content }}
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+</div>

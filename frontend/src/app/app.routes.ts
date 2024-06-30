@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { FormComponent } from './form/form.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 import {MyStudyComponent} from "./my-study/my-study.component";
 import {ProfessorComponent} from "./my-study/professors/professor.component";
 import {StudiesComponent} from "./my-study/studies/studies.component";
@@ -16,20 +17,17 @@ import { CourseInfoComponent } from './course-info/course-info.component';
 export const routes: Routes = [
   { path: 'login', component: FormComponent },
   { path: '', component: FormComponent },
-
   { path: 'courses', component: CoursesCatalogComponent },
   { path: 'course-info', component: CourseInfoComponent },
   { path: 'home', component: HomeComponent}, 
   { path: 'ocjene', component: OcjeneComponent },
   { path: 'profil', component: ProfilComponent },
-
   { path: 'settings', component: SettingsComponent },
   { path: 'studomat', component: StudomatComponent },
   { path: 'my-study', component: MyStudyComponent},
   { path: 'profesors', component: ProfessorComponent},
   { path: 'students', component: ProfessorComponent},
   { path: 'studies', component: StudiesComponent },
-  // { path: 'password-reset', component: PasswordResetComponent}
   { path: 'notification', component: NotificationDetailsComponent },
   { path: 'add-notification', component: NotificationFormComponent },
   { path: '**', component: NotFoundComponent }, // this needs to be the last route

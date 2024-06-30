@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Notification } from "../entites/notification.entity";
+import { Notification } from "../../entites/notification.entity";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { Notification } from "../entites/notification.entity";
 export class NotificationService {
 
   notification: Notification | any = {
+    notificationID: -1,
     title: 'Notification Title',
     content: 'Notification Content',
     isRead: 0,

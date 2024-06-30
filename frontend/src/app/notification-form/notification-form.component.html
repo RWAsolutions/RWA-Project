@@ -1,6 +1,6 @@
 <div class="container">
   <mat-card class="notification-card">
-    <form [formGroup]="notificationForm" class="notification-form">
+    <form [formGroup]="notificationForm" class="notification-form" (submit)="onSubmit()">
       <div class="form-field">
         <mat-form-field appearance="fill">
           <mat-label>Title</mat-label>
@@ -14,6 +14,15 @@
           <textarea matInput formControlName="content" rows="5"></textarea>
         </mat-form-field>
       </div>
+
+      <mat-form-field>
+        <mat-label>Choose course</mat-label>
+        <mat-select formControlName="course">
+          @for (course of courses; track course) {
+          <mat-option value="{{ course.courseID }}">{{ course.courseName }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
       <div class="form-field button-field">
         <button mat-raised-button color="primary" type="submit" [disabled]="notificationForm.invalid">Publish</button>

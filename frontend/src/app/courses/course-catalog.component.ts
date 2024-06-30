@@ -9,6 +9,7 @@ import { CourseDto } from '../services/course/course.dto';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { FilterService } from '../services/filter/filter.service';
 import { FilterDto } from '../services/filter/filter.dto';
+
 import { RomanizePipe } from "../pipes/romanize.pipe";
 import { Router } from '@angular/router';
 import { CourseStorageService } from '../services/signal/course-storage.service';
@@ -41,7 +42,6 @@ export class CoursesCatalogComponent implements OnInit {
   payload: any;
   id: any;
 
-
   selectedCourse: CourseDto = {
     courseID: 0,
     courseName: '',
@@ -58,12 +58,12 @@ export class CoursesCatalogComponent implements OnInit {
 
 
   constructor(
-    private courseService: CourseService, 
+    private courseService: CourseService,
     private filterService: FilterService,
+    private courseListService: CourseListService,
     private router: Router,
     private courseStorageService: CourseStorageService
   ){}
-
 
   ngOnInit(): void {
     this.getJwtPayload()
@@ -77,6 +77,7 @@ export class CoursesCatalogComponent implements OnInit {
         next: (response) => {
           // console.log('Response for the courses has been received');
           this.courses = response;
+          this.courseListService.setData(response);
           // console.log(this.courses);
           //* this line of code is used to backup all the retrieved courses from the database for search purposes
           this.backupCourses = this.courses;
@@ -110,7 +111,6 @@ export class CoursesCatalogComponent implements OnInit {
     this.filterService.getFilters().subscribe({
       next: (response: FilterDto[]) => {
         this.filters = response;
-        //console.log(this.filters);
       },
       error: (error) => {
         console.error('Error fetching filters:', error);
@@ -130,12 +130,14 @@ export class CoursesCatalogComponent implements OnInit {
       this.courses = sortedCourses
       // console.log('After sort [ ', this.courses, ' ]');
     })
+
   }
 
   onSearch(searchValue: string) {
     // console.log('Search value:', searchValue);
 
     if (searchValue.trim() !== '') {
+
       this.courses = this.backupCourses.filter((course) => {
         return course.courseName
           .toLowerCase()

@@ -25,6 +25,8 @@ import { User } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { FilterModule } from './filter/filter.module';
 import { Filter } from './filter/filter.entity';
+import { ReplyController } from './reply/reply.controller';
+import { ReplyService } from './reply/reply.service';
 import { EmailModule } from './mail/email.module';
 import { StudentFacultyModule } from './student-faculty/studentFaculty.module';
 
@@ -57,7 +59,7 @@ import { StudentFacultyModule } from './student-faculty/studentFaculty.module';
     FilterModule,
     EmailModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ReplyController],
+  providers: [AppService, ReplyService],
 })
-export class AppModule {}
+export class AppModule { }

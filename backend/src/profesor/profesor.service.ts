@@ -27,37 +27,47 @@ export class ProfesorService {
     async getNotificationByProfesorId(id: number) {
         return this.manager.query(`
             SELECT 
+                Notification.notificationID,
                 Notification.title, 
-                Notification.content
+                Notification.content,
+                user_notification.isRead,
+                Profesor.profesorName,
+                Profesor.profesorSurname
             FROM 
-                Notification
+                user_notification 
+              JOIN 
+            User ON user_notification.userID = User.userID 
+              JOIN 
+            Profesor ON User.userID = Profesor.profesorID
+              JOIN 
+            Notification ON Notification.notificationID = user_notification.notificationID 
             WHERE 
-                profesorID = ${id};
+                User.userID = ${id};
             `);
     }
 
     async getCourseByProfesor(id: number): Promise<Course[]> {
         const profesor = await this.profesorRepository.createQueryBuilder('profesor')
-          .leftJoinAndSelect('profesor.courses', 'courses')
-          .where('profesor.profesorID = :id', { id })
-          .getOne();
-    
+            .leftJoinAndSelect('profesor.courses', 'courses')
+            .where('profesor.profesorID = :id', { id })
+            .getOne();
+
         if (!profesor) {
-          throw new NotFoundException("Profesor with id ${id} not found");
+            throw new NotFoundException("Profesor with id ${id} not found");
         }
-    
+
         return profesor.courses;
-      }
+    }
     async getCitythroughProfesor(id: number): Promise<City> {
         const profesor = await this.profesorRepository.findOne({
             where: { profesorID: id },
             relations: ['city'],
         });
-    
+
         if (!profesor) {
             throw new NotFoundException("Profesor with id ${id} not found");
         }
-    
+
         return profesor.city;
-        }
+    }
 }
