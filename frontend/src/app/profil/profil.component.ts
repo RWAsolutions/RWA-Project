@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { CourseStorageService } from '../services/signal/course-storage.service';
+import { Router } from '@angular/router';
 
 export interface User {
   firstName: string;
@@ -48,7 +50,9 @@ export class ProfilComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private router: Router,
+    private courseStorageService: CourseStorageService
   ) {}
 
   ngOnInit(): void {
@@ -144,5 +148,10 @@ export class ProfilComponent implements OnInit {
     const year = date.getFullYear();
   
     return `${day}.${month}.${year}.`;
+  }
+
+  onSelectedCourse (course: CourseDto) {
+    this.courseStorageService.setSelectedCourse(course);
+    this.router.navigate(['/course-info'])
   }
 }
