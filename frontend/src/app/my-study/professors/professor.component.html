@@ -36,14 +36,14 @@
       </ng-container>
 
       <ng-template #studentTemplate>
-          <ng-container *ngFor="let student of students" >
-            <tr>
-              <td>{{ student.studentName }}</td>
-              <td>{{ student.studentSurname }}</td>
-              <td>{{ student.gender }}</td>
-              <td>{{ getStudentEmail(student) }}</td>
-            </tr>
-          </ng-container>
+        <ng-container *ngFor="let student of students" >
+          <tr>
+            <td>{{ student.studentName }}</td>
+            <td>{{ student.studentSurname }}</td>
+            <td>{{ student.gender }}</td>
+            <td>{{ getStudentEmail(student) }}</td>
+          </tr>
+        </ng-container>
 
       </ng-template>
       </tbody>

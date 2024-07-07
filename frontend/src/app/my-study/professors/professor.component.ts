@@ -45,49 +45,51 @@ export class ProfessorComponent {
 
   ngOnInit(): void {
     (async () => {
-      this.fetchCourses();
-      console.log(this.id)
-      await new Promise(f => setTimeout(f, 500));
-      if (this.id.studentID){
+      await this.fetchCourses(); // Wait for fetchCourses to complete
+      console.log(this.id);
+
+      if (this.id.studentID) {
         this.isProfessorLoggedIn = true;
         this.fetchCourseProfessors();
-      }else {
+      } else {
         this.isProfessorLoggedIn = false;
         this.fetchStudents();
       }
+
       console.log(this.isProfessorLoggedIn);
     })();
   }
 
-
-  fetchCourses(){
+  async fetchCourses(): Promise<void> {
     const jwt = this.cookieService.get('jwt');
     const jwtPayload = this.decodeJWT(jwt);
     this.id = {
       studentID: jwtPayload.studentID,
       profesorID: jwtPayload.profesorID,
     };
-    this.courseService.getCourses(this.id).subscribe(
-      (data) => {
-        console.log(data);
-        this.courses = data;
 
-        this.backupCourses = this.courses;
-      }
-    )
+    return new Promise((resolve, reject) => {
+      this.courseService.getCourses(this.id).subscribe(
+        (data) => {
+          console.log(data);
+          this.courses = data;
+          this.backupCourses = this.courses;
+          resolve(); // Resolve the promise when data is successfully fetched
+        },
+        (error) => {
+          console.error('Error fetching courses:', error);
+          reject(error); // Reject the promise if there's an error
+        }
+      );
+    });
   }
-
 
   fetchCourseProfessors() {
     this.courses.forEach(crs => {
-      //console.log("Processing course:", crs);
       const currentId = crs.courseID;
-      //console.log("Current course ID:", currentId);
       this.professorService.getProfessors(currentId).subscribe({
         next: (response) => {
-          //console.log(`Response for course ID ${currentId} has been received`);
           this.courseProfessors.push(...response);
-
           console.log("Updated courseProfessors array:", this.courseProfessors);
         },
         error: (err) => {
@@ -97,26 +99,21 @@ export class ProfessorComponent {
     });
   }
 
-  fetchStudents(){
+  fetchStudents() {
     this.courses.forEach(crs => {
       const currentId = crs.courseID;
-      //console.log("Current course ID:", currentId);
       this.studentService.getStudents(currentId).subscribe({
         next: (response) => {
-          //console.log(`Response for course ID ${currentId} has been received`);
           this.students.push(...response);
-
           this.backupStudents = this.students;
-
-          console.log("Updated courseProfessors array:", this.students);
+          console.log("Updated students array:", this.students);
         },
         error: (err) => {
-          console.error(`Error fetching professors for course ID ${currentId}`, err);
+          console.error(`Error fetching students for course ID ${currentId}`, err);
         }
       });
     });
   }
-
 
   getEmail(professor: any): string {
     const frstLetterInName = professor.profesorName.charAt(0).toLowerCase();
@@ -125,14 +122,14 @@ export class ProfessorComponent {
     return `${frstLetterInName}${lastName}${idProfessor}@uni.prof.hr`;
   }
 
-  getStudentEmail(student: any){
+  getStudentEmail(student: any): string {
     const frstLetterInName = student.studentName.charAt(0).toLowerCase();
     const lastName = student.studentSurname.toLowerCase();
     const idStudent = student.studentID;
     return `${frstLetterInName}${lastName}${idStudent}@uni.hr`;
   }
 
-  getProfessorFullName(professor: any): string{
+  getProfessorFullName(professor: any): string {
     const frstName = professor.profesorName;
     const lastName = professor.profesorSurname;
     return `${frstName} ${lastName}`;
@@ -144,12 +141,9 @@ export class ProfessorComponent {
     try {
       decodedPayload = JSON.parse(atob(payload));
     } catch (e) {
-      // this.router.navigate(['/login2']);
-      // throw new Error('Invalid JWT token');
       console.log('Invalid JWT token');
       decodedPayload.studentID = -1;
       decodedPayload.profesorID = -1;
-
     }
     return decodedPayload;
   }
