@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="385c26ad-a29a-45a5-9703-8b987906057f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/services/my-study/my-study.service.ts" afterDir="false" />
+    <list default="true" id="385c26ad-a29a-45a5-9703-8b987906057f" name="Changes" comment="Students are now being redirected to corresponding faculty web page successfully, optimised student / professor lists">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/my-study.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/my-study.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/my-study.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/my-study.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-study/professors/professor.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +32,24 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JosipKis&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/RWAsolutions/RWA-Project.git&quot;,
+    &quot;accountId&quot;: &quot;7b61893a-18cd-463b-8eed-4c947111a5a1&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2hdP3gQpaf8ZTNP9zNgbi0gfjtk" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -57,7 +72,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Josip\\WebstormProjects\\RWA-Project\\backend\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -68,6 +83,13 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Josip\WebstormProjects\RWA-Project\frontend\src\app\my-study\professors" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -93,7 +115,19 @@
       <workItem from="1719149615466" duration="2279000" />
       <workItem from="1719474007094" duration="7485000" />
       <workItem from="1719654132625" duration="7216000" />
+      <workItem from="1720253743988" duration="269000" />
+      <workItem from="1720255435988" duration="699000" />
+      <workItem from="1720345185445" duration="2802000" />
     </task>
+    <task id="LOCAL-00001" summary="Students are now being redirected to corresponding faculty web page successfully, optimised student / professor lists">
+      <option name="closed" value="true" />
+      <created>1720345448696</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1720345448696</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,5 +146,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Students are now being redirected to corresponding faculty web page successfully, optimised student / professor lists" />
+    <option name="LAST_COMMIT_MESSAGE" value="Students are now being redirected to corresponding faculty web page successfully, optimised student / professor lists" />
   </component>
 </project>

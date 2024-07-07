@@ -27,7 +27,11 @@
       </tr>
       </thead>
       <tbody>
-      <ng-container *ngIf="isProfessorLoggedIn; else studentTemplate">
+      <ng-container *ngIf="loading">
+        <p>loading...</p>
+      </ng-container>
+
+      <ng-container *ngIf="!loading && isProfessorLoggedIn">
         <tr *ngFor="let professor of courseProfessors">
           <td>{{ professor.title }}</td>
           <td class="tdLeft">{{ getProfessorFullName(professor) }}</td>
@@ -35,17 +39,15 @@
         </tr>
       </ng-container>
 
-      <ng-template #studentTemplate>
-          <ng-container *ngFor="let student of students" >
-            <tr>
-              <td>{{ student.studentName }}</td>
-              <td>{{ student.studentSurname }}</td>
-              <td>{{ student.gender }}</td>
-              <td>{{ getStudentEmail(student) }}</td>
-            </tr>
-          </ng-container>
+      <ng-container *ngIf="!loading && !isProfessorLoggedIn" >
+        <tr *ngFor="let student of students">
+          <td>{{ student.studentName }}</td>
+          <td>{{ student.studentSurname }}</td>
+          <td>{{ student.gender }}</td>
+          <td>{{ getStudentEmail(student) }}</td>
+        </tr>
+      </ng-container>
 
-      </ng-template>
       </tbody>
     </table>
   </div>
