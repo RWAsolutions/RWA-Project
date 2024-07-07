@@ -29,12 +29,12 @@ export class MyStudyComponent {
         if (facultyId) {
           this.fetchFacultyByID();
         } else {
-          console.log("Faculty not found!");
+          // console.log("Faculty not found!");
           window.location.href = "http://localhost:4200/students";
         }
       })
       .catch((error) => {
-        console.log("Error fetching faculty:", error);
+        // console.log("Error fetching faculty:", error);
         window.location.href = "http://localhost:4200/students";
       });
   }
@@ -44,7 +44,7 @@ export class MyStudyComponent {
       const jwt = this.cookieService.get('jwt');
       const jwtPayload = this.decodeJWT(jwt);
       this.id = jwtPayload.studentID;
-      console.log('Student ID:', this.id);
+      // console.log('Student ID:', this.id);
 
       this.myStudyService.getFacultyByStudentID(this.id).subscribe(
         (data) => {
@@ -60,15 +60,15 @@ export class MyStudyComponent {
   }
 
   fetchFacultyByID(): any {
-    console.log('Fetching faculty by ID:', this.backupID);
+    // console.log('Fetching faculty by ID:', this.backupID);
     this.myStudyService.getFacultyByID(this.backupID).subscribe(
       (data) => {
-        console.log('Faculty Data:', data);
+        // console.log('Faculty Data:', data);
         this.faculty = data;
         this.redirectToFaculty();
       },
       (error) => {
-        console.log('Error fetching faculty by ID:', error);
+        // console.log('Error fetching faculty by ID:', error);
         window.location.href = "http://localhost:4200/students";
       }
     );
@@ -84,10 +84,10 @@ export class MyStudyComponent {
 
   redirectToFaculty(): any{
     const facultyName = this.getFaculty();
-    console.log("Faculty name: ", facultyName);
+    // console.log("Faculty name: ", facultyName);
 
     if (facultyName === null) {
-      console.log("No faculty name found.");
+      // console.log("No faculty name found.");
       window.location.href = "http://localohost:4200/students"
       return;
     }

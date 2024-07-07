@@ -30,11 +30,10 @@ export class ProfessorComponent {
   students: any[] = [];
   backupStudents: any[] = [];
 
-  studentCourses: any[] = [];
-  backupStudentCourses: any[] = [];
 
   isProfessorLoggedIn: any;
   id: any;
+  loading: boolean = true;
 
   constructor( private http: HttpClient,
                private cookieService: CookieService,
@@ -45,18 +44,20 @@ export class ProfessorComponent {
 
   ngOnInit(): void {
     (async () => {
-      await this.fetchCourses(); // Wait for fetchCourses to complete
-      console.log(this.id);
+      this.loading = true;
+      await this.fetchCourses();
+      // console.log(this.id);
 
       if (this.id.studentID) {
         this.isProfessorLoggedIn = true;
-        this.fetchCourseProfessors();
+        await this.fetchCourseProfessors();
       } else {
         this.isProfessorLoggedIn = false;
-        this.fetchStudents();
+        await this.fetchStudents();
       }
 
-      console.log(this.isProfessorLoggedIn);
+      this.loading = false;
+      // console.log(this.isProfessorLoggedIn);
     })();
   }
 
@@ -71,48 +72,60 @@ export class ProfessorComponent {
     return new Promise((resolve, reject) => {
       this.courseService.getCourses(this.id).subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           this.courses = data;
           this.backupCourses = this.courses;
-          resolve(); // Resolve the promise when data is successfully fetched
+          resolve();
         },
         (error) => {
-          console.error('Error fetching courses:', error);
-          reject(error); // Reject the promise if there's an error
+          // console.error('Error fetching courses:', error);
+          reject(error);
         }
       );
     });
   }
 
-  fetchCourseProfessors() {
-    this.courses.forEach(crs => {
+  async fetchCourseProfessors(): Promise<void> {
+    const professorPromises = this.courses.map(crs => {
       const currentId = crs.courseID;
-      this.professorService.getProfessors(currentId).subscribe({
-        next: (response) => {
-          this.courseProfessors.push(...response);
-          console.log("Updated courseProfessors array:", this.courseProfessors);
-        },
-        error: (err) => {
-          console.error(`Error fetching professors for course ID ${currentId}`, err);
-        }
+      return new Promise<void>((resolve, reject) => {
+        this.professorService.getProfessors(currentId).subscribe({
+          next: (response) => {
+            this.courseProfessors.push(...response);
+            // console.log("Updated courseProfessors array:", this.courseProfessors);
+            resolve();
+          },
+          error: (err) => {
+            // console.error(`Error fetching professors for course ID ${currentId}`, err);
+            reject(err);
+          }
+        });
       });
     });
+
+    await Promise.all(professorPromises);
   }
 
-  fetchStudents() {
-    this.courses.forEach(crs => {
+  async fetchStudents(): Promise<void> {
+    const studentPromises = this.courses.map(crs => {
       const currentId = crs.courseID;
-      this.studentService.getStudents(currentId).subscribe({
-        next: (response) => {
-          this.students.push(...response);
-          this.backupStudents = this.students;
-          console.log("Updated students array:", this.students);
-        },
-        error: (err) => {
-          console.error(`Error fetching students for course ID ${currentId}`, err);
-        }
+      return new Promise<void>((resolve, reject) => {
+        this.studentService.getStudents(currentId).subscribe({
+          next: (response) => {
+            this.students.push(...response);
+            this.backupStudents = this.students;
+            // console.log("Updated students array:", this.students);
+            resolve();
+          },
+          error: (err) => {
+            // console.error(`Error fetching students for course ID ${currentId}`, err);
+            reject(err);
+          }
+        });
       });
     });
+
+    await Promise.all(studentPromises);
   }
 
   getEmail(professor: any): string {
@@ -147,7 +160,5 @@ export class ProfessorComponent {
     }
     return decodedPayload;
   }
-
-
 
 }
