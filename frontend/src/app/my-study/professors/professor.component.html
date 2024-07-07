@@ -7,8 +7,8 @@
 <body>
 <app-header></app-header>
 <div>
-  <h1 *ngIf="isProfessorLoggedIn" class="title">Profesori</h1>
-  <h1 *ngIf="!isProfessorLoggedIn" class="title">Studenti</h1>
+  <h1 *ngIf="isProfessorLoggedIn" class="title">Professors</h1>
+  <h1 *ngIf="!isProfessorLoggedIn" class="title">Students</h1>
 </div>
 <div class="divButBigger">
   <div>
@@ -16,7 +16,7 @@
       <thead>
       <tr *ngIf="isProfessorLoggedIn">
         <th>Title</th>
-        <th class="tdLeft">Ime</th>
+        <th class="tdLeft">Name</th>
         <th class="tdLeft">Email</th>
       </tr>
       <tr *ngIf="!isProfessorLoggedIn">
