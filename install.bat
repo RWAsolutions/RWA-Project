@@ -2,26 +2,25 @@
 REM Store the current directory
 set CURRENT_DIR=%cd%
 
-REM Navigate to the 'frontend' directory and install npm packages
 echo Installing frontend dependencies...
-cd %CURRENT_DIR%\frontend
-npm install
+cd /d %CURRENT_DIR%\frontend
+start /wait cmd /c "npm install"
 if errorlevel 1 (
     echo Failed to install frontend dependencies.
     pause
-    exit /b 1
+    goto end
 )
 
-REM Navigate to the 'backend' directory and install npm packages
 echo Installing backend dependencies...
-cd %CURRENT_DIR%\backend
-npm install
+cd /d %CURRENT_DIR%\backend
+start /wait cmd /c "npm install"
 if errorlevel 1 (
     echo Failed to install backend dependencies.
     pause
-    exit /b 1
+    goto end
 )
 
 echo All dependencies installed successfully.
 pause
-exit /b 0
+
+:end
