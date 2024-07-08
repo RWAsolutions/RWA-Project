@@ -21,9 +21,9 @@ export class AuthService {
         return new NotFoundException('User not found!');
       }
 
-      if (findUser.password !== password) {
-        return new UnauthorizedException('Wrong email or password!');
-        }
+      if (password.trim() !== findUser.password.trim()) {
+        throw new UnauthorizedException('Wrong email or password!');
+      }
         
       const { password: userPassword, ...user } = findUser;
       return { accessToken: this.jwtService.sign(user) };
