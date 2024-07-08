@@ -22,7 +22,7 @@ Here is the list of some of our main goals:
 ## Installation
 1. Clone the repository
 ```
-git clone https://github.com/KarloHasnek/RWA-Project.git
+git clone https://github.com/RWAsolutions/RWA-Project.git
 ```
 ### Linux
 #### Automatic
